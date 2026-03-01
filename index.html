@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher Assistant – Smarter Tools for Real Classrooms</title>
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Load Auth0 helpers -->
+  <script src="app.js" defer></script>
+
+  <script>
+    async function startSignup() {
+      await auth0Client.loginWithRedirect({
+        redirect_uri: "https://teacherassist.ai/after-login.html"
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -12,14 +23,14 @@
     <div class="logo">Teacher Assistant</div>
     <nav>
       <a href="pricing.html">Pricing</a>
-      <a href="signup.html" class="cta">Start Free Trial</a>
+      <a href="#" onclick="startSignup()" class="cta">Start Free Trial</a>
     </nav>
   </header>
 
   <section class="hero">
     <h1>Tools That Help Teachers Teach Better</h1>
     <p>Three powerful assistants designed to reduce workload, improve feedback, and turn student work into actionable insight.</p>
-    <a href="signup.html" class="hero-btn">Start Free Trial</a>
+    <a href="#" onclick="startSignup()" class="hero-btn">Start Free Trial</a>
   </section>
 
   <section class="products">
@@ -29,7 +40,7 @@
          Generates clear, actionable data for every student and every question.</p>
       <div class="tag available-tag">Available Now</div>
       <p class="note">Early adopters get a 1‑week free trial and locked‑in pricing when Analysis and Curriculum Assist launch.</p>
-      <a href="signup.html" class="product-btn">Try Grade Assist</a>
+      <a href="#" onclick="startSignup()" class="product-btn">Try Grade Assist</a>
     </div>
 
     <div class="product coming-soon">

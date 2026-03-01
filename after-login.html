@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signing you in…</title>
+
+  <!-- Your shared Auth0 + helper code -->
+  <script defer src="app.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 120px;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Signing you in…</h2>
+  <p>Please wait a moment.</p>
+
+  <script>
+    async function handleLogin() {
+      // Parse Auth0 token from URL hash
+      await auth0Client.handleRedirectCallback();
+
+      // Load user info (email, idToken, etc.)
+      const user = await getUser();
+
+      // Call backend to get or create teacher profile
+      const res = await fetch("/api/me", {
+        headers: {
+          Authorization: `Bearer ${user.idToken}`
+        }
+      });
+
+      const profile = await res.json();
+
+      // Decide where to send the teacher next
+      if (!profile.profileComplete) {
+        // First-time login → onboarding
+        window.location.href = "/signup.html";
+      } else {
+        // Profile already complete → teacher app
+        window.location.href = "https://polite-river-038be3d0f.1.azurestaticapps.net/index.html";
+      }
+    }
+
+    handleLogin();
+  </script>
+</body>
+</html>
