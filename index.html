@@ -6,17 +6,18 @@
   <title>Teacher Assistant – Smarter Tools for Real Classrooms</title>
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Load Auth0 helpers --->
+  <!-- Load Auth0 helpers — the library exports `auth0.createAuth0Client` -->
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
   <script type="module" src="app.js"></script>
 
-  <script>
-    async function startSignup() {
-      await auth0Client.loginWithRedirect({
-        redirect_uri: "https://teacherassist.ai/after-login.html"
-      });
-    }
-  </script>
+  <!--
+    The `startSignup` helper is defined in app.js and attached to window so
+    inline onclick handlers can call it.  Remove the duplicate function here.
+    Also make sure to serve these files over HTTP/HTTPS instead of opening
+    via file://; the Auth0 SPA SDK requires a secure origin.
+  -->
+  <link rel="icon" href="favicon.ico">
+
 </head>
 
 <body>
