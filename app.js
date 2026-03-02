@@ -24,8 +24,8 @@ async function initAuth0() {
     domain: "dev-28g3vd7ga8x6etvt.us.auth0.com",
     clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
     authorizationParams: {
-      audience: "https://teacherassistant-api",
-      redirect_uri: "https://teacherassist.ai/after-login.html"
+      audience: "https://www.teacherassistant-api",
+      redirect_uri: "https://www.teacherassist.ai/after-login.html"
     }
   });
 }
@@ -44,7 +44,7 @@ async function startSignup() {
   await auth0Client.loginWithRedirect({
     authorizationParams: {
       screen_hint: "signup",
-      redirect_uri: "https://teacherassist.ai/after-login.html"
+      redirect_uri: "https://www.teacherassist.ai/after-login.html"
     }
   });
 }
