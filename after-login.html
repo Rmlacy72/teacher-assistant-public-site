@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signing you in…</title>
 
-  <!-- Your shared Auth0 + helper code -->
-  <script defer src="app.js"></script>
+  <!-- Load Auth0 SDK FIRST -->
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+
+  <!-- Then load your shared Auth0 helper code -->
+  <script src="app.js"></script>
 
   <style>
     body {
@@ -24,10 +27,13 @@
 
   <script>
     async function handleLogin() {
-      // Parse Auth0 token from URL hash
+      // Ensure Auth0 client is initialized
+      await initAuth0();
+
+      // Parse Auth0 token from URL
       await auth0Client.handleRedirectCallback();
 
-      // Load user info (email, idToken, etc.)
+      // Load user info
       const user = await getUser();
 
       // Call backend to get or create teacher profile
@@ -41,10 +47,8 @@
 
       // Decide where to send the teacher next
       if (!profile.profileComplete) {
-        // First-time login → onboarding
         window.location.href = "/signup.html";
       } else {
-        // Profile already complete → teacher app
         window.location.href = "https://polite-river-038be3d0f.1.azurestaticapps.net/index.html";
       }
     }
