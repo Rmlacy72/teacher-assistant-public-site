@@ -37,11 +37,12 @@
       const user = await getUser();
 
       // Call backend to get or create teacher profile
-      const res = await fetch("/api/me", {
+      const res = await fetch("https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me", {
         headers: {
           Authorization: `Bearer ${user.idToken}`
         }
       });
+
 
       const profile = await res.json();
 
