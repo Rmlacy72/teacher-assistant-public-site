@@ -24,7 +24,7 @@ async function initAuth0() {
     domain: "dev-28g3vd7ga8x6etvt.us.auth0.com",
     clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
     authorizationParams: {
-      audience: "https://www.teacherassistant-api"
+      audience: "https://teacherassistant-api"
     }
   });
 }
