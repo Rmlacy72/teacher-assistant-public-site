@@ -1,66 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Signing you in…</title>
+<script>
+  async function handleLogin() {
+    await initAuth0();
+    await auth0Client.handleRedirectCallback();
 
-  <!-- Load Auth0 SDK FIRST -->
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
-
-  <!-- Then load your shared Auth0 helper code -->
-  <script src="app.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 120px;
-      color: #444;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>Signing you in…</h2>
-  <p>Please wait a moment.</p>
-
-  <script>
-    async function handleLogin() {
-      // 1. Initialize Auth0 client
-      await initAuth0();
-
-      // 2. Process the Auth0 redirect (code + state)
-      await auth0Client.handleRedirectCallback();
-
-      // 3. Get a valid ACCESS TOKEN for your backend API
-      const accessToken = await auth0Client.getTokenSilently({
-        authorizationParams: {
-          audience: "https://teacherassistant-api"
-        }
-      });
-
-      // 4. Call your backend with the ACCESS TOKEN
-      const res = await fetch(
-        "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      );
-
-      const profile = await res.json();
-
-      // 5. Redirect based on profile completion
-      if (!profile.profileComplete) {
-        window.location.href = "/signup.html";
-      } else {
-        window.location.href = "https://polite-river-038be3d0f.1.azurestaticapps.net/index.html";
+    const accessToken = await auth0Client.getTokenSilently({
+      authorizationParams: {
+        audience: "https://teacherassistant-api"
       }
-    }
+    });
 
-    handleLogin();
-  </script>
-</body>
-</html>
+    const res = await fetch(
+      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    const profile = await res.json();
+
+    if (!profile.profileComplete) {
+      window.location.href = "/signup.html";
+    } else {
+      window.location.href = "https://app.teacherassist.ai"; 
+      // or your teacher app static site URL
+    }
+  }
+
+  handleLogin();
+</script>
