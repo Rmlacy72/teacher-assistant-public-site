@@ -90,39 +90,52 @@
   </div>
 
   <script>
-    async function saveProfile() {
-      await initAuth0();
+  async function saveProfile() {
+    await initAuth0();
 
-      const accessToken = await auth0Client.getTokenSilently({
-        authorizationParams: {
-          audience: "https://teacherassistant-api"
-        }
-      });
-
-      const body = {
-        firstName: document.getElementById("firstName").value,
-        lastName: document.getElementById("lastName").value,
-        school: document.getElementById("school").value
-      };
-
-      const res = await fetch(
-        "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/teacher-profile",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
-          },
-          body: JSON.stringify(body)
-        }
-      );
-
-      if (res.ok) {
-        window.location.href = "https://app.teacherassist.ai";
-      } else {
-        alert("There was a problem saving your profile.");
+    const accessToken = await auth0Client.getTokenSilently({
+      authorizationParams: {
+        audience: "https://teacherassistant-api"
       }
+    });
+
+    // ⭐ STEP 1 — Ensure the teacher record exists
+    await fetch(
+      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    // ⭐ STEP 2 — Now save the profile (this will succeed because the teacher exists)
+    const body = {
+      firstName: document.getElementById("firstName").value,
+      lastName: document.getElementById("lastName").value,
+      school: document.getElementById("school").value
+    };
+
+    const res = await fetch(
+      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/teacher-profile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (res.ok) {
+      window.location.href = "https://app.teacherassist.ai";
+    } else {
+      alert("There was a problem saving your profile.");
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
