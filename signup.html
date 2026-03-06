@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Complete Your Profile – Teacher Assistant</title>
 
-  <!-- Your existing public site stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Auth0 + shared helpers -->
-  <script defer src="app.js"></script>
+  <!-- Auth0 SDK -->
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+
+  <!-- Shared Auth0 helper -->
+  <script src="/app.js?v=3"></script>
 
   <style>
-    /* Page-specific styling that matches your public site */
     .onboarding-container {
       max-width: 480px;
       margin: 80px auto;
@@ -21,29 +22,24 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
-
     .onboarding-container h1 {
       font-size: 28px;
       margin-bottom: 10px;
       text-align: center;
     }
-
     .onboarding-container p {
       text-align: center;
       margin-bottom: 30px;
       color: #555;
     }
-
     .form-group {
       margin-bottom: 20px;
     }
-
     .form-group label {
       display: block;
       font-weight: 600;
       margin-bottom: 6px;
     }
-
     .form-group input {
       width: 100%;
       padding: 12px;
@@ -51,7 +47,6 @@
       border-radius: 6px;
       font-size: 16px;
     }
-
     .submit-btn {
       width: 100%;
       padding: 14px;
@@ -63,7 +58,6 @@
       cursor: pointer;
       margin-top: 10px;
     }
-
     .submit-btn:hover {
       background: #1f63d6;
     }
@@ -75,7 +69,60 @@
     <h1>Welcome!</h1>
     <p>Let’s set up your teacher profile.</p>
 
-    <form id="signupForm">
+    <form id="signupForm" onsubmit="event.preventDefault(); saveProfile();">
       <div class="form-group">
         <label for="firstName">First Name *</label>
         <input type="text" id="firstName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="school">School *</label>
+        <input type="text" id="school" required />
+      </div>
+
+      <button class="submit-btn" type="submit">Save & Continue</button>
+    </form>
+  </div>
+
+  <script>
+    async function saveProfile() {
+      await initAuth0();
+
+      const accessToken = await auth0Client.getTokenSilently({
+        authorizationParams: {
+          audience: "https://teacherassistant-api"
+        }
+      });
+
+      const body = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        school: document.getElementById("school").value
+      };
+
+      const res = await fetch(
+        "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/teacher-profile",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
+          },
+          body: JSON.stringify(body)
+        }
+      );
+
+      if (res.ok) {
+        window.location.href = "https://app.teacherassist.ai";
+      } else {
+        alert("There was a problem saving your profile.");
+      }
+    }
+  </script>
+</body>
+</html>
