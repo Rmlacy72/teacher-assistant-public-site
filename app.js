@@ -24,8 +24,7 @@ async function initAuth0() {
     domain: "dev-28g3vd7ga8x6etvt.us.auth0.com",
     clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
     authorizationParams: {
-      audience: "https://teacherassistant-api",
-      redirect_uri: "https://www.teacherassist.ai/after-login.html"
+      audience: "https://www.teacherassistant-api"
     }
   });
 }
@@ -51,3 +50,25 @@ async function startSignup() {
 
 // Make available to inline onclick=""
 window.startSignup = startSignup;
+
+// -----------------------------
+// Auth0 User Helper
+// -----------------------------
+async function getUser() {
+  if (!auth0Client) {
+    await initAuth0();
+  }
+
+  const claims = await auth0Client.getIdTokenClaims();
+  const user = await auth0Client.getUser();
+
+  return {
+    ...user,
+    idToken: claims.__raw
+  };
+}
+
+// Expose globally for after-login.html
+window.getUser = getUser;
+window.initAuth0 = initAuth0;
+window.auth0Client = auth0Client;
