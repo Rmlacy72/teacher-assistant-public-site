@@ -33,15 +33,25 @@
       // Parse Auth0 token from URL
       await auth0Client.handleRedirectCallback();
 
-      // Load user info
-      const user = await getUser();
+      // Ensure Auth0 client is initialized
+        await initAuth0();
 
-      // Call backend to get or create teacher profile
-      const res = await fetch("https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me", {
-        headers: {
-          Authorization: `Bearer ${user.idToken}`
-        }
-      });
+        // Parse Auth0 token from URL
+        await auth0Client.handleRedirectCallback();
+
+        // Get a valid ACCESS TOKEN for your API
+        const accessToken = await auth0Client.getTokenSilently({
+          authorizationParams: {
+            audience: "https://teacherassistant-api"
+          }
+        });
+
+        // Call backend with the ACCESS TOKEN
+        const res = await fetch("https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
 
 
       const profile = await res.json();
