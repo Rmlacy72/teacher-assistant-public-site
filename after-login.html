@@ -27,36 +27,32 @@
 
   <script>
     async function handleLogin() {
-      // Ensure Auth0 client is initialized
+      // 1. Initialize Auth0 client
       await initAuth0();
 
-      // Parse Auth0 token from URL
+      // 2. Process the Auth0 redirect (code + state)
       await auth0Client.handleRedirectCallback();
 
-      // Ensure Auth0 client is initialized
-        await initAuth0();
+      // 3. Get a valid ACCESS TOKEN for your backend API
+      const accessToken = await auth0Client.getTokenSilently({
+        authorizationParams: {
+          audience: "https://teacherassistant-api"
+        }
+      });
 
-        // Parse Auth0 token from URL
-        await auth0Client.handleRedirectCallback();
-
-        // Get a valid ACCESS TOKEN for your API
-        const accessToken = await auth0Client.getTokenSilently({
-          authorizationParams: {
-            audience: "https://teacherassistant-api"
-          }
-        });
-
-        // Call backend with the ACCESS TOKEN
-        const res = await fetch("https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me", {
+      // 4. Call your backend with the ACCESS TOKEN
+      const res = await fetch(
+        "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me",
+        {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
-        });
-
+        }
+      );
 
       const profile = await res.json();
 
-      // Decide where to send the teacher next
+      // 5. Redirect based on profile completion
       if (!profile.profileComplete) {
         window.location.href = "/signup.html";
       } else {
