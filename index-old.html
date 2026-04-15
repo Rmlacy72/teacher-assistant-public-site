@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Assistant – Smarter Tools for Real Classrooms</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Load Auth0 helpers — the library exports `auth0.createAuth0Client` -->
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+  <script type="module" src="app.js"></script>
+
+  <!--
+    The `startSignup` helper is defined in app.js and attached to window so
+    inline onclick handlers can call it.  Remove the duplicate function here.
+    Also make sure to serve these files over HTTP/HTTPS instead of opening
+    via file://; the Auth0 SPA SDK requires a secure origin.
+  -->
+  <link rel="icon" href="favicon.ico">
+
+</head>
+
+<body>
+  <header class="nav">
+    <div class="logo">Teacher Assistant</div>
+    <nav>
+      <a href="pricing.html">Pricing</a>
+      <a href="#" onclick="startSignup()" class="cta">Start Free Trial</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Tools That Help Teachers Teach Better</h1>
+    <p>Three powerful assistants designed to reduce workload, improve feedback, and turn student work into actionable insight.</p>
+    <a href="#" onclick="startSignup()" class="hero-btn">Start Free Trial</a>
+  </section>
+
+  <section class="products">
+    <div class="product available">
+      <h2>Grade Assist</h2>
+      <p>Instant, rubric‑aligned grading for handwritten or typed assignments.  
+         Generates clear, actionable data for every student and every question.</p>
+      <div class="tag available-tag">Available Now</div>
+      <p class="note">Early adopters get a 1‑week free trial and locked‑in pricing when Analysis and Curriculum Assist launch.</p>
+      <a href="#" onclick="startSignup()" class="product-btn">Try Grade Assist</a>
+    </div>
+
+    <div class="product coming-soon">
+      <h2>Data Assist</h2>
+      <p>Automatically identifies trends, strengths, and gaps across your graded assignments.  
+         Helps teachers understand what students know — and what they don’t.</p>
+      <div class="tag coming-tag">Coming Soon</div>
+    </div>
+
+    <div class="product coming-soon">
+      <h2>Curriculum Assist</h2>
+      <p>Transforms your grading insights into targeted classroom plans.  
+         Personalized instruction based on real student performance.</p>
+      <div class="tag coming-tag">Coming Soon</div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+</body>
+</html>

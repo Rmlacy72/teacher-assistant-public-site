@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — TeacherAssist.ai</title>
+  <meta name="description" content="Simple, transparent pricing for teachers. Start free for 5 days, then choose the plan that fits your classroom." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink:       #1c1c2e;
+      --purple:    #5a2ca0;
+      --purple-lt: #f0ebff;
+      --purple-md: #7c4dca;
+      --teal:      #0891b2;
+      --teal-lt:   #e0f7fa;
+      --amber:     #d97706;
+      --amber-lt:  #fef3c7;
+      --green:     #059669;
+      --green-lt:  #d1fae5;
+      --muted:     #64748b;
+      --border:    #e2e8f0;
+      --bg:        #fafafa;
+      --white:     #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: 'Lora', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--purple); text-decoration: none;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+
+    .nav-link {
+      padding: 7px 14px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-link:hover { color: var(--purple); background: var(--purple-lt); }
+
+    .nav-signin {
+      padding: 8px 18px; border-radius: 8px;
+      background: var(--purple); color: white;
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-signin:hover { background: #4a2285; }
+
+    /* ── HEADER ── */
+    .page-header {
+      padding: 120px 5% 60px;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.15;
+      color: var(--ink); margin-bottom: 14px;
+    }
+
+    .page-header p {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 500px; margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    /* ── BILLING TOGGLE ── */
+    .billing-toggle {
+      display: inline-flex;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 2px;
+    }
+
+    .billing-btn {
+      padding: 7px 18px; border-radius: 7px;
+      font-size: 0.85rem; font-weight: 600;
+      border: none; cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--muted); background: transparent;
+      transition: all 0.15s;
+    }
+
+    .billing-btn.active {
+      background: white; color: var(--purple);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .billing-save {
+      display: inline-block;
+      background: var(--green-lt); color: var(--green);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 8px;
+      margin-left: 5px; vertical-align: middle;
+    }
+
+    /* ── PRICING GRID ── */
+    .pricing-section { padding: 60px 5% 80px; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .plan-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+
+    .plan-card.featured {
+      border-color: var(--purple);
+      box-shadow: 0 8px 32px rgba(90,44,160,0.15);
+    }
+
+    .plan-badge {
+      position: absolute; top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--purple); color: white;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 4px 14px; border-radius: 10px;
+      white-space: nowrap; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .plan-icon { font-size: 1.8rem; margin-bottom: 12px; }
+
+    .plan-name {
+      font-family: 'Lora', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 6px;
+    }
+
+    .plan-tagline {
+      font-size: 0.82rem; color: var(--muted);
+      margin-bottom: 20px; line-height: 1.5;
+    }
+
+    .plan-price {
+      margin-bottom: 6px;
+    }
+
+    .price-amount {
+      font-family: 'Lora', serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--ink); line-height: 1;
+    }
+
+    .price-amount .currency {
+      font-size: 1.2rem; vertical-align: super;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+    }
+
+    .price-period {
+      font-size: 0.82rem; color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .price-annual {
+      font-size: 0.78rem; color: var(--green);
+      font-weight: 600; margin-bottom: 20px;
+      min-height: 18px;
+    }
+
+    .plan-divider {
+      height: 1px; background: var(--border);
+      margin: 20px 0;
+    }
+
+    .plan-features { flex: 1; margin-bottom: 24px; }
+
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 0.87rem; color: var(--muted);
+      margin-bottom: 10px; line-height: 1.45;
+      list-style: none;
+    }
+
+    .plan-features li .check {
+      color: var(--green); font-size: 0.75rem;
+      font-weight: 700; margin-top: 2px;
+      flex-shrink: 0;
+      background: var(--green-lt);
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .plan-features li .dash {
+      color: var(--muted); font-size: 0.75rem;
+      font-weight: 700; margin-top: 2px;
+      flex-shrink: 0;
+      background: #f1f5f9;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .plan-features li strong { color: var(--ink); }
+
+    .plan-btn {
+      display: block; width: 100%;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: 0.92rem; font-weight: 700;
+      text-align: center; text-decoration: none;
+      border: none; cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .plan-btn-primary {
+      background: var(--purple); color: white;
+      box-shadow: 0 4px 14px rgba(90,44,160,0.25);
+    }
+
+    .plan-btn-primary:hover {
+      background: #4a2285;
+      box-shadow: 0 6px 20px rgba(90,44,160,0.35);
+      transform: translateY(-1px);
+    }
+
+    .plan-btn-secondary {
+      background: var(--bg); color: var(--purple);
+      border: 1.5px solid var(--purple);
+    }
+
+    .plan-btn-secondary:hover {
+      background: var(--purple-lt);
+    }
+
+    .plan-btn-outline {
+      background: white; color: var(--muted);
+      border: 1.5px solid var(--border);
+    }
+
+    .plan-btn-outline:hover {
+      border-color: var(--purple); color: var(--purple);
+      background: var(--purple-lt);
+    }
+
+    /* ── TRIAL BANNER ── */
+    .trial-banner {
+      max-width: 1060px; margin: 0 auto 40px;
+      background: linear-gradient(135deg, var(--amber-lt), #fff7ed);
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px 24px;
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .trial-banner .icon { font-size: 1.3rem; flex-shrink: 0; }
+
+    .trial-banner-text {
+      flex: 1;
+      font-size: 0.88rem; color: var(--ink); line-height: 1.5;
+    }
+
+    .trial-banner-text strong { color: var(--amber); }
+
+    /* ── FAQ ── */
+    .faq-section {
+      background: white;
+      padding: 80px 5%;
+    }
+
+    .faq-header { text-align: center; margin-bottom: 48px; }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+    }
+
+    .faq-q {
+      font-weight: 700; font-size: 0.92rem;
+      color: var(--ink); margin-bottom: 8px;
+    }
+
+    .faq-a {
+      font-size: 0.84rem; color: var(--muted); line-height: 1.6;
+    }
+
+    /* ── COMPARE TABLE ── */
+    .compare-section {
+      padding: 80px 5%;
+      background: var(--bg);
+    }
+
+    .compare-header { text-align: center; margin-bottom: 40px; }
+
+    .compare-table {
+      width: 100%; max-width: 900px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .compare-table th {
+      padding: 16px 20px;
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .compare-table th:first-child { text-align: left; color: var(--muted); }
+    .compare-table th.featured-col { background: var(--purple-lt); color: var(--purple); }
+
+    .compare-table td {
+      padding: 13px 20px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #f8f8f8;
+      text-align: center; color: var(--muted);
+    }
+
+    .compare-table td:first-child {
+      text-align: left; font-weight: 500; color: var(--ink);
+    }
+
+    .compare-table td.featured-col { background: #fafaff; }
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table .section-row td {
+      background: var(--bg);
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); padding: 10px 20px;
+    }
+
+    .check-yes { color: var(--green); font-size: 1rem; }
+    .check-no  { color: #cbd5e1; font-size: 1rem; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #1c1c2e 0%, #2d1b69 100%);
+      padding: 80px 5%;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: white; margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem; margin-bottom: 28px;
+      max-width: 400px; margin-left: auto; margin-right: auto;
+    }
+
+    .btn-white {
+      display: inline-block;
+      padding: 13px 28px; border-radius: 10px;
+      background: white; color: var(--purple);
+      font-size: 0.95rem; font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); padding: 32px 5%;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    .footer-brand { font-family: 'Lora', serif; color: white; font-size: 1rem; font-weight: 700; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-link { font-size: 0.8rem; color: rgba(255,255,255,0.45); text-decoration: none; }
+    .footer-link:hover { color: white; }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+    /* ── LOADING ── */
+    .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .compare-table { font-size: 0.78rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links .nav-link { display: none; }
+      .compare-section { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="/">✏️ TeacherAssist.ai</a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/#features">Features</a>
+    <a class="nav-signin" href="https://app.teacherassist.ai">Sign In →</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Simple, honest pricing</h1>
+  <p>Start free for 5 days. Then pick the plan that fits your classroom. Cancel anytime.</p>
+
+  <div class="billing-toggle">
+    <button class="billing-btn active" id="btn-monthly" onclick="setBilling('monthly')">Monthly</button>
+    <button class="billing-btn" id="btn-annual" onclick="setBilling('annual')">
+      Annual <span class="billing-save">Save 25%</span>
+    </button>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-section">
+
+  <!-- Trial banner -->
+  <div class="trial-banner">
+    <span class="icon">🎁</span>
+    <div class="trial-banner-text">
+      <strong>Every plan starts with a free 5-day trial.</strong> No credit card required. Full access to all features in your chosen plan. Cancel before day 5 and you're never charged.
+    </div>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- PLAN 1: Grading Only -->
+    <div class="plan-card">
+      <div class="plan-icon">📝</div>
+      <div class="plan-name">Grading</div>
+      <div class="plan-tagline">For teachers who want fast, accurate grading with standards feedback.</div>
+
+      <div class="plan-price">
+        <span class="price-amount"><span class="currency">$</span><span class="price-monthly">8</span><span class="price-annual-val" style="display:none;">6</span></span>
+        <span class="price-period">/ month</span>
+      </div>
+      <div class="price-annual">
+        <span class="annual-note" style="display:none;">$54/year — save $42</span>
+        <span class="monthly-note">&nbsp;</span>
+      </div>
+
+      <div class="plan-divider"></div>
+
+      <ul class="plan-features">
+        <li><span class="check">✓</span> <span><strong>Unlimited</strong> AI grading</span></li>
+        <li><span class="check">✓</span> <span>Reads handwritten PDFs directly</span></li>
+        <li><span class="check">✓</span> <span>Standards-aligned feedback per question</span></li>
+        <li><span class="check">✓</span> <span>Student performance tiers</span></li>
+        <li><span class="check">✓</span> <span>Rubric editor & answer key builder</span></li>
+        <li><span class="dash">—</span> <span style="opacity:0.5;">Data Assistant</span></li>
+        <li><span class="dash">—</span> <span style="opacity:0.5;">Recommendations engine</span></li>
+        <li><span class="dash">—</span> <span style="opacity:0.5;">Curriculum Wizard</span></li>
+      </ul>
+
+      <button class="plan-btn plan-btn-secondary" onclick="startCheckout('grading', currentBilling)">
+        Start free trial →
+      </button>
+    </div>
+
+    <!-- PLAN 2: Grading + Data (FEATURED) -->
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-icon">📊</div>
+      <div class="plan-name">Grading + Data</div>
+      <div class="plan-tagline">For teachers who want grading plus deep insights and differentiation.</div>
+
+      <div class="plan-price">
+        <span class="price-amount"><span class="currency">$</span><span class="price-monthly">12</span><span class="price-annual-val" style="display:none;">9</span></span>
+        <span class="price-period">/ month</span>
+      </div>
+      <div class="price-annual">
+        <span class="annual-note" style="display:none;">$81/year — save $63</span>
+        <span class="monthly-note">&nbsp;</span>
+      </div>
+
+      <div class="plan-divider"></div>
+
+      <ul class="plan-features">
+        <li><span class="check">✓</span> <span>Everything in Grading</span></li>
+        <li><span class="check">✓</span> <span><strong>Data Assistant</strong> — ask questions in plain English</span></li>
+        <li><span class="check">✓</span> <span><strong>Recommendations engine</strong> — differentiated by tier</span></li>
+        <li><span class="check">✓</span> <span>Printable intervention materials</span></li>
+        <li><span class="check">✓</span> <span>Standards performance reports</span></li>
+        <li><span class="check">✓</span> <span>Multi-class analysis</span></li>
+        <li><span class="dash">—</span> <span style="opacity:0.5;">Curriculum Wizard</span></li>
+      </ul>
+
+      <button class="plan-btn plan-btn-primary" onclick="startCheckout('data', currentBilling)">
+        Start free trial →
+      </button>
+    </div>
+
+    <!-- PLAN 3: Full Suite -->
+    <div class="plan-card">
+      <div class="plan-icon">✨</div>
+      <div class="plan-name">Full Suite</div>
+      <div class="plan-tagline">Everything you need to grade, analyze, and build curriculum — all in one place.</div>
+
+      <div class="plan-price">
+        <span class="price-amount"><span class="currency">$</span><span class="price-monthly">15</span><span class="price-annual-val" style="display:none;">11.25</span></span>
+        <span class="price-period">/ month</span>
+      </div>
+      <div class="price-annual">
+        <span class="annual-note" style="display:none;">$101.25/year — save ~$79</span>
+        <span class="monthly-note">&nbsp;</span>
+      </div>
+
+      <div class="plan-divider"></div>
+
+      <ul class="plan-features">
+        <li><span class="check">✓</span> <span>Everything in Grading + Data</span></li>
+        <li><span class="check">✓</span> <span><strong>Curriculum Wizard</strong> — teacher-driven content creation</span></li>
+        <li><span class="check">✓</span> <span>Sources from Wikipedia, Lib. of Congress, Open Library</span></li>
+        <li><span class="check">✓</span> <span>Export to Word & PowerPoint</span></li>
+        <li><span class="check">✓</span> <span>Full source attribution on all materials</span></li>
+        <li><span class="check">✓</span> <span>Priority support</span></li>
+      </ul>
+
+      <button class="plan-btn plan-btn-secondary" onclick="startCheckout('full', currentBilling)">
+        Start free trial →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARE TABLE -->
+<section class="compare-section">
+  <div class="compare-header">
+    <h2 style="font-family:'Lora',serif; font-size:1.7rem; margin-bottom:8px;">Compare plans</h2>
+    <p style="color:var(--muted); font-size:0.9rem;">Everything included in every plan starts with a 5-day free trial.</p>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th style="width:40%;">Feature</th>
+        <th>Grading<br><span style="font-size:0.7rem; font-weight:400; color:var(--muted);">$8/mo</span></th>
+        <th class="featured-col">Grading + Data<br><span style="font-size:0.7rem; font-weight:400;">$12/mo</span></th>
+        <th>Full Suite<br><span style="font-size:0.7rem; font-weight:400; color:var(--muted);">$15/mo</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="section-row"><td colspan="4">Grading</td></tr>
+      <tr>
+        <td>AI grading of handwritten PDFs</td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Standards-aligned feedback</td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Rubric editor</td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Student performance tiers</td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr class="section-row"><td colspan="4">Data & Insights</td></tr>
+      <tr>
+        <td>Data Assistant (plain English queries)</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Differentiated recommendations</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Intervention materials</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Multi-class analysis</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr class="section-row"><td colspan="4">Curriculum</td></tr>
+      <tr>
+        <td>Curriculum Wizard</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Word & PowerPoint export</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Source attribution on all materials</td>
+        <td><span class="check-no">—</span></td>
+        <td class="featured-col"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-header">
+    <h2 style="font-family:'Lora',serif; font-size:1.7rem; margin-bottom:8px;">Questions answered</h2>
+    <p style="color:var(--muted); font-size:0.9rem;">Still wondering? Reach out at support@teacherassist.ai</p>
+  </div>
+
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">Do I need a credit card to start?</div>
+      <div class="faq-a">No. Your 5-day free trial starts immediately with no payment information required. You'll only be asked for payment details when you choose to subscribe after the trial.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens after the 5-day trial?</div>
+      <div class="faq-a">You'll be prompted to choose a plan. If you don't subscribe, your account becomes read-only — you can view past results but not run new grading sessions.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does annual billing work?</div>
+      <div class="faq-a">Annual plans are billed once per year at the equivalent of 9 months' cost — you get 3 months free compared to monthly billing. Perfect for purchasing at the start of a school year.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I upgrade or downgrade my plan?</div>
+      <div class="faq-a">Yes, anytime. Upgrades take effect immediately. Downgrades take effect at the start of your next billing cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What subjects does TeacherAssist.ai support?</div>
+      <div class="faq-a">All subjects. The AI grades based on your answer key and rubric, so it works for Social Studies, ELA, Science, Math, and anything else you teach.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is my student data private?</div>
+      <div class="faq-a">Yes. Student work is processed only for grading and never used to train AI models. Each teacher's data is isolated and never shared. Student names are replaced with initials.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Try it free for 5 days</h2>
+  <p>No credit card. Full access. Cancel anytime.</p>
+  <a href="#" class="btn-white" onclick="startCheckout('full', 'monthly'); return false;">Start free trial →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-brand" href="/">✏️ TeacherAssist.ai</a>
+  <div class="footer-links">
+    <a class="footer-link" href="/">Home</a>
+    <a class="footer-link" href="mailto:support@teacherassist.ai">Support</a>
+    <a class="footer-link" href="#">Privacy</a>
+    <a class="footer-link" href="#">Terms</a>
+  </div>
+  <div class="footer-copy">© 2026 TeacherAssist.ai</div>
+</footer>
+
+<script>
+// ── Stripe price IDs — replace with your actual Stripe price IDs
+// Create these in your Stripe dashboard first
+const STRIPE_PRICES = {
+  grading: {
+    monthly: "price_REPLACE_GRADING_MONTHLY",
+    annual:  "price_REPLACE_GRADING_ANNUAL"
+  },
+  data: {
+    monthly: "price_REPLACE_DATA_MONTHLY",
+    annual:  "price_REPLACE_DATA_ANNUAL"
+  },
+  full: {
+    monthly: "price_REPLACE_FULL_MONTHLY",
+    annual:  "price_REPLACE_FULL_ANNUAL"
+  }
+};
+
+const API = "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net";
+
+let currentBilling = "monthly";
+
+/* ── BILLING TOGGLE ── */
+function setBilling(type) {
+  currentBilling = type;
+
+  document.getElementById("btn-monthly").classList.toggle("active", type === "monthly");
+  document.getElementById("btn-annual").classList.toggle("active",  type === "annual");
+
+  // Show/hide prices
+  document.querySelectorAll(".price-monthly").forEach(el => {
+    el.style.display = type === "monthly" ? "inline" : "none";
+  });
+  document.querySelectorAll(".price-annual-val").forEach(el => {
+    el.style.display = type === "annual" ? "inline" : "none";
+  });
+  document.querySelectorAll(".annual-note").forEach(el => {
+    el.style.display = type === "annual" ? "block" : "none";
+  });
+  document.querySelectorAll(".monthly-note").forEach(el => {
+    el.style.display = type === "monthly" ? "block" : "none";
+  });
+}
+
+/* ── STRIPE CHECKOUT ── */
+async function startCheckout(plan, billing) {
+  const priceId = STRIPE_PRICES[plan]?.[billing];
+
+  if (!priceId || priceId.startsWith("price_REPLACE")) {
+    // Stripe not configured yet — redirect to sign up
+    alert("Stripe is not configured yet. Please set up your Stripe price IDs in pricing.html.");
+    return;
+  }
+
+  const btns = document.querySelectorAll(".plan-btn");
+  btns.forEach(b => b.classList.add("btn-loading"));
+
+  try {
+    // Call your backend to create a Stripe Checkout session
+    const res = await fetch(`${API}/api/billing/create-checkout-session`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        priceId,
+        plan,
+        billing,
+        successUrl: window.location.origin + "/app.teacherassist.ai?subscribed=true",
+        cancelUrl:  window.location.href
+      })
+    });
+
+    const { url } = await res.json();
+    if (url) {
+      window.location.href = url;
+    } else {
+      throw new Error("No checkout URL returned");
+    }
+
+  } catch (err) {
+    console.error("Checkout error:", err);
+    alert("Something went wrong. Please try again or contact support@teacherassist.ai");
+  } finally {
+    btns.forEach(b => b.classList.remove("btn-loading"));
+  }
+}
+</script>
+</body>
+</html>
