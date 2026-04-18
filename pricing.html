@@ -785,7 +785,15 @@ async function startCheckout(plan, billing) {
 
   const btns = document.querySelectorAll(".plan-btn");
   btns.forEach(b => b.classList.add("btn-loading"));
-
+ // Try to get teacherId from Auth0 if available
+  let teacherId = null;
+  try {
+    if (typeof auth0Client !== "undefined") {
+      const user = await auth0Client.getUser();
+      teacherId = user?.sub || null;
+    }
+  } catch { /* not logged in, that's ok */ }
+  
   try {
     // Call your backend to create a Stripe Checkout session
     const res = await fetch(`${API}/billing/create-checkout-session`, {
@@ -795,6 +803,7 @@ async function startCheckout(plan, billing) {
         priceId,
         plan,
         billing,
+        teacherId,
         successUrl: window.location.origin + "/app.teacherassist.ai?subscribed=true",
         cancelUrl:  window.location.href
       })
