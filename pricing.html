@@ -773,37 +773,72 @@ function setBilling(type) {
   });
 }
 
-/* ── STRIPE CHECKOUT ── */
+/* ── STRIPE CHECKOUT -──  */
 async function startCheckout(plan, billing) {
   const priceId = STRIPE_PRICES[plan]?.[billing];
 
   if (!priceId || priceId.startsWith("price_REPLACE")) {
-    // Stripe not configured yet — redirect to sign up
-    alert("Stripe is not configured yet. Please set up your Stripe price IDs in pricing.html.");
+    alert("Stripe is not configured yet.");
     return;
   }
 
   const btns = document.querySelectorAll(".plan-btn");
   btns.forEach(b => b.classList.add("btn-loading"));
- // Try to get teacherId from Auth0 if available
-  let teacherId = null;
+
   try {
-    if (typeof auth0Client !== "undefined") {
+    // ── Step 1: Require Auth0 login first
+    let teacherId = null;
+    let email     = null;
+
+    try {
+      // Initialize Auth0 if not already done
+      if (typeof auth0Client === "undefined" || !auth0Client) {
+        auth0Client = await auth0.createAuth0Client({
+          domain:   "dev-28g3vd7ga8x6etvt.us.auth0.com",
+          clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
+          authorizationParams: {
+            redirect_uri: window.location.href,
+            audience:     "https://teacherassistant-api"
+          }
+        });
+      }
+
+      // Check if already logged in
+      const isAuthenticated = await auth0Client.isAuthenticated();
+
+      if (!isAuthenticated) {
+        // Save intended plan so we can resume after redirect
+        localStorage.setItem("pendingCheckoutPlan",    plan);
+        localStorage.setItem("pendingCheckoutBilling", billing);
+
+        // Redirect to Google login
+        await auth0Client.loginWithRedirect({
+          authorizationParams: {
+            redirect_uri: window.location.href
+          }
+        });
+        return; // page will reload after login
+      }
+
       const user = await auth0Client.getUser();
-      teacherId = user?.sub || null;
+      teacherId  = user.sub;
+      email      = user.email;
+
+    } catch (authErr) {
+      console.warn("Auth0 error:", authErr.message);
+      // Continue without teacherId — webhook will fall back to email
     }
-  } catch { /* not logged in, that's ok */ }
-  
-  try {
-    // Call your backend to create a Stripe Checkout session
+
+    // ── Step 2: Create Stripe checkout session
     const res = await fetch(`${API}/billing/create-checkout-session`, {
-      method: "POST",
+      method:  "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         priceId,
         plan,
         billing,
         teacherId,
+        email,  // pre-fill Stripe with their Google email
         successUrl: "https://app.teacherassist.ai/index.html?subscribed=true",
         cancelUrl:  window.location.href
       })
