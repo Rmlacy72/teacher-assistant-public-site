@@ -729,7 +729,10 @@
   <div class="footer-copy">© 2026 TeacherAssist.ai</div>
 </footer>
 
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+
 <script>
+let auth0Client = null;  // ← ADD this as the very first line inside your script block
 // ── Stripe price IDs — replace with your actual Stripe price IDs
 // Create these in your Stripe dashboard first
 const STRIPE_PRICES = {
@@ -858,6 +861,38 @@ async function startCheckout(plan, billing) {
     btns.forEach(b => b.classList.remove("btn-loading"));
   }
 }
+// ── RESUME CHECKOUT AFTER AUTH0 REDIRECT ──
+  async function resumePendingCheckout() {
+    const plan    = localStorage.getItem("pendingCheckoutPlan");
+    const billing = localStorage.getItem("pendingCheckoutBilling");
+    if (!plan || !billing) return;
+    localStorage.removeItem("pendingCheckoutPlan");
+    localStorage.removeItem("pendingCheckoutBilling");
+    await startCheckout(plan, billing);
+  }
+
+  window.addEventListener("load", async () => {
+    if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+      try {
+        if (!auth0Client) {
+          auth0Client = await auth0.createAuth0Client({
+            domain:   "dev-28g3vd7ga8x6etvt.us.auth0.com",
+            clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
+            authorizationParams: {
+              redirect_uri: window.location.href,
+              audience:     "https://teacherassistant-api"
+            }
+          });
+        }
+        await auth0Client.handleRedirectCallback();
+        window.history.replaceState({}, document.title, window.location.pathname);
+        await resumePendingCheckout();
+      } catch (err) {
+        console.error("Auth0 callback error:", err);
+      }
+    }
+  });
+
 </script>
 </body>
 </html>
