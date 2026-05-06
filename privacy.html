@@ -20,10 +20,13 @@
       --rule:    #D0DAE5;
       --white:   #FFFFFF;
       --accent:  #F0A500;
+      --green:   #1A7A4A;
+      --green-lt:#E8F5EE;
+      --red:     #CC4444;
+      --red-lt:  #FFF0F0;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -36,34 +39,11 @@
     }
 
     /* ── TOP BAR ── */
-    .topbar {
-      background: var(--navy);
-      padding: 12px 0;
-      text-align: center;
-    }
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-    .topbar .logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: var(--white);
-      letter-spacing: 0.01em;
-    }
+    .topbar { background: var(--navy); padding: 12px 0; text-align: center; }
+    .topbar-inner { display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .topbar .logo { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--white); letter-spacing: 0.01em; }
     .topbar .logo span { color: var(--teal); }
-    .topbar .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--navy);
-      background: var(--teal);
-      border-radius: 4px;
-      padding: 2px 8px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+    .topbar .badge { font-size: 0.7rem; font-weight: 600; color: var(--navy); background: var(--teal); border-radius: 4px; padding: 2px 8px; letter-spacing: 0.06em; text-transform: uppercase; }
 
     /* ── HERO ── */
     .hero {
@@ -75,347 +55,134 @@
     }
     .hero::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
-    .hero-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 16px;
-    }
-    .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--teal);
-    }
-    .hero-sub {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 540px;
-      margin: 0 auto 32px;
-    }
-    .hero-meta {
-      display: inline-flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .hero-meta-item {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .hero-meta-item::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
-      flex-shrink: 0;
-    }
+    .hero-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; }
+    .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .hero h1 em { font-style: italic; color: var(--teal); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 540px; margin: 0 auto 32px; }
+    .hero-meta { display: inline-flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .hero-meta-item { font-size: 0.8rem; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 6px; }
+    .hero-meta-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
 
     /* ── LAYOUT ── */
-    .layout {
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 56px 24px 80px;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 56px;
-      align-items: start;
-    }
+    .layout { max-width: 1060px; margin: 0 auto; padding: 56px 24px 80px; display: grid; grid-template-columns: 220px 1fr; gap: 56px; align-items: start; }
 
-    /* ── SIDEBAR NAV ── */
-    .sidebar {
-      position: sticky;
-      top: 32px;
-    }
-    .sidebar-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-      padding-left: 14px;
-    }
-    .nav-list {
-      list-style: none;
-      border-left: 2px solid var(--rule);
-    }
-    .nav-list li a {
-      display: block;
-      padding: 7px 14px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s, border-color 0.2s;
-      border-left: 2px solid transparent;
-      margin-left: -2px;
-    }
-    .nav-list li a:hover {
-      color: var(--blue);
-      border-left-color: var(--blue);
-    }
-    .sidebar-note {
-      margin-top: 32px;
-      background: #FFF8E7;
-      border: 1px solid #F0A500;
-      border-radius: 8px;
-      padding: 14px 16px;
-      font-size: 0.8rem;
-      color: #7A5800;
-      line-height: 1.5;
-    }
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 32px; }
+    .sidebar-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-left: 14px; }
+    .nav-list { list-style: none; border-left: 2px solid var(--rule); }
+    .nav-list li a { display: block; padding: 7px 14px; font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s, border-color 0.2s; border-left: 2px solid transparent; margin-left: -2px; }
+    .nav-list li a:hover { color: var(--blue); border-left-color: var(--blue); }
+    .sidebar-note { margin-top: 32px; background: #FFF8E7; border: 1px solid #F0A500; border-radius: 8px; padding: 14px 16px; font-size: 0.8rem; color: #7A5800; line-height: 1.5; }
     .sidebar-note strong { display: block; margin-bottom: 4px; color: #5A4000; }
 
     /* ── CONTENT ── */
     .content { min-width: 0; }
-
-    .effective-bar {
-      background: var(--sand);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 14px 20px;
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
+    .effective-bar { background: var(--sand); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 20px; font-size: 0.85rem; color: var(--muted); display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; }
     .effective-bar span strong { color: var(--ink); }
 
-    /* sections */
-    .policy-section {
-      margin-bottom: 56px;
-      scroll-margin-top: 32px;
-    }
+    .policy-section { margin-bottom: 56px; scroll-margin-top: 32px; }
+    .section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid var(--rule); }
+    .section-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--rule); line-height: 1; flex-shrink: 0; }
+    .section-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.45rem; color: var(--navy); line-height: 1.25; }
 
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      margin-bottom: 24px;
-      padding-bottom: 14px;
-      border-bottom: 2px solid var(--rule);
-    }
-    .section-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: var(--rule);
-      line-height: 1;
-      flex-shrink: 0;
-    }
-    .section-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.45rem;
-      color: var(--navy);
-      line-height: 1.25;
-    }
+    .intro-note { font-size: 0.9rem; color: var(--muted); font-style: italic; border-left: 3px solid var(--teal); padding-left: 14px; margin-bottom: 24px; }
 
-    .intro-note {
-      font-size: 0.9rem;
-      color: var(--muted);
-      font-style: italic;
-      border-left: 3px solid var(--teal);
-      padding-left: 14px;
-      margin-bottom: 24px;
-    }
+    h3 { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); letter-spacing: 0.02em; text-transform: uppercase; margin: 28px 0 12px; }
 
-    h3 {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--blue);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      margin: 28px 0 12px;
-    }
+    p { margin-bottom: 14px; font-size: 0.96rem; color: var(--ink); }
 
-    p {
-      margin-bottom: 14px;
-      font-size: 0.96rem;
-      color: var(--ink);
-    }
-
-    ul.policy-list {
-      list-style: none;
-      margin: 0 0 16px;
-    }
-    ul.policy-list li {
-      padding: 6px 0 6px 26px;
-      position: relative;
-      font-size: 0.93rem;
-      color: var(--ink);
-      border-bottom: 1px solid var(--sand);
-    }
+    ul.policy-list { list-style: none; margin: 0 0 16px; }
+    ul.policy-list li { padding: 6px 0 6px 26px; position: relative; font-size: 0.93rem; color: var(--ink); border-bottom: 1px solid var(--sand); }
     ul.policy-list li:last-child { border-bottom: none; }
-    ul.policy-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--sky);
-      font-weight: 600;
-    }
+    ul.policy-list li::before { content: '→'; position: absolute; left: 0; color: var(--sky); font-weight: 600; }
+    ul.policy-list.check li::before { content: '✓'; color: var(--teal); }
+    ul.policy-list.cross li::before { content: '✕'; color: #CC4444; }
 
-    ul.policy-list.check li::before {
-      content: '✓';
-      color: var(--teal);
-    }
-    ul.policy-list.cross li::before {
-      content: '✕';
-      color: #CC4444;
-    }
-
-    /* callout box */
-    .callout {
-      background: var(--white);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 24px 28px;
-      margin: 24px 0;
-      position: relative;
-    }
-    .callout.blue {
-      border-left: 4px solid var(--blue);
-      background: #F0F7FF;
-    }
-    .callout.amber {
-      border-left: 4px solid var(--accent);
-      background: #FFFBF0;
-    }
-    .callout-title {
-      font-weight: 600;
-      font-size: 0.88rem;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--blue);
-      margin-bottom: 8px;
-    }
+    /* callout */
+    .callout { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 24px 28px; margin: 24px 0; position: relative; }
+    .callout.blue { border-left: 4px solid var(--blue); background: #F0F7FF; }
+    .callout.amber { border-left: 4px solid var(--accent); background: #FFFBF0; }
+    .callout.green { border-left: 4px solid var(--green); background: var(--green-lt); }
+    .callout.red { border-left: 4px solid var(--red); background: var(--red-lt); }
+    .callout-title { font-weight: 600; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); margin-bottom: 8px; }
     .callout.amber .callout-title { color: #7A5800; }
+    .callout.green .callout-title { color: var(--green); }
+    .callout.red .callout-title { color: var(--red); }
     .callout p { margin-bottom: 0; font-size: 0.9rem; }
+    .callout p + p { margin-top: 10px; }
 
-    /* two-col check/cross */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin: 20px 0;
-    }
-    .two-col-block {
-      background: var(--white);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 18px 20px;
-    }
-    .two-col-block .block-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+    /* two-col */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .two-col-block { background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; }
+    .two-col-block .block-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
     .two-col-block.ok .block-label { color: var(--teal); }
     .two-col-block.no .block-label { color: #CC4444; }
 
+    /* FERPA badge */
+    .ferpa-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--navy); color: var(--white);
+      border-radius: 8px; padding: 12px 20px;
+      font-size: 0.85rem; font-weight: 500;
+      margin: 16px 0;
+    }
+    .ferpa-badge .fb-icon { font-size: 1.3rem; }
+    .ferpa-badge strong { color: var(--teal); font-size: 1rem; display: block; }
+
+    /* subprocessor table */
+    .sp-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+    .sp-table th { background: var(--navy); color: var(--white); padding: 10px 14px; text-align: left; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .sp-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--ink); vertical-align: top; }
+    .sp-table tr:last-child td { border-bottom: none; }
+    .sp-table tr:nth-child(even) td { background: var(--sand); }
+    .sp-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: var(--green-lt); color: var(--green); }
+
     /* contact box */
-    .contact-box {
-      background: var(--navy);
-      border-radius: 12px;
-      padding: 32px 36px;
-      color: var(--white);
-      margin-top: 24px;
-    }
-    .contact-box h3 {
-      color: var(--teal);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin: 0 0 20px;
-    }
-    .contact-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 14px;
-      font-size: 0.9rem;
-    }
+    .contact-box { background: var(--navy); border-radius: 12px; padding: 32px 36px; color: var(--white); margin-top: 24px; }
+    .contact-box h3 { color: var(--teal); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 20px; }
+    .contact-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; font-size: 0.9rem; }
     .contact-row:last-child { margin-bottom: 0; }
-    .contact-icon {
-      width: 28px;
-      height: 28px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 0.85rem;
-    }
-    .contact-label {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.45);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .contact-value {
-      color: var(--white);
-      font-weight: 500;
-    }
+    .contact-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem; }
+    .contact-label { font-size: 0.72rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-value { color: var(--white); font-weight: 500; }
     .contact-value a { color: var(--teal); text-decoration: none; }
     .contact-value a:hover { text-decoration: underline; }
 
     /* footer */
-    .site-footer {
-      background: var(--navy);
-      border-top: 3px solid var(--teal);
-      padding: 32px 24px;
-      text-align: center;
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.45);
-    }
+    .site-footer { background: var(--navy); border-top: 3px solid var(--teal); padding: 32px 24px; text-align: center; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
     .site-footer strong { color: rgba(255,255,255,0.7); }
-    .site-footer .footer-links {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .site-footer .footer-links a {
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .site-footer .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .site-footer .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
     .site-footer .footer-links a:hover { color: var(--teal); }
+
+    /* dpa cta */
+    .dpa-cta {
+      background: linear-gradient(135deg, #0D2137 0%, #1A6FA8 100%);
+      border-radius: 12px; padding: 28px 32px; margin: 24px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .dpa-cta-text { color: var(--white); }
+    .dpa-cta-text strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+    .dpa-cta-text span { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+    .dpa-cta-btn {
+      background: var(--teal); color: var(--navy); font-weight: 700;
+      padding: 10px 22px; border-radius: 6px; text-decoration: none;
+      font-size: 0.9rem; white-space: nowrap; flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+    .dpa-cta-btn:hover { opacity: 0.85; }
 
     /* responsive */
     @media (max-width: 768px) {
-      .layout {
-        grid-template-columns: 1fr;
-        gap: 0;
-        padding-top: 32px;
-      }
-      .sidebar {
-        position: static;
-        display: none;
-      }
-      .two-col {
-        grid-template-columns: 1fr;
-      }
+      .layout { grid-template-columns: 1fr; gap: 0; padding-top: 32px; }
+      .sidebar { position: static; display: none; }
+      .two-col { grid-template-columns: 1fr; }
       .hero { padding: 48px 20px 40px; }
+      .dpa-cta { flex-direction: column; }
     }
   </style>
 </head>
@@ -433,11 +200,11 @@
 <div class="hero">
   <div class="hero-label">Legal &amp; Platform Policies</div>
   <h1>Platform Policy <em>Statement</em></h1>
-  <p class="hero-sub">Plain-language policies for educators who use TeacherAssist.ai — covering privacy, AI, standards alignment, and billing.</p>
+  <p class="hero-sub">Plain-language policies for educators who use TeacherAssist.ai — covering privacy, student data, FERPA, AI, standards alignment, and billing.</p>
   <div class="hero-meta">
-    <span class="hero-meta-item">Effective: 2026</span>
-    <span class="hero-meta-item">Version 1.0</span>
-    <span class="hero-meta-item">Audience: Teachers &amp; Educators</span>
+    <span class="hero-meta-item">Effective: January 1, 2026</span>
+    <span class="hero-meta-item">Version 1.1</span>
+    <span class="hero-meta-item">Audience: Teachers &amp; Districts</span>
     <span class="hero-meta-item">Jurisdiction: United States</span>
   </div>
 </div>
@@ -452,14 +219,20 @@
       <li><a href="#welcome">Welcome</a></li>
       <li><a href="#ai-usage">1. How We Use AI</a></li>
       <li><a href="#privacy">2. Your Privacy &amp; Data</a></li>
-      <li><a href="#standards">3. Standards Alignment</a></li>
-      <li><a href="#billing">4. Subscriptions &amp; Billing</a></li>
-      <li><a href="#acceptable-use">5. Acceptable Use</a></li>
-      <li><a href="#your-rights">6. Your Rights</a></li>
-      <li><a href="#updates">7. Policy Updates</a></li>
-      <li><a href="#contact">8. Contact Us</a></li>
+      <li><a href="#ferpa">3. FERPA &amp; Student Data</a></li>
+      <li><a href="#subprocessors">4. AI Subprocessors</a></li>
+      <li><a href="#standards">5. Standards Alignment</a></li>
+      <li><a href="#billing">6. Subscriptions &amp; Billing</a></li>
+      <li><a href="#acceptable-use">7. Acceptable Use</a></li>
+      <li><a href="#your-rights">8. Your Rights</a></li>
+      <li><a href="#breach">9. Breach Notification</a></li>
+      <li><a href="#updates">10. Policy Updates</a></li>
+      <li><a href="#contact">11. Contact Us</a></li>
     </ul>
-    
+    <div class="sidebar-note">
+      <strong>Districts &amp; Schools</strong>
+      A Data Processing Agreement (DPA) is available on request. Email <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a> with "DPA Request" in the subject.
+    </div>
   </nav>
 
   <!-- CONTENT -->
@@ -467,8 +240,9 @@
 
     <div class="effective-bar">
       <span><strong>Effective Date:</strong> January 1, 2026</span>
-      <span><strong>Version:</strong> 1.0 — Draft for Legal Review</span>
+      <span><strong>Version:</strong> 1.1</span>
       <span><strong>Platform:</strong> app.teacherassist.ai</span>
+      <span><strong>Operator:</strong> LTC Inc., Illinois USA</span>
     </div>
 
     <!-- WELCOME -->
@@ -479,6 +253,7 @@
       </div>
       <p>TeacherAssist.ai is an AI-powered platform built specifically for K–12 educators. Our tools help you save time, personalize instruction, and create standards-aligned materials — so you can focus on what matters most: your students.</p>
       <p>This policy explains how the platform works, what we do with your data, and what you can expect from us as your technology partner. We've written it in plain language because you deserve to know exactly what you're agreeing to.</p>
+      <p>TeacherAssist.ai is operated by <strong>LTC Inc.</strong>, an Illinois S-Corporation. References to "we," "us," or "our" in this document refer to LTC Inc.</p>
     </section>
 
     <!-- 1. AI -->
@@ -493,30 +268,27 @@
         <div class="two-col-block ok">
           <div class="block-label">✓ What our AI does</div>
           <ul class="policy-list check">
-            <li>Grade both hand written and typed content</li>
-            <li>Provide feedback on student work aligned to your state standards</li>
+            <li>Grade both handwritten and typed student content</li>
+            <li>Provide feedback aligned to your state standards</li>
             <li>Generate curriculum, lesson plans, and instructional materials</li>
-            <li>Create differentiated instruction aligned to your State Standards</li>
-            <li>Provide suggested feedback on student work</li>
-            <li>Grades with your answer keys and rubrics</li>
+            <li>Create differentiated instruction recommendations</li>
+            <li>Suggest feedback on student work using your rubric and answer key</li>
           </ul>
         </div>
         <div class="two-col-block no">
           <div class="block-label">✕ What our AI does NOT do</div>
           <ul class="policy-list cross">
             <li>Make final decisions about student grades — you always have final say</li>
-            <li>Access student PII without your explicit action</li>
-            <li>Use your inputs to train shared AI models</li>
-            <li>Misrepresent or fabricate curriculum standards</li>
+            <li>Access student PII beyond what you explicitly submit</li>
+            <li>Use your content or student work to train AI models</li>
+            <li>Fabricate or misrepresent curriculum standards</li>
+            <li>Retain uploaded student PDFs after grading is complete</li>
           </ul>
         </div>
       </div>
 
-      <h3>AI Models We Use</h3>
-      <p>Our platform uses large language models (LLMs) provided by Google (Gemini) and Microsoft Azure (OpenAI GPT-4o). These models process the content you submit to grade papers and generate instructional materials. By using the platform, you acknowledge that your inputs are processed by these third-party AI providers in accordance with their respective terms of service and privacy policies.</p>
-
       <h3>AI Accuracy &amp; Your Judgment</h3>
-      <p>AI-generated content is a starting point, not a finished product. Always review AI output before sharing it with students. Our platform surfaces relevant standards (such as <code style="background:var(--sand);padding:1px 6px;border-radius:4px;font-size:0.87em;">CC.5.NBT.1</code> or <code style="background:var(--sand);padding:1px 6px;border-radius:4px;font-size:0.87em;">CC.8.EE.6</code>) alongside generated content to help you verify alignment — but you are the curriculum expert.</p>
+      <p>AI-generated content is a starting point, not a finished product. Always review AI output before sharing it with students. Our platform surfaces relevant standards alongside generated content to help you verify alignment — but you are the curriculum expert.</p>
 
       <div class="callout amber">
         <div class="callout-title">Important Notice</div>
@@ -534,45 +306,181 @@
 
       <h3>What We Collect</h3>
       <ul class="policy-list">
-        <li><strong>Account information:</strong> your name, email address, and school or district (used to create your account and for billing)</li>
-        <li><strong>Usage data:</strong> features you use, assignments you create, and grading activity (used to improve your experience)</li>
+        <li><strong>Account information:</strong> your name, email address, and school or district — used to create your account and for billing</li>
+        <li><strong>Usage data:</strong> features you use, assignments you create, and grading activity — used to improve your experience</li>
         <li><strong>Content you create:</strong> lesson plans, assignments, curricula, and grading results stored in your account</li>
+        <li><strong>Uploaded files:</strong> PDFs you upload for grading — processed and permanently deleted from our servers upon completion of grading (see Section 3)</li>
         <li><strong>Billing information:</strong> managed securely through Stripe — we never store credit card numbers on our servers</li>
       </ul>
 
       <h3>What We Do NOT Collect</h3>
       <ul class="policy-list cross">
-        <li>Student names, ID numbers, or personally identifiable information (PII) about your students</li>
-        <li>Biometric data, precise location data, or device fingerprinting beyond standard browser logs</li>
+        <li>Student names, ID numbers, or other student PII — we encourage teachers to use initials or anonymized identifiers</li>
+        <li>Biometric data, precise location data, or device fingerprinting beyond standard browser session logs</li>
         <li>Data from third-party platforms unless you explicitly connect them</li>
       </ul>
 
       <h3>How We Protect Your Data</h3>
-      <p>All data is stored securely in Microsoft Azure infrastructure located in the United States. Data is encrypted in transit using TLS and encrypted at rest. Access to your account data is limited to you and authorized TeacherAssist.ai personnel for support purposes only.</p>
+      <p>All data is stored securely in <strong>Microsoft Azure infrastructure located in the United States</strong>. Data is encrypted in transit using <strong>TLS 1.2 or higher</strong> and encrypted at rest using <strong>AES-256</strong>. Access to your account data is limited to you and authorized TeacherAssist.ai personnel for support purposes only.</p>
 
       <h3>Data Retention</h3>
-      <p>We retain your account data for as long as your account is active. If you cancel your account, you can request to have your data deleted. </p>
-
-      <h3>FERPA &amp; Student Data</h3>
-      <div class="callout blue">
-        <div class="callout-title">FERPA Notice</div>
-        <p>TeacherAssist.ai is designed as a teacher productivity tool. We do not maintain a direct relationship with students and do not store student-level academic records. It is your responsibility to ensure that any student work you upload complies with your school or district's FERPA policies and applicable state privacy laws. </p>
-      </div>
+      <ul class="policy-list">
+        <li><strong>Uploaded student PDFs:</strong> permanently deleted from our servers immediately upon completion of AI grading — not archived, not backed up after deletion</li>
+        <li><strong>Grading results:</strong> retained in your account for as long as your account is active</li>
+        <li><strong>Account data:</strong> retained until you request deletion or your account is closed</li>
+        <li><strong>Billing records:</strong> retained as required by law and Stripe's terms</li>
+      </ul>
 
       <h3>Third-Party Sharing</h3>
-      <p>We do not sell your personal data to third parties. We may share data with trusted service providers (Azure, Stripe, Auth0) solely to operate the platform. These providers are bound by confidentiality agreements and may not use your data for their own purposes.</p>
+      <p>We do not sell your personal data to third parties. We share data only with trusted service providers (listed in Section 4) solely to operate the platform. These providers are bound by confidentiality and data processing agreements and may not use your data for their own purposes.</p>
     </section>
 
-    <!-- 3. STANDARDS -->
-    <section class="policy-section" id="standards">
+    <!-- 3. FERPA -->
+    <section class="policy-section" id="ferpa">
       <div class="section-header">
         <span class="section-num">03</span>
+        <h2>FERPA &amp; Student Data</h2>
+      </div>
+      <p class="intro-note">This section explains our specific obligations and practices with respect to the Family Educational Rights and Privacy Act (FERPA), 20 U.S.C. § 1232g.</p>
+
+      <div class="ferpa-badge">
+        <span class="fb-icon">🏛️</span>
+        <div>
+          <strong>FERPA-Compliant Design</strong>
+          TeacherAssist.ai is designed and operated in accordance with FERPA obligations applicable to school technology vendors acting as School Officials under 34 CFR § 99.31(a)(1).
+        </div>
+      </div>
+
+      <h3>Our Role Under FERPA</h3>
+      <p>FERPA applies directly to schools and districts, not to vendors. However, when a school or district authorizes the use of TeacherAssist.ai, we operate as a <strong>"school official" with a "legitimate educational interest"</strong> as defined under 34 CFR § 99.31(a)(1). This means:</p>
+      <ul class="policy-list check">
+        <li>We may only use student education records to provide the services you have authorized</li>
+        <li>We are subject to the same FERPA conditions as school employees in this role</li>
+        <li>We will not re-disclose student education records to any unauthorized party</li>
+        <li>We will return or destroy student data upon request or at the end of a service relationship</li>
+      </ul>
+
+      <h3>What Student Data We May Encounter</h3>
+      <p>TeacherAssist.ai is a teacher-facing tool. We do not have a direct relationship with students and do not solicit student PII. However, when you upload a class PDF for grading, that file may contain student work that includes student names or other identifiers. We treat any such content as protected education records and handle it accordingly:</p>
+      <ul class="policy-list">
+        <li>Uploaded PDFs are transmitted using TLS 1.2+ encryption</li>
+        <li>Files are processed in isolated, session-specific environments</li>
+        <li>Files are <strong>permanently and automatically deleted</strong> from our servers upon grading completion — they are not stored, archived, or used for any other purpose</li>
+        <li>No TeacherAssist.ai employee reviews individual student submissions unless you explicitly request technical support and provide consent</li>
+      </ul>
+
+      <div class="callout green">
+        <div class="callout-title">Best Practice Recommendation</div>
+        <p>To minimize student PII exposure, we recommend that teachers use student initials, ID numbers, or seat numbers instead of full names when setting up classes in TeacherAssist.ai. This is not required, but it reduces the amount of PII present in uploaded files.</p>
+      </div>
+
+      <h3>What We Do Not Do With Student Data</h3>
+      <ul class="policy-list cross">
+        <li>Sell, rent, or trade student education records or student PII to any third party</li>
+        <li>Use student work or education records to train, fine-tune, or improve AI models</li>
+        <li>Build advertising profiles based on student data</li>
+        <li>Retain student-uploaded files beyond the active grading session</li>
+        <li>Disclose student records to any party other than the submitting teacher and authorized platform operations personnel</li>
+      </ul>
+
+      <h3>Data Processing Agreements (DPAs)</h3>
+      <p>Many schools and districts require a signed Data Processing Agreement with technology vendors before approving platform use. TeacherAssist.ai supports this process. We offer a standard DPA that:</p>
+      <ul class="policy-list check">
+        <li>Designates TeacherAssist.ai as a school official under FERPA</li>
+        <li>Defines the scope of authorized data use</li>
+        <li>Commits to data security, breach notification, and data deletion obligations</li>
+        <li>Identifies our AI subprocessors and their data handling obligations</li>
+        <li>Is compatible with the Student Data Privacy Consortium (SDPC) model agreement framework</li>
+      </ul>
+
+      <div class="dpa-cta">
+        <div class="dpa-cta-text">
+          <strong>Request a Data Processing Agreement</strong>
+          <span>Available for districts, schools, and individual campuses. Typically returned within 3 business days.</span>
+        </div>
+        <a href="mailto:support@teacherassist.ai?subject=DPA Request — TeacherAssist.ai" class="dpa-cta-btn">Request DPA →</a>
+      </div>
+
+      <h3>State Privacy Law Compliance</h3>
+      <p>In addition to FERPA, many states have enacted their own student data privacy laws (such as Illinois SOPPA, California SOPPA, and similar statutes). TeacherAssist.ai is designed to comply with applicable state student privacy requirements. If your state has specific vendor certification or registration requirements, please contact us so we can work with you to meet those requirements.</p>
+
+      <h3>Teacher Responsibility</h3>
+      <div class="callout amber">
+        <div class="callout-title">Your Responsibility as an Educator</div>
+        <p>It is your responsibility to ensure that your use of TeacherAssist.ai complies with your school or district's FERPA policies, technology acceptable use policies, and any applicable state law. If you are unsure whether you are authorized to upload student work to a third-party AI platform, please check with your district's technology or data privacy officer before doing so.</p>
+        <p>If your district requires a signed DPA before platform use, please obtain that agreement before uploading student materials.</p>
+      </div>
+    </section>
+
+    <!-- 4. SUBPROCESSORS -->
+    <section class="policy-section" id="subprocessors">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>AI Subprocessors &amp; Third-Party Services</h2>
+      </div>
+      <p class="intro-note">When student work passes through AI grading, it is processed by third-party AI providers. Here is a full disclosure of those providers and their data commitments.</p>
+
+      <p>TeacherAssist.ai uses the following third-party services to operate the platform. Each provider has been evaluated for data security and privacy practices appropriate for an educational context.</p>
+
+      <table class="sp-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Purpose</th>
+            <th>Data Processed</th>
+            <th>Trains on Your Data?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Google Gemini</strong><br><span style="font-size:0.8rem;color:var(--muted)">Google LLC</span></td>
+            <td>AI grading of handwritten student work; reading PDFs</td>
+            <td>Uploaded PDF content during active grading session</td>
+            <td><span class="sp-badge">No — by contract</span></td>
+          </tr>
+          <tr>
+            <td><strong>Azure OpenAI (GPT-4o)</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
+            <td>Curriculum generation; differentiated instruction; data assistant</td>
+            <td>Teacher-entered prompts and assignment content</td>
+            <td><span class="sp-badge">No — by contract</span></td>
+          </tr>
+          <tr>
+            <td><strong>Microsoft Azure</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
+            <td>Cloud hosting, storage, database (Cosmos DB)</td>
+            <td>Account data, grading results, curriculum content</td>
+            <td><span class="sp-badge">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Auth0</strong><br><span style="font-size:0.8rem;color:var(--muted)">Okta, Inc.</span></td>
+            <td>User authentication and session management</td>
+            <td>Email address, login credentials (hashed)</td>
+            <td><span class="sp-badge">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Stripe</strong><br><span style="font-size:0.8rem;color:var(--muted)">Stripe, Inc.</span></td>
+            <td>Payment processing and subscription management</td>
+            <td>Billing information (credit card data never stored by us)</td>
+            <td><span class="sp-badge">No</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout blue">
+        <div class="callout-title">AI Data Use Confirmation</div>
+        <p>Both Google (Gemini API) and Microsoft (Azure OpenAI) contractually commit that data submitted via their enterprise APIs is <strong>not used to train, fine-tune, or improve their AI models</strong>. Your content and your students' work remains yours. We will update this table if we add or change AI providers.</p>
+      </div>
+    </section>
+
+    <!-- 5. STANDARDS -->
+    <section class="policy-section" id="standards">
+      <div class="section-header">
+        <span class="section-num">05</span>
         <h2>Standards Alignment</h2>
       </div>
       <p class="intro-note">Everything TeacherAssist.ai generates is designed to connect to the standards you're already teaching.</p>
 
       <h3>Supported Standards</h3>
-      <p>Our platform currently supports state standards Math, Science, Social Studies and Language Arts. Additional standards may be added and/or requested.  Here is an example:</p>
+      <p>Our platform currently supports state standards across Math, Science, Social Studies, and Language Arts. Examples include:</p>
       <ul class="policy-list">
         <li>Mathematical Practices (MP.1–MP.8) for grades K–12</li>
         <li>Grade-level domain standards for Kindergarten through Grade 8 (OA, NBT, NF, MD, G, RP, NS, EE, SP, F)</li>
@@ -586,10 +494,10 @@
       <p>While we work to maintain accurate standard mappings, AI-generated alignment suggestions should always be reviewed by you. Standards interpretations can vary by district and instructional context. TeacherAssist.ai does not warrant that generated content will satisfy any particular district, state, or federal compliance requirements.</p>
     </section>
 
-    <!-- 4. BILLING -->
+    <!-- 6. BILLING -->
     <section class="policy-section" id="billing">
       <div class="section-header">
-        <span class="section-num">04</span>
+        <span class="section-num">06</span>
         <h2>Subscriptions &amp; Billing</h2>
       </div>
       <p class="intro-note">TeacherAssist.ai offers tiered subscription plans. Here's what you need to know.</p>
@@ -598,7 +506,7 @@
       <p>We offer Free, Basic, and Professional plans. Features available to you depend on your active subscription. A full feature summary is available in your account Settings page at any time.</p>
 
       <h3>Free Trial</h3>
-      <p>New users receive a free trial period. You are required to sign-up via Stripe payments and if you do not cancel your account prior to the free trial period you will be charged. </p>
+      <p>New users receive a free trial period. You are required to sign up via Stripe payments. If you do not cancel your account prior to the end of the free trial period, you will be charged for the next billing cycle.</p>
 
       <h3>Billing Terms</h3>
       <ul class="policy-list">
@@ -611,13 +519,13 @@
       </ul>
 
       <h3>School &amp; District Purchasing</h3>
-      <p>Schools and districts interested in site licenses or volume pricing may contact us at <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>. Purchase orders and invoicing are available for qualifying institutions. </p>
+      <p>Schools and districts interested in site licenses or volume pricing may contact us at <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>. Purchase orders and invoicing are available for qualifying institutions. All fees paid by an individual teacher are fully refunded if their district subsequently signs a licensing agreement within 90 days.</p>
     </section>
 
-    <!-- 5. ACCEPTABLE USE -->
+    <!-- 7. ACCEPTABLE USE -->
     <section class="policy-section" id="acceptable-use">
       <div class="section-header">
-        <span class="section-num">05</span>
+        <span class="section-num">07</span>
         <h2>Acceptable Use</h2>
       </div>
       <p class="intro-note">TeacherAssist.ai is built for educators. Please use it responsibly.</p>
@@ -637,21 +545,21 @@
           <ul class="policy-list cross">
             <li>Sharing login credentials or allowing account sharing</li>
             <li>Reselling or commercially redistributing AI-generated content without permission</li>
-            <li>Uploading student PII (names, IDs, birthdates) into AI generation prompts</li>
-            <li>Attempting to bypass subscription restrictions or exploit vulnerabilities</li>
+            <li>Uploading student PII (full names, IDs, birthdates) unnecessarily when anonymized identifiers would suffice</li>
+            <li>Attempting to bypass subscription restrictions or exploit platform vulnerabilities</li>
             <li>Using content in ways that violate your school's academic integrity policies</li>
           </ul>
         </div>
       </div>
 
       <h3>Enforcement</h3>
-      <p>We reserve the right to suspend or terminate accounts that violate these terms. We will provide notice prior to termination except in cases of severe or repeated violations. </p>
+      <p>We reserve the right to suspend or terminate accounts that violate these terms. We will provide notice prior to termination except in cases of severe or repeated violations.</p>
     </section>
 
-    <!-- 6. YOUR RIGHTS -->
+    <!-- 8. YOUR RIGHTS -->
     <section class="policy-section" id="your-rights">
       <div class="section-header">
-        <span class="section-num">06</span>
+        <span class="section-num">08</span>
         <h2>Your Rights as a User</h2>
       </div>
       <p class="intro-note">You own your content and have control over your account.</p>
@@ -661,59 +569,96 @@
       <p>By using the platform, you grant TeacherAssist.ai a limited, non-exclusive license to store, process, and display your content solely for the purpose of providing the service to you. We will never use your content to market to third parties or display it publicly without your consent.</p>
 
       <h3>Data Access &amp; Deletion</h3>
-      <p>You may request a copy of your account data or ask us to delete your account and all associated data by contacting <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>. We will fulfill data requests within <strong>30 days</strong> in accordance with applicable privacy laws. </p>
+      <p>You may request a copy of your account data or ask us to delete your account and all associated data by contacting <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>. We will fulfill data requests within <strong>30 days</strong> in accordance with applicable privacy laws.</p>
 
       <h3>Communications &amp; Opting Out</h3>
       <p>You may opt out of non-essential communications (such as product update emails) at any time through your account Settings or by clicking the unsubscribe link in any email we send. Transactional emails (receipts, security alerts) cannot be disabled.</p>
     </section>
 
-    <!-- 7. UPDATES -->
+    <!-- 9. BREACH NOTIFICATION -->
+    <section class="policy-section" id="breach">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2>Security Incident &amp; Breach Notification</h2>
+      </div>
+      <p class="intro-note">In the unlikely event of a security incident, here is exactly what we will do and when.</p>
+
+      <p>TeacherAssist.ai maintains security monitoring across our Azure infrastructure and reviews access logs for anomalies. In the event of a confirmed or suspected security incident involving unauthorized access to user or student data, we will take the following steps:</p>
+
+      <h3>Our Breach Response Procedure</h3>
+      <ul class="policy-list">
+        <li><strong>Contain:</strong> Immediately isolate affected systems to prevent further unauthorized access</li>
+        <li><strong>Assess:</strong> Determine the scope of the incident, what data was affected, and how access occurred</li>
+        <li><strong>Notify affected users:</strong> We will notify affected account holders within <strong>72 hours</strong> of confirming a breach involving their account data</li>
+        <li><strong>Notify schools and districts:</strong> If student education records may have been affected, we will notify the relevant school or district within <strong>72 hours</strong> of confirmation, consistent with FERPA's unauthorized disclosure requirements</li>
+        <li><strong>Notify authorities:</strong> Where required by applicable state law, we will notify relevant state regulators within the legally mandated timeframe</li>
+        <li><strong>Remediate:</strong> Identify and address the root cause; implement additional controls to prevent recurrence</li>
+        <li><strong>Document:</strong> Maintain a written incident record including scope, timeline, affected data, and remediation steps</li>
+      </ul>
+
+      <div class="callout blue">
+        <div class="callout-title">Notification Contact</div>
+        <p>Breach notifications to schools and districts will be sent to the email address on file for the account holder. If your district requires notifications to be sent to a specific data privacy officer or administrator, please provide that contact information when executing your Data Processing Agreement.</p>
+      </div>
+
+      <h3>Reporting a Suspected Security Issue</h3>
+      <p>If you discover or suspect a security vulnerability in the TeacherAssist.ai platform, please report it immediately to <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a> with "Security Issue" in the subject line. We will acknowledge all security reports within 24 hours.</p>
+    </section>
+
+    <!-- 10. UPDATES -->
     <section class="policy-section" id="updates">
       <div class="section-header">
-        <span class="section-num">07</span>
+        <span class="section-num">10</span>
         <h2>Policy Updates</h2>
       </div>
       <p>We may update this policy from time to time as the platform evolves. When we make significant changes, we will notify you by email and display a notice within the platform at least <strong>14 days</strong> before changes take effect.</p>
       <p>Continued use of TeacherAssist.ai after the effective date of any update constitutes your acceptance of the revised policy. If you do not agree to updated terms, you may cancel your account before the effective date.</p>
-      <p>The most current version of this policy is always available at <a href="https://app.teacherassist.ai/policy" style="color:var(--blue)">app.teacherassist.ai/policy</a> and within your account Settings page.</p>
+      <p>The most current version of this policy is always available at <a href="https://www.teacherassist.ai/policy.html" style="color:var(--blue)">teacherassist.ai/policy.html</a> and within your account Settings page.</p>
     </section>
 
-    <!-- 8. CONTACT -->
+    <!-- 11. CONTACT -->
     <section class="policy-section" id="contact">
       <div class="section-header">
-        <span class="section-num">08</span>
+        <span class="section-num">11</span>
         <h2>Questions &amp; Contact</h2>
       </div>
-      <p>We want to hear from you. If you have questions about this policy or how TeacherAssist.ai handles your data, please reach out through any of the channels below.</p>
+      <p>We want to hear from you. If you have questions about this policy, a data processing agreement request, or how TeacherAssist.ai handles your data, please reach out through any of the channels below.</p>
 
       <div class="contact-box">
         <h3>Get in Touch</h3>
         <div class="contact-row">
           <div class="contact-icon">✉</div>
           <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value"><a href="mailto:legal@teacherassist.ai">legal@teacherassist.ai</a></div>
+            <div class="contact-label">General &amp; Privacy Questions</div>
+            <div class="contact-value"><a href="mailto:support@teacherassist.ai">support@teacherassist.ai</a></div>
           </div>
         </div>
         <div class="contact-row">
-          <div class="contact-icon">🌐</div>
+          <div class="contact-icon">📄</div>
           <div>
-            <div class="contact-label">Platform Support</div>
-            <div class="contact-value"><a href="https://app.teacherassist.ai">app.teacherassist.ai</a> → Settings → Help &amp; Support</div>
+            <div class="contact-label">DPA &amp; District Agreements</div>
+            <div class="contact-value"><a href="mailto:support@teacherassist.ai?subject=DPA Request — TeacherAssist.ai">support@teacherassist.ai</a> — subject: "DPA Request"</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">(618) 616-3885 · Monday–Friday, 9am–5pm CT</div>
           </div>
         </div>
         <div class="contact-row">
           <div class="contact-icon">⏱</div>
           <div>
             <div class="contact-label">Response Time</div>
-            <div class="contact-value">We aim to respond to all inquiries within 2 business days.</div>
+            <div class="contact-value">We aim to respond to all inquiries within 2 business days. DPA requests within 3 business days.</div>
           </div>
         </div>
         <div class="contact-row">
-          <div class="contact-icon">🏫</div>
+          <div class="contact-icon">🏢</div>
           <div>
-            <div class="contact-label">District &amp; School Inquiries</div>
-            <div class="contact-value"><a href="mailto:sales@teacherassist.ai">sales@teacherassist.ai</a> — mention "district inquiry" in subject</div>
+            <div class="contact-label">Operator</div>
+            <div class="contact-value">LTC Inc. · Illinois, USA · <a href="https://www.teacherassist.ai">teacherassist.ai</a></div>
           </div>
         </div>
       </div>
@@ -724,12 +669,12 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; Effective 2026</div>
+  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.1 &nbsp;·&nbsp; Effective January 1, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
   <div class="footer-links">
-    <a href="#">Terms of Service</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Cookie Policy</a>
-    <a href="mailto:contact@teacherassist.ai">Contact</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="policy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+    <a href="mailto:support@teacherassist.ai">support@teacherassist.ai</a>
   </div>
 </footer>
 
