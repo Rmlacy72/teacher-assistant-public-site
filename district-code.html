@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District License — Teacher Assist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
+  <script src="/app.js?v=2"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f7f8fc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 44px 40px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 4px 32px rgba(90,44,160,0.10);
+      text-align: center;
+    }
+    .brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: #5a2ca0;
+      margin-bottom: 28px;
+    }
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: 1.25rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    p {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #e4e4e4;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: 'DM Sans', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      text-align: center;
+      color: #1a1a2e;
+    }
+    input:focus {
+      outline: none;
+      border-color: #5a2ca0;
+      box-shadow: 0 0 0 3px rgba(90,44,160,0.12);
+    }
+    input::placeholder { text-transform: none; letter-spacing: 0; color: #9ca3af; }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 10px;
+      transition: opacity 0.15s;
+    }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-primary { background: #5a2ca0; color: white; }
+    .btn-primary:hover:not(:disabled) { background: #4a2285; }
+    .btn-ghost {
+      background: transparent;
+      color: #6b7280;
+      border: 1px solid #e4e4e4;
+    }
+    .btn-ghost:hover { background: #f7f8fc; color: #374151; }
+    .msg {
+      font-size: 0.82rem;
+      margin-top: 4px;
+      min-height: 20px;
+      line-height: 1.4;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      color: #9ca3af;
+      font-size: 0.78rem;
+    }
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #e4e4e4;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">TeacherAssist</div>
+  <div class="icon">🏫</div>
+  <h2>Do you have a District Code?</h2>
+  <p>If your school district has a TeacherAssist license, enter your district code below for instant full access.
+     You can also skip this step and choose an individual plan.</p>
+
+  <input
+    type="text"
+    id="codeInput"
+    placeholder="e.g. SPRINGFIELD-2026-XK9M"
+    maxlength="40"
+    onkeydown="if(event.key==='Enter') redeem()"
+  />
+
+  <button class="btn btn-primary" id="redeemBtn" onclick="redeem()">
+    Redeem District Code
+  </button>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="divider">or</div>
+
+  <button class="btn btn-ghost" onclick="skip()">
+    Skip — Choose an Individual Plan
+  </button>
+</div>
+
+<script>
+const API  = "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net";
+const NEXT = new URLSearchParams(window.location.search).get("next")
+          || "https://app.teacherassist.ai";
+
+let auth0Ready = false;
+
+async function ensureAuth0() {
+  if (!auth0Ready) {
+    await initAuth0();
+    auth0Ready = true;
+  }
+}
+
+async function getToken() {
+  await ensureAuth0();
+  return await auth0Client.getTokenSilently({
+    authorizationParams: { audience: "https://teacherassistant-api" }
+  });
+}
+
+async function redeem() {
+  const code  = document.getElementById("codeInput").value.trim().toUpperCase();
+  const msgEl = document.getElementById("msg");
+  const btn   = document.getElementById("redeemBtn");
+
+  if (!code) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Please enter a district code.";
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = "Checking…";
+  msgEl.style.color = "#5a2ca0";
+  msgEl.textContent = "Verifying code…";
+
+  try {
+    const token = await getToken();
+    const res   = await fetch(`${API}/api/district/redeem`, {
+      method:  "POST",
+      headers: {
+        "Authorization":  `Bearer ${token}`,
+        "Content-Type":   "application/json"
+      },
+      body: JSON.stringify({ code })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      msgEl.style.color = "#c0392b";
+      msgEl.textContent = data.error || "Invalid or expired code.";
+      btn.disabled    = false;
+      btn.textContent = "Redeem District Code";
+      return;
+    }
+
+    msgEl.style.color = "#1a7f4b";
+    msgEl.textContent = `✅ Enrolled in ${data.districtName}! Redirecting…`;
+
+    setTimeout(() => { window.location.href = NEXT; }, 1500);
+
+  } catch (err) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Something went wrong. Please try again.";
+    btn.disabled    = false;
+    btn.textContent = "Redeem District Code";
+  }
+}
+
+function skip() {
+  window.location.href = "https://www.teacherassist.ai/pricing.html";
+}
+
+// Auto-focus the input on load
+window.addEventListener("load", () => {
+  document.getElementById("codeInput").focus();
+});
+</script>
+</body>
+</html>
