@@ -173,14 +173,35 @@ async function redeem() {
     return;
   }
 
+  // Save the code before any redirect so we can resume after login
+  localStorage.setItem("pendingDistrictCode", code);
+
   btn.disabled    = true;
   btn.textContent = "Checking…";
   msgEl.style.color = "#5a2ca0";
   msgEl.textContent = "Verifying code…";
 
   try {
-    const token = await getToken();
-    const res   = await fetch(`${API}/api/district/redeem`, {
+    await ensureAuth0();
+
+    // Check if logged in — if not, redirect to Auth0 login
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    if (!isAuthenticated) {
+      msgEl.textContent = "Signing you in first…";
+      await auth0Client.loginWithRedirect({
+        authorizationParams: {
+          redirect_uri: window.location.href,
+          audience:     "https://teacherassistant-api"
+        }
+      });
+      return; // page reloads after login, resumePending handles the rest
+    }
+
+    const token = await auth0Client.getTokenSilently({
+      authorizationParams: { audience: "https://teacherassistant-api" }
+    });
+
+    const res = await fetch(`${API}/api/district/redeem`, {
       method:  "POST",
       headers: {
         "Authorization":  `Bearer ${token}`,
@@ -196,17 +217,19 @@ async function redeem() {
       msgEl.textContent = data.error || "Invalid or expired code.";
       btn.disabled    = false;
       btn.textContent = "Redeem District Code";
+      localStorage.removeItem("pendingDistrictCode");
       return;
     }
 
+    localStorage.removeItem("pendingDistrictCode");
     msgEl.style.color = "#1a7f4b";
     msgEl.textContent = `✅ Enrolled in ${data.districtName}! Redirecting…`;
-
     setTimeout(() => { window.location.href = NEXT; }, 1500);
 
   } catch (err) {
     msgEl.style.color = "#c0392b";
     msgEl.textContent = "Something went wrong. Please try again.";
+    console.error("Redeem error:", err);
     btn.disabled    = false;
     btn.textContent = "Redeem District Code";
   }
