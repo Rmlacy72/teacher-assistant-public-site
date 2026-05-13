@@ -854,7 +854,208 @@
     <a href="pricing.html" class="btn-cta-outline">Start free trial</a>
   </div>
 </section>
+<!-- DISTRICT SECTION — paste between </section> (CTA) and <footer> -->
+<section style="background: white; padding: 80px 5%; border-top: 1px solid var(--border);">
+  <div style="max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
 
+    <!-- LEFT: Copy -->
+    <div class="reveal">
+      <div class="section-label">For School Districts</div>
+      <h2 class="section-title" style="margin-bottom: 16px;">Bring TeacherAssist<br>to your whole district.</h2>
+      <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 24px;">
+        District licenses give every teacher in your building full access — no individual subscriptions, no credit cards, no Stripe. One annual agreement covers your entire staff.
+      </p>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted);">
+          <span style="background: var(--green-lt); color: var(--green); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span>
+          <span><strong style="color: var(--ink);">Unlimited teacher seats</strong> — every teacher in your district, covered</span>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted);">
+          <span style="background: var(--green-lt); color: var(--green); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span>
+          <span><strong style="color: var(--ink);">PO & invoice friendly</strong> — no credit cards required, works with your procurement process</span>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted);">
+          <span style="background: var(--green-lt); color: var(--green); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span>
+          <span><strong style="color: var(--ink);">Simple redemption</strong> — teachers sign up with Google and enter a district code, that's it</span>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted);">
+          <span style="background: var(--green-lt); color: var(--green); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span>
+          <span><strong style="color: var(--ink);">Data processing agreement</strong> — available on request for FERPA compliance</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="reveal">
+      <div style="background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 36px 32px;">
+        <div style="font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 6px;">Request district pricing</div>
+        <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; line-height: 1.55;">We'll respond within one business day with pricing and next steps.</p>
+
+        <div id="districtFormWrap">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Your name</label>
+              <input type="text" id="dName" placeholder="Jane Smith"
+                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
+                       background: white; outline: none; transition: border-color 0.15s;"
+                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
+            </div>
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Your email</label>
+              <input type="email" id="dEmail" placeholder="jsmith@springfieldschools.org"
+                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
+                       background: white; outline: none; transition: border-color 0.15s;"
+                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
+            </div>
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">District name</label>
+              <input type="text" id="dDistrict" placeholder="Springfield R-XII School District"
+                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
+                       background: white; outline: none; transition: border-color 0.15s;"
+                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
+            </div>
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Approximate number of teachers</label>
+              <select id="dSize"
+                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
+                       background: white; outline: none; cursor: pointer; transition: border-color 0.15s;"
+                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'">
+                <option value="">Select a range…</option>
+                <option value="1-10">1 – 10 teachers</option>
+                <option value="11-25">11 – 25 teachers</option>
+                <option value="26-50">26 – 50 teachers</option>
+                <option value="51-100">51 – 100 teachers</option>
+                <option value="101-250">101 – 250 teachers</option>
+                <option value="250+">250+ teachers</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Anything else? <span style="font-weight: 400; color: var(--muted);">(optional)</span></label>
+              <textarea id="dNotes" placeholder="Timeline, specific questions, subjects taught…" rows="3"
+                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
+                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
+                       background: white; outline: none; resize: vertical; transition: border-color 0.15s;"
+                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'"></textarea>
+            </div>
+
+            <div id="dMsg" style="font-size: 0.8rem; min-height: 18px;"></div>
+
+            <button onclick="submitDistrictForm()"
+              id="dSubmitBtn"
+              style="width: 100%; padding: 12px; border-radius: 8px; border: none;
+                     background: #5a2ca0; color: white; font-size: 0.92rem; font-weight: 700;
+                     font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
+                     transition: background 0.15s, transform 0.15s;
+                     box-shadow: 0 4px 14px rgba(90,44,160,0.25);"
+              onmouseover="this.style.background='#4a2285'; this.style.transform='translateY(-1px)'"
+              onmouseout="this.style.background='#5a2ca0'; this.style.transform='translateY(0)'">
+              Request Pricing →
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Success state (hidden until submit) -->
+        <div id="districtFormSuccess" style="display: none; text-align: center; padding: 16px 0;">
+          <div style="font-size: 2.2rem; margin-bottom: 12px;">🏫</div>
+          <div style="font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 8px;">Request received!</div>
+          <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Thanks — we'll be in touch within one business day with pricing and next steps for your district.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Responsive: stack on mobile -->
+  <style>
+    @media (max-width: 860px) {
+      #districtSection { grid-template-columns: 1fr !important; gap: 32px !important; }
+    }
+  </style>
+</section>
+
+<script>
+async function submitDistrictForm() {
+  const name     = document.getElementById("dName").value.trim();
+  const email    = document.getElementById("dEmail").value.trim();
+  const district = document.getElementById("dDistrict").value.trim();
+  const size     = document.getElementById("dSize").value;
+  const notes    = document.getElementById("dNotes").value.trim();
+  const msgEl    = document.getElementById("dMsg");
+  const btn      = document.getElementById("dSubmitBtn");
+
+  // Basic validation
+  if (!name) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Please enter your name.";
+    return;
+  }
+  if (!email || !email.includes("@")) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Please enter a valid email address.";
+    return;
+  }
+  if (!district) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Please enter your district name.";
+    return;
+  }
+  if (!size) {
+    msgEl.style.color = "#c0392b";
+    msgEl.textContent = "Please select your approximate teacher count.";
+    return;
+  }
+
+  // Disable button while sending
+  btn.disabled    = true;
+  btn.textContent = "Sending…";
+  btn.style.opacity = "0.7";
+  msgEl.textContent = "";
+
+  try {
+    // Send to your backend which emails you
+    const res = await fetch(
+      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/district/request-pricing",
+      {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ name, email, district, size, notes })
+      }
+    );
+
+    if (res.ok) {
+      // Show success state
+      document.getElementById("districtFormWrap").style.display    = "none";
+      document.getElementById("districtFormSuccess").style.display = "block";
+    } else {
+      throw new Error("Server error");
+    }
+
+  } catch (err) {
+    // Fallback — open mailto if API fails
+    const subject = encodeURIComponent(`District Pricing Request — ${district}`);
+    const body    = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nDistrict: ${district}\nTeacher count: ${size}\nNotes: ${notes || "None"}`
+    );
+    window.location.href = `mailto:ltc-teacherapp@outlook.com?subject=${subject}&body=${body}`;
+
+    // Still show success to the user
+    document.getElementById("districtFormWrap").style.display    = "none";
+    document.getElementById("districtFormSuccess").style.display = "block";
+  }
+}
+</script>
+<!-- END DISTRICT SECTION -->
 <!-- FOOTER -->
 <footer>
   <a class="footer-brand" href="/">✏️ TeacherAssist.ai</a>
