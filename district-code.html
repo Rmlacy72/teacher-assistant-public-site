@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
-  <script src="/app.js?v=2"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -34,20 +33,11 @@
       color: #5a2ca0;
       margin-bottom: 28px;
     }
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
-    }
-    h2 {
-      font-size: 1.25rem;
-      color: #1a1a2e;
-      margin-bottom: 8px;
-    }
+    .icon { font-size: 3rem; margin-bottom: 12px; }
+    h2 { font-size: 1.25rem; color: #1a1a2e; margin-bottom: 8px; }
     p {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-bottom: 28px;
-      line-height: 1.6;
+      font-size: 0.85rem; color: #6b7280;
+      margin-bottom: 28px; line-height: 1.6;
     }
     input {
       width: 100%;
@@ -96,19 +86,13 @@
       line-height: 1.4;
     }
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-      color: #9ca3af;
-      font-size: 0.78rem;
+      display: flex; align-items: center;
+      gap: 10px; margin: 20px 0;
+      color: #9ca3af; font-size: 0.78rem;
     }
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: #e4e4e4;
+    .divider::before, .divider::after {
+      content: ""; flex: 1;
+      height: 1px; background: #e4e4e4;
     }
   </style>
 </head>
@@ -117,8 +101,8 @@
   <div class="brand">TeacherAssist</div>
   <div class="icon">🏫</div>
   <h2>Do you have a District Code?</h2>
-  <p>If your school district has a TeacherAssist license, enter your district code below for instant full access.
-     You can also skip this step and choose an individual plan.</p>
+  <p>If your school district has a TeacherAssist license, enter your district code below
+     for instant full access. You can also skip this step and choose an individual plan.</p>
 
   <input
     type="text"
@@ -146,66 +130,86 @@ const API  = "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.cana
 const NEXT = new URLSearchParams(window.location.search).get("next")
           || "https://app.teacherassist.ai";
 
-let auth0Ready = false;
+let auth0Client = null;
 
+/* ── INIT AUTH0 ── */
 async function ensureAuth0() {
-  if (!auth0Ready) {
-    await initAuth0();
-    auth0Ready = true;
-  }
-}
-
-async function getToken() {
-  await ensureAuth0();
-  return await auth0Client.getTokenSilently({
-    authorizationParams: { audience: "https://teacherassistant-api" }
+  if (auth0Client) return;
+  auth0Client = await auth0.createAuth0Client({
+    domain:   "dev-28g3vd7ga8x6etvt.us.auth0.com",
+    clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
+    authorizationParams: {
+      redirect_uri: window.location.href,
+      audience:     "https://teacherassistant-api"
+    }
   });
 }
 
-async function redeem() {
-  const code  = document.getElementById("codeInput").value.trim().toUpperCase();
-  const msgEl = document.getElementById("msg");
+/* ── HELPERS ── */
+function setMsg(text, color) {
+  const el = document.getElementById("msg");
+  el.style.color = color;
+  el.textContent = text;
+}
+
+function resetBtn() {
   const btn   = document.getElementById("redeemBtn");
+  btn.disabled    = false;
+  btn.textContent = "Redeem District Code";
+}
+
+/* ── MAIN REDEEM FUNCTION ── */
+async function redeem() {
+  const code = document.getElementById("codeInput").value.trim().toUpperCase();
+  const btn  = document.getElementById("redeemBtn");
 
   if (!code) {
-    msgEl.style.color = "#c0392b";
-    msgEl.textContent = "Please enter a district code.";
+    setMsg("Please enter a district code.", "#c0392b");
     return;
   }
 
-  // Save the code before any redirect so we can resume after login
+  // Save code before any redirect so we can resume after Auth0 login
   localStorage.setItem("pendingDistrictCode", code);
 
   btn.disabled    = true;
   btn.textContent = "Checking…";
-  msgEl.style.color = "#5a2ca0";
-  msgEl.textContent = "Verifying code…";
+  setMsg("Verifying…", "#5a2ca0");
 
   try {
     await ensureAuth0();
 
-    // Check if logged in — if not, redirect to Auth0 login
+    // ── Step 1: Ensure user is logged in ──
     const isAuthenticated = await auth0Client.isAuthenticated();
     if (!isAuthenticated) {
-      msgEl.textContent = "Signing you in first…";
+      setMsg("Signing you in first…", "#5a2ca0");
       await auth0Client.loginWithRedirect({
         authorizationParams: {
           redirect_uri: window.location.href,
           audience:     "https://teacherassistant-api"
         }
       });
-      return; // page reloads after login, resumePending handles the rest
+      return; // Page reloads after Auth0 — window.load handler resumes
     }
 
+    // ── Step 2: Get token ──
     const token = await auth0Client.getTokenSilently({
       authorizationParams: { audience: "https://teacherassistant-api" }
     });
 
+    // ── Step 3: Ensure teacher profile exists in Cosmos ──
+    // /api/me creates the profile on first call for brand new teachers
+    setMsg("Setting up your account…", "#5a2ca0");
+    await fetch(`${API}/api/me`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+
+    // ── Step 4: Redeem the district code ──
+    setMsg("Redeeming code…", "#5a2ca0");
     const res = await fetch(`${API}/api/district/redeem`, {
       method:  "POST",
       headers: {
-        "Authorization":  `Bearer ${token}`,
-        "Content-Type":   "application/json"
+        "Authorization": `Bearer ${token}`,
+        "Content-Type":  "application/json"
       },
       body: JSON.stringify({ code })
     });
@@ -213,34 +217,56 @@ async function redeem() {
     const data = await res.json();
 
     if (!res.ok) {
-      msgEl.style.color = "#c0392b";
-      msgEl.textContent = data.error || "Invalid or expired code.";
-      btn.disabled    = false;
-      btn.textContent = "Redeem District Code";
+      setMsg(data.error || "Invalid or expired code.", "#c0392b");
+      resetBtn();
       localStorage.removeItem("pendingDistrictCode");
       return;
     }
 
+    // ── Step 5: Success — redirect to dashboard ──
     localStorage.removeItem("pendingDistrictCode");
-    msgEl.style.color = "#1a7f4b";
-    msgEl.textContent = `✅ Enrolled in ${data.districtName}! Redirecting…`;
+    setMsg(`✅ Enrolled in ${data.districtName}! Redirecting…`, "#1a7f4b");
     setTimeout(() => { window.location.href = NEXT; }, 1500);
 
   } catch (err) {
-    msgEl.style.color = "#c0392b";
-    msgEl.textContent = "Something went wrong. Please try again.";
     console.error("Redeem error:", err);
-    btn.disabled    = false;
-    btn.textContent = "Redeem District Code";
+    setMsg("Something went wrong. Please try again.", "#c0392b");
+    resetBtn();
   }
 }
 
+/* ── SKIP ── */
 function skip() {
+  localStorage.removeItem("pendingDistrictCode");
   window.location.href = "https://www.teacherassist.ai/pricing.html";
 }
 
-// Auto-focus the input on load
-window.addEventListener("load", () => {
+/* ── ON PAGE LOAD ── */
+window.addEventListener("load", async () => {
+  try {
+    await ensureAuth0();
+
+    // Handle Auth0 redirect callback (after login)
+    if (window.location.search.includes("code=") &&
+        window.location.search.includes("state=")) {
+      await auth0Client.handleRedirectCallback();
+      // Clean the Auth0 params from the URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // Resume pending district code redemption after Auth0 login redirect
+    const pendingCode = localStorage.getItem("pendingDistrictCode");
+    if (pendingCode) {
+      document.getElementById("codeInput").value = pendingCode;
+      await redeem();
+      return;
+    }
+
+  } catch (err) {
+    console.error("Page load error:", err);
+  }
+
+  // Focus the input for fresh manual entry
   document.getElementById("codeInput").focus();
 });
 </script>
