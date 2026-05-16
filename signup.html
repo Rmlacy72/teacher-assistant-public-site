@@ -3,139 +3,1006 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Complete Your Profile – Teacher Assistant</title>
-
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Auth0 SDK -->
+  <title>Get Started — TeacherAssist.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <script src="https://cdn.auth0.com/js/auth0-spa-js/2.5/auth0-spa-js.production.js"></script>
 
-  <!-- Shared Auth0 helper -->
-  <script src="/app.js?v=3"></script>
-
   <style>
-    .onboarding-container {
-      max-width: 480px;
-      margin: 80px auto;
-      padding: 40px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    :root {
+      --purple:     #5a2ca0;
+      --purple-lt:  #f0ebff;
+      --purple-mid: #7c4dbe;
+      --green:      #1a7f4b;
+      --green-bg:   #edf7f2;
+      --red:        #c0392b;
+      --red-bg:     #fdf2f1;
+      --border:     #e4e4e4;
+      --text:       #1a1a2e;
+      --muted:      #6b7280;
+      --bg:         #f7f8fc;
+      --card:       #ffffff;
+      --amber:      #d97706;
+      --amber-bg:   #fef3c7;
     }
-    .onboarding-container h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── LEFT PANEL ── */
+    .left-panel {
+      background: var(--purple);
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .left-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 32px 0;
+    }
+
+    .left-content h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .left-content h1 em {
+      font-style: italic;
+      color: #c9b0f5;
+    }
+
+    .left-content p {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 11px;
+      line-height: 1.5;
+    }
+
+    .feature-list li .fcheck {
+      width: 20px; height: 20px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+      color: white;
+    }
+
+    .left-footer {
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel {
+      padding: 52px 60px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* ── LOADING STATE ── */
+    #loadingState {
       text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
     }
-    .onboarding-container p {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #555;
+
+    .spinner-lg {
+      width: 36px; height: 36px;
+      border: 3px solid #e0d8f0;
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
     }
-    .form-group {
+
+    /* ── STEP PROGRESS ── */
+    .step-progress {
+      display: flex;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .sp-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--muted);
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .sp-dot {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 700;
+      transition: all 0.25s;
+    }
+
+    .sp-item.active { color: var(--purple); }
+    .sp-item.active .sp-dot { border-color: var(--purple); background: var(--purple); color: white; }
+    .sp-item.done { color: var(--green); }
+    .sp-item.done .sp-dot { border-color: var(--green); background: var(--green); color: white; }
+
+    .sp-line {
+      flex: 1; height: 2px;
+      background: var(--border);
+      margin: 0 8px;
+      transition: background 0.3s;
+    }
+    .sp-line.done { background: var(--green); }
+
+    /* ── STEP PANELS ── */
+    .step-panel { display: none; }
+    .step-panel.active {
+      display: block;
+      animation: fadeUp 0.28s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .step-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--purple);
+      margin-bottom: 5px;
+    }
+
+    .step-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.85rem;
+      color: var(--text);
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .step-subtitle {
+      font-size: 0.87rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    /* ── BANNERS ── */
+    .welcome-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green-bg);
+      border: 1px solid #a7f3cf;
+      border-radius: 9px;
+      padding: 11px 14px;
+      margin-bottom: 22px;
+      font-size: 0.84rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .district-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-lt);
+      color: var(--purple);
+      border-radius: 20px;
+      padding: 4px 13px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .subscribed-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amber-bg);
+      border: 1px solid #fde68a;
+      border-radius: 9px;
+      padding: 11px 14px;
+      margin-bottom: 22px;
+      font-size: 0.84rem;
+      color: var(--amber);
+      font-weight: 500;
+    }
+
+    /* ── FORM ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.89rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: white;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(90,44,160,0.08);
+    }
+
+    .form-input.readonly {
+      background: var(--purple-lt);
+      border-color: #c9b0f5;
+      color: var(--purple);
+      font-weight: 500;
+      cursor: default;
+    }
+
+    /* ── SUBJECT GRID ── */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
       margin-bottom: 20px;
     }
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-    .submit-btn {
-      width: 100%;
-      padding: 14px;
-      background: #2a7cff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 18px;
+
+    .subject-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 10px;
       cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .subject-card:hover { border-color: var(--purple); background: var(--purple-lt); }
+    .subject-card.selected { border-color: var(--purple); background: var(--purple-lt); }
+    .subject-card .s-icon { font-size: 1.3rem; margin-bottom: 5px; }
+    .subject-card .s-name { font-weight: 600; font-size: 0.82rem; color: var(--text); }
+    .subject-card.selected .s-name { color: var(--purple); }
+
+    /* ── GRADE GRID ── */
+    .grade-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .grade-btn {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 6px;
+      cursor: pointer;
+      background: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .grade-btn:hover { border-color: var(--purple); color: var(--purple); }
+    .grade-btn.selected { border-color: var(--purple); background: var(--purple); color: white; }
+
+    /* ── STANDARDS LIST ── */
+    .standards-list { margin-bottom: 16px; }
+
+    .std-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .std-option:hover { border-color: var(--purple); }
+    .std-option.selected { border-color: var(--purple); background: var(--purple-lt); }
+
+    .std-option input[type="radio"] {
+      width: 16px; height: 16px;
+      accent-color: var(--purple);
+      flex-shrink: 0; margin-top: 2px; cursor: pointer;
+    }
+
+    .std-name { font-weight: 600; font-size: 0.87rem; color: var(--text); }
+    .std-meta { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+    .std-option.selected .std-name { color: var(--purple); }
+
+    .standards-loading {
+      text-align: center;
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .no-standards-msg {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.5;
+      display: none;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 11px 22px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: white;
+      width: 100%;
+      justify-content: center;
+      padding: 13px;
+      font-size: 0.93rem;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: #4a2285; }
+    .btn-primary:disabled { background: #9b8cc4; cursor: not-allowed; }
+
+    .btn-ghost {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      padding: 4px 0;
+    }
+
+    .btn-ghost:hover { color: var(--purple); }
+
+    .step-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-top: 10px;
     }
-    .submit-btn:hover {
-      background: #1f63d6;
+
+    /* ── ERROR ── */
+    .error-msg {
+      background: var(--red-bg);
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ── SPINNER ── */
+    .spinner {
+      display: inline-block;
+      width: 15px; height: 15px;
+      border: 2px solid #e0d8f0;
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 36px 24px; justify-content: flex-start; }
+      .subject-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .grade-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
-
 <body>
-  <div class="onboarding-container">
-    <h1>Welcome!</h1>
-    <p>Let’s set up your teacher profile.</p>
 
-    <form id="signupForm" onsubmit="event.preventDefault(); saveProfile();">
-      <div class="form-group">
-        <label for="firstName">First Name *</label>
-        <input type="text" id="firstName" required />
-      </div>
+<div class="page">
 
-      <div class="form-group">
-        <label for="lastName">Last Name *</label>
-        <input type="text" id="lastName" required />
-      </div>
+  <!-- ── LEFT PANEL ── -->
+  <div class="left-panel">
+    <a class="brand" href="https://www.teacherassist.ai">✏️ TeacherAssist.ai</a>
 
-      <div class="form-group">
-        <label for="school">School *</label>
-        <input type="text" id="school" required />
-      </div>
+    <div class="left-content">
+      <h1>Your classroom,<br /><em>supercharged.</em></h1>
+      <p>Set up your profile once and get AI-powered grading, curriculum generation, and standards-aligned recommendations — all tailored to your class.</p>
+      <ul class="feature-list">
+        <li><span class="fcheck">✓</span>AI grading aligned to your exact standards</li>
+        <li><span class="fcheck">✓</span>Reads handwritten student PDFs directly</li>
+        <li><span class="fcheck">✓</span>Differentiated instruction recommendations</li>
+        <li><span class="fcheck">✓</span>Curriculum wizard with verified sources</li>
+        <li><span class="fcheck">✓</span>5-day free trial, cancel anytime</li>
+      </ul>
+    </div>
 
-      <button class="submit-btn" type="submit">Save & Continue</button>
-    </form>
+    <div class="left-footer">© 2026 TeacherAssist.ai · All rights reserved</div>
   </div>
 
-  <script>
-  async function saveProfile() {
-    await initAuth0();
+  <!-- ── RIGHT PANEL ── -->
+  <div class="right-panel">
 
-    const accessToken = await auth0Client.getTokenSilently({
+    <!-- Loading state shown while Auth0 initializes -->
+    <div id="loadingState">
+      <div class="spinner-lg"></div>
+      <p>Setting up your account…</p>
+    </div>
+
+    <!-- Main content (hidden until auth ready) -->
+    <div id="mainContent" style="display:none;">
+
+      <!-- Step progress -->
+      <div class="step-progress">
+        <div class="sp-item active" id="sp-1"><div class="sp-dot">1</div><span>Your Info</span></div>
+        <div class="sp-line" id="sp-line-1"></div>
+        <div class="sp-item" id="sp-2"><div class="sp-dot">2</div><span>Subject</span></div>
+        <div class="sp-line" id="sp-line-2"></div>
+        <div class="sp-item" id="sp-3"><div class="sp-dot">3</div><span>Standards</span></div>
+      </div>
+
+      <div id="errorMsg" class="error-msg"></div>
+
+      <!-- ══ STEP 1: Name + School ══ -->
+      <div id="step-1" class="step-panel active">
+
+        <div id="welcomeBanner" class="welcome-banner" style="display:none;">
+          <span>🎉</span>
+          <span id="welcomeText">Welcome! Let's finish setting up your profile.</span>
+        </div>
+
+        <div id="subscribedBanner" class="subscribed-banner" style="display:none;">
+          <span>🎁</span>
+          <span>Your subscription is active — let's complete your teacher profile to get started.</span>
+        </div>
+
+        <div id="districtBanner" class="district-banner" style="display:none;">
+          🏫 <span id="districtBannerText">District Access</span>
+        </div>
+
+        <div class="step-eyebrow">Step 1 of 3</div>
+        <h2 class="step-title">Tell us about yourself</h2>
+        <p class="step-subtitle">This personalizes your experience and displays your name in the app.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name *</label>
+            <input type="text" class="form-input" id="firstName" placeholder="Jane" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name *</label>
+            <input type="text" class="form-input" id="lastName" placeholder="Smith" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">School Name *</label>
+          <input type="text" class="form-input" id="school" placeholder="Lincoln Middle School" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email (from Google)</label>
+          <input type="text" class="form-input readonly" id="emailDisplay" readonly />
+        </div>
+
+        <div class="step-footer">
+          <span></span>
+          <button class="btn btn-primary" onclick="goToStep2()">
+            Continue → Subject &amp; Grade
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2: Subject + Grade Band ══ -->
+      <div id="step-2" class="step-panel">
+        <div class="step-eyebrow">Step 2 of 3</div>
+        <h2 class="step-title">What do you teach?</h2>
+        <p class="step-subtitle">We'll load the right standards and tailor AI suggestions for your classroom.</p>
+
+        <label class="form-label" style="margin-bottom:9px;">Subject *</label>
+        <div class="subject-grid">
+          <div class="subject-card" data-val="Math" onclick="selectSubject(this)">
+            <div class="s-icon">📐</div>
+            <div class="s-name">Math</div>
+          </div>
+          <div class="subject-card" data-val="Social Studies" onclick="selectSubject(this)">
+            <div class="s-icon">🌍</div>
+            <div class="s-name">Social Studies</div>
+          </div>
+          <div class="subject-card" data-val="Science" onclick="selectSubject(this)">
+            <div class="s-icon">🔬</div>
+            <div class="s-name">Science</div>
+          </div>
+          <div class="subject-card" data-val="English" onclick="selectSubject(this)">
+            <div class="s-icon">📚</div>
+            <div class="s-name">English / ELA</div>
+          </div>
+          <div class="subject-card" data-val="History" onclick="selectSubject(this)">
+            <div class="s-icon">🏛️</div>
+            <div class="s-name">History</div>
+          </div>
+          <div class="subject-card" data-val="Other" onclick="selectSubject(this)">
+            <div class="s-icon">✏️</div>
+            <div class="s-name">Other</div>
+          </div>
+        </div>
+
+        <label class="form-label" style="margin-bottom:9px;">Grade Band *</label>
+        <div class="grade-grid">
+          <button class="grade-btn" data-val="k-2"  onclick="selectGrade(this)">K – 2</button>
+          <button class="grade-btn" data-val="3-5"  onclick="selectGrade(this)">3 – 5</button>
+          <button class="grade-btn" data-val="6-8"  onclick="selectGrade(this)">6 – 8</button>
+          <button class="grade-btn" data-val="9-12" onclick="selectGrade(this)">9 – 12</button>
+        </div>
+
+        <div class="step-footer">
+          <button class="btn-ghost" onclick="goToStep(1)">← Back</button>
+          <button class="btn btn-primary" style="width:auto; padding:11px 24px;"
+                  onclick="goToStep3()">
+            Continue → Standards
+          </button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3: Standards ══ -->
+      <div id="step-3" class="step-panel">
+        <div class="step-eyebrow">Step 3 of 3</div>
+        <h2 class="step-title">Choose your standards</h2>
+        <p class="step-subtitle">Select the standards set that matches your state and curriculum. You can change this anytime in Settings.</p>
+
+        <div id="standardsLoading" class="standards-loading" style="display:none;">
+          <span class="spinner"></span> Loading available standards…
+        </div>
+
+        <div id="standardsList" class="standards-list"></div>
+
+        <div id="noStandardsMsg" class="no-standards-msg">
+          No standards sets found for your subject and grade band yet — we're adding more regularly.
+          You can skip this for now and set it in Settings once you're in the app.
+        </div>
+
+        <div class="step-footer">
+          <button class="btn-ghost" onclick="goToStep(2)">← Back</button>
+          <button class="btn btn-primary" style="width:auto; padding:11px 24px;"
+                  id="finishBtn" onclick="saveProfile()" disabled>
+            Finish Setup →
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /mainContent -->
+  </div><!-- /right-panel -->
+</div><!-- /page -->
+
+<script>
+const API = "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net";
+
+let auth0Client = null;
+let currentUser = null;
+
+// Profile data collected across steps
+const profile = {
+  firstName:             "",
+  lastName:              "",
+  school:                "",
+  subject:               "",
+  gradeBand:             "",
+  primaryStandardsSetId: "",
+  districtCode:          "",
+  districtName:          ""
+};
+
+/* ════════════════════════════════════════
+   AUTH0 INIT
+════════════════════════════════════════ */
+async function initAuth0() {
+  auth0Client = await auth0.createAuth0Client({
+    domain:   "dev-28g3vd7ga8x6etvt.us.auth0.com",
+    clientId: "vNYjFXq3DE4YKtUaekyKVPpCZqK4DNVa",
+    authorizationParams: {
+      redirect_uri: "https://www.teacherassist.ai/signup.html",
+      audience:     "https://teacherassistant-api"
+    }
+  });
+
+  // Handle Auth0 callback after Google login
+  if (window.location.search.includes("code=") &&
+      window.location.search.includes("state=")) {
+    await auth0Client.handleRedirectCallback();
+    window.history.replaceState({}, document.title, "/signup.html");
+  }
+
+  // If not authenticated, trigger Google login
+  const isAuthenticated = await auth0Client.isAuthenticated();
+  if (!isAuthenticated) {
+    await auth0Client.loginWithRedirect({
       authorizationParams: {
-        audience: "https://teacherassistant-api"
+        redirect_uri: "https://www.teacherassist.ai/signup.html",
+        audience:     "https://teacherassistant-api"
       }
     });
+    return;
+  }
 
-    // ⭐ STEP 1 — Ensure the teacher record exists - force change
-    await fetch(
-      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/me",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
-    );
+  // Get Auth0 user info
+  currentUser = await auth0Client.getUser();
+  const token = await auth0Client.getTokenSilently({
+    authorizationParams: { audience: "https://teacherassistant-api" }
+  });
 
-    // ⭐ STEP 2 — Now save the profile (this will succeed because the teacher exists)
-    const body = {
-      firstName: document.getElementById("firstName").value,
-      lastName: document.getElementById("lastName").value,
-      school: document.getElementById("school").value
-    };
+  // Ensure teacher record exists in Cosmos (creates it on first login)
+  let teacher = null;
+  try {
+    const res = await fetch(`${API}/api/me`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    teacher = await res.json();
+  } catch (e) {
+    console.warn("Could not load teacher profile:", e.message);
+  }
+
+  // If profile is already fully complete, go straight to the app
+  if (teacher?.profileComplete) {
+    window.location.href = "https://app.teacherassist.ai";
+    return;
+  }
+
+  // Pre-fill any fields already saved (e.g. partial profile from old signup)
+  if (teacher?.firstName) document.getElementById("firstName").value = teacher.firstName;
+  if (teacher?.lastName)  document.getElementById("lastName").value  = teacher.lastName;
+  if (teacher?.school)    document.getElementById("school").value    = teacher.school;
+
+  // Show email (read-only, from Google)
+  document.getElementById("emailDisplay").value = currentUser.email || "";
+
+  // Welcome banner with Google display name
+  const displayName = currentUser.given_name || currentUser.name || "there";
+  document.getElementById("welcomeBanner").style.display = "flex";
+  document.getElementById("welcomeText").textContent =
+    `Welcome, ${displayName}! Let's finish setting up your profile.`;
+
+  // District code banner — set by district-code.html before redirecting here
+  const districtCode = sessionStorage.getItem("districtCode");
+  const districtName = sessionStorage.getItem("districtName");
+  if (districtCode) {
+    profile.districtCode = districtCode;
+    profile.districtName = districtName || "";
+    document.getElementById("districtBanner").style.display = "inline-flex";
+    document.getElementById("districtBannerText").textContent =
+      districtName ? `District Access: ${districtName}` : "District Access";
+  }
+
+  // Stripe subscription banner — set when coming from Stripe success URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("subscribed") === "true") {
+    document.getElementById("subscribedBanner").style.display = "flex";
+    // Clear subscribed param from URL cleanly
+    window.history.replaceState({}, document.title, "/signup.html");
+  }
+
+  // Show the wizard
+  document.getElementById("loadingState").style.display  = "none";
+  document.getElementById("mainContent").style.display   = "block";
+}
+
+window.addEventListener("load", () => {
+  initAuth0().catch(err => {
+    console.error("Auth0 init error:", err);
+    document.getElementById("loadingState").innerHTML =
+      `<p style="color:var(--red);">Something went wrong loading your session. 
+       <a href="/signup.html" style="color:var(--purple);">Try again →</a></p>`;
+  });
+});
+
+/* ════════════════════════════════════════
+   STEP NAVIGATION
+════════════════════════════════════════ */
+function goToStep(n) {
+  document.querySelectorAll(".step-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById(`step-${n}`).classList.add("active");
+  hideError();
+
+  // Update progress dots
+  for (let i = 1; i <= 3; i++) {
+    const dot  = document.getElementById(`sp-${i}`);
+    const line = document.getElementById(`sp-line-${i}`);
+    dot.classList.remove("active", "done");
+    if (line) line.classList.remove("done");
+    if (i < n)  { dot.classList.add("done");   if (line) line.classList.add("done"); }
+    if (i === n) { dot.classList.add("active"); }
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ════════════════════════════════════════
+   STEP 1 → 2
+════════════════════════════════════════ */
+function goToStep2() {
+  const firstName = document.getElementById("firstName").value.trim();
+  const lastName  = document.getElementById("lastName").value.trim();
+  const school    = document.getElementById("school").value.trim();
+
+  if (!firstName) { showError("Please enter your first name."); return; }
+  if (!lastName)  { showError("Please enter your last name.");  return; }
+  if (!school)    { showError("Please enter your school name."); return; }
+
+  profile.firstName = firstName;
+  profile.lastName  = lastName;
+  profile.school    = school;
+
+  goToStep(2);
+}
+
+/* ════════════════════════════════════════
+   SUBJECT + GRADE SELECTION
+════════════════════════════════════════ */
+function selectSubject(el) {
+  document.querySelectorAll(".subject-card").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  profile.subject = el.dataset.val;
+}
+
+function selectGrade(el) {
+  document.querySelectorAll(".grade-btn").forEach(b => b.classList.remove("selected"));
+  el.classList.add("selected");
+  profile.gradeBand = el.dataset.val;
+}
+
+/* ════════════════════════════════════════
+   STEP 2 → 3
+════════════════════════════════════════ */
+async function goToStep3() {
+  if (!profile.subject)   { showError("Please select a subject."); return; }
+  if (!profile.gradeBand) { showError("Please select a grade band."); return; }
+
+  goToStep(3);
+  await loadStandardsOptions();
+}
+
+/* ════════════════════════════════════════
+   LOAD STANDARDS FROM API
+════════════════════════════════════════ */
+async function loadStandardsOptions() {
+  const loadingEl  = document.getElementById("standardsLoading");
+  const listEl     = document.getElementById("standardsList");
+  const noMsg      = document.getElementById("noStandardsMsg");
+  const finishBtn  = document.getElementById("finishBtn");
+
+  loadingEl.style.display = "block";
+  listEl.innerHTML        = "";
+  noMsg.style.display     = "none";
+  finishBtn.disabled      = true;
+  finishBtn.textContent   = "Finish Setup →";
+
+  try {
+    const token = await auth0Client.getTokenSilently({
+      authorizationParams: { audience: "https://teacherassistant-api" }
+    });
 
     const res = await fetch(
-      "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net/api/teacher-profile",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`
-        },
-        body: JSON.stringify(body)
-      }
+      `${API}/api/standards/available?subject=${encodeURIComponent(profile.subject)}&gradeBand=${encodeURIComponent(profile.gradeBand)}`,
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    if (res.ok) {
-      window.location.href = "https://app.teacherassist.ai";
-    } else {
-      alert("There was a problem saving your profile.");
-    }
-  }
-</script>
+    const data = await res.json();
+    loadingEl.style.display = "none";
 
+    const sets = data.standardsSets || [];
+
+    if (sets.length === 0) {
+      noMsg.style.display   = "block";
+      finishBtn.disabled    = false;
+      finishBtn.textContent = "Finish Setup (set standards later)";
+      return;
+    }
+
+    // Render radio options
+    sets.forEach((s, i) => {
+      const opt = document.createElement("div");
+      opt.className  = `std-option${i === 0 ? " selected" : ""}`;
+      opt.dataset.id = s.id;
+      opt.innerHTML  = `
+        <input type="radio" name="stdSet" value="${s.id}" ${i === 0 ? "checked" : ""}
+               onchange="selectStandardsSet('${s.id}')" />
+        <div>
+          <div class="std-name">${s.displayName || s.id}</div>
+          <div class="std-meta">
+            ${s.state || ""}${s.state ? " · " : ""}${s.subject || ""} · 
+            Grades ${s.gradeBand || ""} · 
+            ${(s.standards || []).length} standards
+          </div>
+        </div>
+      `;
+      opt.addEventListener("click", () => {
+        opt.querySelector("input").checked = true;
+        selectStandardsSet(s.id);
+      });
+      listEl.appendChild(opt);
+    });
+
+    // Auto-select first
+    selectStandardsSet(sets[0].id);
+
+  } catch (err) {
+    loadingEl.style.display = "none";
+    noMsg.style.display     = "block";
+    finishBtn.disabled      = false;
+    finishBtn.textContent   = "Finish Setup (set standards later)";
+    console.error("Failed to load standards:", err);
+  }
+}
+
+function selectStandardsSet(id) {
+  profile.primaryStandardsSetId = id;
+
+  document.querySelectorAll(".std-option").forEach(opt => {
+    opt.classList.toggle("selected", opt.dataset.id === id);
+  });
+
+  const btn = document.getElementById("finishBtn");
+  btn.disabled    = false;
+  btn.textContent = "Finish Setup →";
+}
+
+/* ════════════════════════════════════════
+   SAVE PROFILE + REDIRECT TO APP
+════════════════════════════════════════ */
+async function saveProfile() {
+  const btn = document.getElementById("finishBtn");
+  btn.disabled  = true;
+  btn.innerHTML = `<span class="spinner"></span> Saving…`;
+
+  try {
+    const token = await auth0Client.getTokenSilently({
+      authorizationParams: { audience: "https://teacherassistant-api" }
+    });
+
+    const body = {
+      firstName:             profile.firstName,
+      lastName:              profile.lastName,
+      school:                profile.school,
+      subject:               profile.subject,
+      gradeBand:             profile.gradeBand,
+      primaryStandardsSetId: profile.primaryStandardsSetId || null,
+      districtCode:          profile.districtCode          || null
+    };
+
+    const res = await fetch(`${API}/api/teacher-profile`, {
+      method:  "POST",
+      headers: {
+        "Content-Type":  "application/json",
+        Authorization:   `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || "Failed to save profile");
+    }
+
+    // Clean up sessionStorage
+    sessionStorage.removeItem("districtCode");
+    sessionStorage.removeItem("districtName");
+
+    // Go to app
+    window.location.href = "https://app.teacherassist.ai";
+
+  } catch (err) {
+    showError("Something went wrong saving your profile. Please try again.");
+    console.error("Save profile error:", err);
+    btn.disabled  = false;
+    btn.textContent = "Finish Setup →";
+  }
+}
+
+/* ════════════════════════════════════════
+   HELPERS
+════════════════════════════════════════ */
+function showError(msg) {
+  const el = document.getElementById("errorMsg");
+  el.textContent   = msg;
+  el.style.display = "block";
+  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function hideError() {
+  document.getElementById("errorMsg").style.display = "none";
+}
+</script>
 </body>
 </html>

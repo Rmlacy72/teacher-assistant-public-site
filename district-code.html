@@ -226,7 +226,11 @@ async function redeem() {
     // ── Step 5: Success — redirect to dashboard ──
     localStorage.removeItem("pendingDistrictCode");
     setMsg(`✅ Enrolled in ${data.districtName}! Redirecting…`, "#1a7f4b");
-    setTimeout(() => { window.location.href = NEXT; }, 1500);
+    sessionStorage.setItem("districtCode", code);
+    sessionStorage.setItem("districtName", data.districtName);
+    setTimeout(() => { 
+      window.location.href = "https://www.teacherassist.ai/signup.html"; 
+    }, 1500);
 
   } catch (err) {
     console.error("Redeem error:", err);
