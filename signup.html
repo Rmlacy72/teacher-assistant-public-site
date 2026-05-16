@@ -952,6 +952,7 @@ async function saveProfile() {
     });
 
     const body = {
+      teacherId:             currentUser.sub,
       firstName:             profile.firstName,
       lastName:              profile.lastName,
       school:                profile.school,
