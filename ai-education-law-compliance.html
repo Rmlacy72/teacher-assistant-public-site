@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C798YE25ME"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-C798YE25ME');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     SEO: Title & Meta
+     Primary keyword themes targeted on this page:
+     - AI grading compliance Illinois schools
+     - human-in-the-loop AI grading K-12
+     - FERPA compliant AI grading tool
+     - Illinois SB416 AI schools
+     - Missouri AI education law
+     - AI in education legislation 2026
+     - teacher AI grading law compliance
+     - teachers using ChatGPT to grade student work
+     - shadow AI in schools
+     - AI grading policy for school districts
+     - controlling teacher AI use administrator
+     - AI evaluation not AI grading
+     - handwritten student work data analytics
+     - pen and paper grading with AI
+     ============================================================ -->
+<title>Shadow AI Grading: A Compliance Guide for School Administrators | TeacherAssist.ai</title>
+<meta name="description" content="Teachers are already grading with consumer AI tools like ChatGPT, Gemini, and Claude — with no data agreement, no deletion policy, and no oversight. TeacherAssist.ai takes a different approach: AI evaluates handwritten student work and generates the data a teacher needs to grade it personally, so classrooms can stay with pen and paper.">
+<link rel="canonical" href="https://www.teacherassist.ai/ai-education-law-compliance">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shadow AI Grading: What School Administrators Need to Control">
+<meta property="og:description" content="A guide for administrators on the uncontrolled AI grading already happening in their buildings, and how TeacherAssist.ai's AI-evaluates, teacher-grades architecture is designed to bring it under control.">
+<meta property="og:url" content="https://www.teacherassist.ai/ai-education-law-compliance">
+<meta property="og:site_name" content="TeacherAssist.ai">
+
+<!-- JSON-LD: FAQPage schema for featured-snippet eligibility -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are teachers already using ChatGPT or other consumer AI to grade student work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anecdotally and increasingly in surveys, yes: many teachers use consumer AI tools like ChatGPT, Gemini, or Claude to grade papers for them, often without district knowledge or a data processing agreement in place. This exposes districts to the same FERPA and data-privacy questions pending legislation is trying to address, without any of the human-review or data-deletion controls a purpose-built classroom tool provides."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is AI allowed to grade student work in Illinois?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Illinois has not banned AI-assisted grading. Public Act 104-0201, effective January 1, 2026, requires statewide guidance on responsible AI use in K-12 schools and bars AI-only instruction at community colleges. Senate Bill 416, the Student Educational Technology Rights Act, would go further by proposing specific human-in-the-loop requirements for K-12 AI tools; as of mid-2026 it has passed the Senate and is under review in a House committee, and is not yet law."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'human-in-the-loop' AI grading mean, and how is TeacherAssist.ai different?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most 'human-in-the-loop' models mean an AI generates a suggested score that a teacher can override. TeacherAssist.ai goes a step further: its AI does not generate a score or a grade at all. It evaluates a student's handwritten work against the standard and generates diagnostic data, which the teacher then uses to review the work and assign the actual grade."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does TeacherAssist.ai show an achievement level instead of a score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TeacherAssist.ai's AI doesn't generate a grade at all -- it evaluates a student's handwritten work against the standard and generates diagnostic data. That data surfaces as an achievement level (Exemplary, Proficient, Developing, Emerging, or Needs Support) so a teacher can see at a glance where a student stands, then dig into the actual work and the underlying data to assign the grade themselves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does TeacherAssist.ai require students to type their work instead of writing by hand?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No -- it's built for the opposite. TeacherAssist.ai evaluates a student's actual handwritten work and generates the same granular, standards-level data that has typically only been available from typed or digital assignments. That means teachers can keep assigning pen-and-paper work without giving up the diagnostic data digital tools provide."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do students or families see the achievement badges?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Achievement badges are a teacher-facing tool inside the TeacherAssist.ai workspace. They are not a student portal or parent-facing report. TeacherAssist.ai is an assistant to the teacher, and what is communicated to students or families remains the teacher's and district's decision."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does TeacherAssist.ai store student names or personal data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TeacherAssist.ai is designed to avoid collecting full student names, ID numbers, or biometric data. Student work is identified by initials only, and uploaded files are deleted from storage once the AI evaluation is complete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is TeacherAssist.ai FERPA compliant?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TeacherAssist.ai is designed to support FERPA compliance and operates under a Data Processing Agreement with each district, acting as a school official with a legitimate educational interest under 34 CFR 99.31(a)(1). Districts should have counsel review the DPA before signing, as FERPA compliance ultimately depends on how a tool is deployed by the district."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<style>
+  :root{
+    --ink:#1c2b3a;
+    --ink-soft:#3d5064;
+    --slate:#5b6b78;
+    --paper:#f5f6f4;
+    --paper-raised:#ffffff;
+    --line:#dbe0e0;
+    --brass:#96702c;
+    --brass-soft:#c9a35f;
+    --brass-tint:#f4ead4;
+    --status-enacted:#2f6b4f;
+    --status-enacted-tint:#e3efe7;
+    --status-pending:#a8471f;
+    --status-pending-tint:#f6e6dd;
+    --status-tracking:#4a5b6d;
+    --status-tracking-tint:#e9edf0;
+    --radius:2px;
+    --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+    --mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:var(--brass);}
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:var(--paper-raised);
+  }
+  .topbar-inner{
+    max-width:920px;margin:0 auto;padding:18px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--ink);
+    text-decoration:none;
+    letter-spacing:0.01em;
+  }
+  .brand span{color:var(--brass);}
+  .topbar nav a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:0.92rem;
+    margin-left:22px;
+  }
+  .topbar nav a:hover{color:var(--brass);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    border-bottom:1px solid var(--line);
+    padding:64px 0 56px;
+    background:
+      linear-gradient(180deg, rgba(150,112,44,0.05), rgba(150,112,44,0) 60%),
+      var(--paper);
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--brass);
+    background:var(--brass-tint);
+    border:1px solid var(--brass-soft);
+    padding:5px 10px;
+    border-radius:var(--radius);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--brass);
+    flex:none;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(2rem, 4vw, 2.85rem);
+    line-height:1.15;
+    margin:0 0 20px;
+    max-width:14ch;
+  }
+  .hero-lede{
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 30px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:0.95rem;
+    padding:12px 22px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink);color:#fff;}
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-secondary{background:transparent;color:var(--ink);border-color:var(--ink);}
+  .btn-secondary:hover{background:var(--ink);color:#fff;}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .kicker{
+    font-family:var(--mono);
+    font-size:0.75rem;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin:0 0 10px;
+  }
+  h2{
+    font-family:var(--serif);
+    font-size:1.65rem;
+    font-weight:600;
+    margin:0 0 18px;
+    max-width:30ch;
+  }
+  h3{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    font-weight:600;
+    margin:0 0 8px;
+  }
+  p{margin:0 0 16px;color:var(--ink-soft);}
+  .lead-col{max-width:62ch;}
+
+  /* ---------- Legislative tracker (signature element) ---------- */
+  .tracker{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .tracker-row{
+    display:grid;
+    grid-template-columns:150px 1fr 168px;
+    gap:20px;
+    align-items:start;
+    padding:20px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .tracker-row:last-child{border-bottom:none;}
+  .tracker-bill{
+    font-family:var(--mono);
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .tracker-juris{
+    display:block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:0.78rem;
+    color:var(--slate);
+    margin-top:3px;
+  }
+  .tracker-body h4{
+    font-family:var(--sans);
+    font-size:0.98rem;
+    font-weight:600;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .tracker-body p{margin:0;font-size:0.92rem;}
+  .status{
+    justify-self:end;
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:6px 10px;
+    border-radius:var(--radius);
+    white-space:nowrap;
+    height:fit-content;
+  }
+  .status-enacted{background:var(--status-enacted-tint);color:var(--status-enacted);}
+  .status-pending{background:var(--status-pending-tint);color:var(--status-pending);}
+  .status-tracking{background:var(--status-tracking-tint);color:var(--status-tracking);}
+
+  .stat-strip{
+    display:flex;gap:36px;flex-wrap:wrap;
+    margin-top:28px;
+    padding-top:28px;
+    border-top:1px dashed var(--line);
+  }
+  .stat-num{
+    font-family:var(--serif);
+    font-size:2rem;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1;
+  }
+  .stat-label{
+    font-size:0.82rem;
+    color:var(--slate);
+    max-width:20ch;
+    margin-top:6px;
+  }
+
+  /* ---------- Requirement -> feature mapping ---------- */
+  .map-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);}
+  .map-row{
+    display:grid;
+    grid-template-columns:1fr 28px 1fr;
+    gap:18px;
+    align-items:center;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .map-req{color:var(--ink-soft);font-size:0.95rem;}
+  .map-req strong{color:var(--ink);display:block;font-family:var(--serif);font-size:1.02rem;margin-bottom:4px;}
+  .map-arrow{
+    font-family:var(--mono);
+    color:var(--brass);
+    text-align:center;
+    font-size:1.1rem;
+  }
+  .map-feature{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-left:3px solid var(--brass);
+    padding:14px 16px;
+    border-radius:var(--radius);
+    font-size:0.92rem;
+  }
+  .map-feature strong{display:block;color:var(--ink);font-family:var(--sans);font-size:0.92rem;margin-bottom:3px;}
+
+  @media (max-width: 720px){
+    .tracker-row{grid-template-columns:1fr;}
+    .status{justify-self:start;}
+    .map-row{grid-template-columns:1fr;}
+    .map-arrow{display:none;}
+  }
+
+  /* ---------- Achievement badge scale ---------- */
+  .badge-panel{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px;
+  }
+  .badge-scale{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px;
+  }
+  .badge{
+    border-radius:var(--radius);
+    padding:16px 14px 14px;
+    border:1px solid transparent;
+  }
+  .badge-label{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:6px;
+    display:block;
+  }
+  .badge-desc{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .badge-1{background:var(--brass-tint);border-color:var(--brass-soft);} .badge-1 .badge-label{color:var(--brass);}
+  .badge-2{background:var(--status-enacted-tint);border-color:#a9c9b7;} .badge-2 .badge-label{color:var(--status-enacted);}
+  .badge-3{background:var(--status-tracking-tint);border-color:#c3ccd3;} .badge-3 .badge-label{color:var(--status-tracking);}
+  .badge-4{background:#f2ead9;border-color:#dfc98f;} .badge-4 .badge-label{color:#8a6c1f;}
+  .badge-5{background:var(--status-pending-tint);border-color:#dcb6a4;} .badge-5 .badge-label{color:var(--status-pending);}
+
+  .badge-footnote{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    margin-top:22px;
+    padding-top:22px;
+    border-top:1px dashed var(--line);
+  }
+  .badge-footnote .glyph{
+    font-family:var(--mono);
+    color:var(--brass);
+    font-size:1.1rem;
+    flex:none;
+    line-height:1.4;
+  }
+  .badge-footnote p{margin:0;font-size:0.92rem;}
+
+  @media (max-width:720px){
+    .badge-scale{grid-template-columns:1fr 1fr;}
+  }
+
+  /* ---------- Shadow AI risk grid ---------- */
+  .risk-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:8px;
+  }
+  .risk-card{
+    background:var(--paper-raised);
+    padding:22px;
+    border-left:3px solid var(--status-pending);
+  }
+  .risk-card h3{font-size:1rem;color:var(--ink);}
+  .risk-card p{font-size:0.9rem;margin-bottom:0;}
+  .risk-bridge{
+    margin-top:26px;
+    padding:18px 20px;
+    background:var(--status-pending-tint);
+    border:1px solid #dcb6a4;
+    border-radius:var(--radius);
+    font-size:0.95rem;
+    color:var(--ink-soft);
+  }
+  .risk-bridge strong{color:var(--ink);}
+
+  /* ---------- Architecture grid ---------- */
+  .arch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .arch-card{background:var(--paper-raised);padding:22px;}
+  .arch-card h3{font-size:1rem;}
+  .arch-card p{font-size:0.9rem;margin-bottom:0;}
+
+  /* ---------- Resource / lead magnet ---------- */
+  .resource-card{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:24px;
+    align-items:center;
+    background:var(--ink);
+    color:#fff;
+    padding:30px 28px;
+    border-radius:var(--radius);
+  }
+  .resource-card .doc-icon{
+    width:44px;height:56px;
+    border:2px solid var(--brass-soft);
+    border-radius:2px;
+    position:relative;
+    flex:none;
+  }
+  .resource-card .doc-icon::before{
+    content:"";
+    position:absolute;top:10px;left:8px;right:8px;height:2px;background:var(--brass-soft);
+    box-shadow:0 8px 0 var(--brass-soft), 0 16px 0 var(--brass-soft);
+  }
+  .resource-card h3{color:#fff;margin-bottom:6px;}
+  .resource-card p{color:#c7cfd6;margin-bottom:0;font-size:0.92rem;}
+  .resource-card .btn-primary{background:var(--brass);white-space:nowrap;}
+  .resource-card .btn-primary:hover{background:var(--brass-soft);color:var(--ink);}
+  @media (max-width:640px){
+    .resource-card{grid-template-columns:1fr;text-align:left;}
+    .resource-card .doc-icon{display:none;}
+  }
+
+  /* ---------- FAQ ---------- */
+  details{
+    border-bottom:1px solid var(--line);
+    padding:18px 0;
+  }
+  summary{
+    cursor:pointer;
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.05rem;
+    color:var(--ink);
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::after{
+    content:"+";
+    font-family:var(--mono);
+    color:var(--brass);
+    font-size:1.3rem;
+    flex:none;
+  }
+  details[open] summary::after{content:"–";}
+  details p{margin-top:12px;font-size:0.95rem;}
+
+  /* ---------- Disclaimer ---------- */
+  .disclaimer{
+    background:var(--brass-tint);
+    border:1px solid var(--brass-soft);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+  }
+  .disclaimer strong{color:var(--ink);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:36px 0 48px;
+    font-size:0.85rem;
+    color:var(--slate);
+  }
+  footer a{color:var(--ink-soft);}
+</style>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">Teacher<span>Assist</span>.ai</a>
+    <nav>
+      <a href="index.html#districtSection">For Districts</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="ai-education-law-compliance.html">AI &amp; the Law</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">For district &amp; building administrators · updated July 2026</span>
+      <h1>Your teachers might already be using AI to grade. Here's how to get ahead of it.</h1>
+      <p class="hero-lede">
+        Nothing stops a teacher today from uploading a stack of student essays to ChatGPT, Gemini, or
+        even Claude — no data agreement, no deletion guarantee, and no requirement that a human ever
+        looks at the actual work before a grade is assigned. TeacherAssist.ai takes a fundamentally
+        different approach: the AI doesn't grade. It evaluates a student's handwritten work and
+        generates the standards-aligned data a teacher needs to dig in and grade it themselves — the
+        same granular insight teachers expect from digital assignments, now available from pen and paper.
+      </p>
+      <div class="hero-actions">
+        <a href="#risk" class="btn btn-primary">See the risk in your building</a>
+        <a href="#badges" class="btn btn-secondary">See the controlled alternative</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHADOW AI RISK ================= -->
+  <section id="risk">
+    <div class="wrap">
+      <p class="kicker">What's probably already happening</p>
+      <h2>Shadow AI grading has no controls, no paper trail, and no deletion policy</h2>
+      <p class="lead-col">
+        A teacher trying to save time on grading doesn't need district approval to open ChatGPT,
+        Gemini, or Claude in a browser tab and paste in a stack of student essays. It's fast, it's
+        free, and it's completely outside your visibility. Here's what that actually means.
+      </p>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <h3>No data agreement</h3>
+          <p>Student work uploaded to a personal consumer AI account, with no FERPA-oriented agreement covering how it's used or stored.</p>
+        </div>
+        <div class="risk-card">
+          <h3>No deletion guarantee</h3>
+          <p>That student work can sit in a personal chat history indefinitely, with no district control over how long it's retained.</p>
+        </div>
+        <div class="risk-card">
+          <h3>No enforced human review</h3>
+          <p>Nothing technical stops a teacher from copying whatever score the AI hands back straight into the gradebook.</p>
+        </div>
+        <div class="risk-card">
+          <h3>No administrator visibility</h3>
+          <p>No audit trail, no policy, no way to know it's happening in your own building until something goes wrong.</p>
+        </div>
+      </div>
+
+      <div class="risk-bridge">
+        <strong>TeacherAssist.ai exists to close that gap — without asking AI to replace the teacher's judgment.</strong>
+        It evaluates the handwritten work and generates the data a teacher needs to grade it themselves,
+        backed by the data agreement, deletion policy, and review requirement a browser tab full of
+        ChatGPT will never have.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRACKER ================= -->
+  <section id="tracker">
+    <div class="wrap">
+      <p class="kicker">Why this is about to matter more</p>
+      <h2>AI-in-education legislation, plain English</h2>
+      <p class="lead-col">
+        This page tracks the Illinois legislation most relevant to how teachers use AI to grade or
+        generate curriculum, and is updated as bill status changes.
+      </p>
+
+      <div class="tracker">
+        <div class="tracker-row">
+          <div class="tracker-bill">PA 104-0201<span class="tracker-juris">Illinois · Enacted</span></div>
+          <div class="tracker-body">
+            <h4>Statewide K-12 AI guidance mandate</h4>
+            <p>Signed August 2025, effective January 1, 2026. Requires statewide guidance for K-12 schools
+            on responsible AI use and separately bars community colleges from using AI as the sole source
+            of instruction for a course.</p>
+          </div>
+          <span class="status status-enacted">In effect</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">SB 416<span class="tracker-juris">Illinois · Pending</span></div>
+          <div class="tracker-body">
+            <h4>Student Educational Technology Rights Act</h4>
+            <p>Passed the Senate 57–0; as of late May 2026, re-referred to the House Rules Committee.
+            Not yet law. Proposes human-in-the-loop requirements for AI tools used with student data —
+            the same AI-evaluates, teacher-grades workflow TeacherAssist.ai already uses.</p>
+          </div>
+          <span class="status status-pending">Not yet law</span>
+        </div>
+      </div>
+
+      <div class="stat-strip">
+        <div>
+          <div class="stat-num">134</div>
+          <div class="stat-label">AI-in-education bills introduced across 31 states in 2026</div>
+        </div>
+        <div>
+          <div class="stat-num">57–0</div>
+          <div class="stat-label">Illinois Senate vote in favor of SB416</div>
+        </div>
+        <div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Recurring requirement nationally: a teacher, not the algorithm, assigns the final grade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT LAWS REQUIRE -> HOW WE ALIGN ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">Requirement by requirement</p>
+      <h2>How TeacherAssist.ai is built to align</h2>
+      <p class="lead-col">
+        Across nearly every state proposal we track, the same handful of requirements keep
+        reappearing. Here's how our platform was already designed around each one — before
+        any of these bills existed.
+      </p>
+
+      <div class="map-list">
+        <div class="map-row">
+          <div class="map-req"><strong>The teacher assigns every grade</strong>AI evaluation never becomes a final grade without the teacher reviewing the actual student work.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>AI evaluates, teacher grades</strong>Every batch evaluation job returns diagnostic data to the teacher's queue; the teacher reviews the work and enters the grade — the AI never does.</div>
+        </div>
+        <div class="map-row">
+          <div class="map-req"><strong>No AI-generated score to rubber-stamp</strong>Several proposals raise concern about a teacher being tempted to copy an AI-generated number straight into the gradebook without actually reviewing the work.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>No grade-ready number exists</strong>TeacherAssist.ai's AI never outputs a score — only an achievement level and diagnostic data. The teacher still has to look at the work to assign a grade. See below.</div>
+        </div>
+        <div class="map-row">
+          <div class="map-req"><strong>Minimizing student personal data</strong>Reducing the personally identifiable information collected and retained on students.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>Initials-only, delete-after-evaluation</strong>Full names, IDs, and biometric data are never collected; uploaded work is deleted once the AI evaluation completes.</div>
+        </div>
+        <div class="map-row">
+          <div class="map-req"><strong>Disclosure of which AI models are used</strong>Districts and boards increasingly want to know exactly which AI systems touch student work.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>AI Model Disclosure Sheet</strong>A one-page document naming every model in the pipeline, ready for board-approval packets.</div>
+        </div>
+        <div class="map-row">
+          <div class="map-req"><strong>No use of student data to train AI models</strong>Preventing vendors from using student work to improve their own or third-party AI systems.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>Contractual model protections</strong>Enterprise data-processing terms with our AI providers prohibit training on customer data.</div>
+        </div>
+        <div class="map-row">
+          <div class="map-req"><strong>A written data processing agreement</strong>A signed record of how student data is handled, retained, and deleted.</div>
+          <div class="map-arrow">→</div>
+          <div class="map-feature"><strong>District DPA on request</strong>A FERPA-oriented Data Processing Agreement available for district counsel to review before signing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ACHIEVEMENT BADGES ================= -->
+  <section id="badges">
+    <div class="wrap">
+      <p class="kicker">What's actually unique here</p>
+      <h2>AI evaluates the handwriting. The teacher still does the grading.</h2>
+      <p class="lead-col">
+        TeacherAssist.ai's AI doesn't grade — it evaluates. It reads a student's actual handwritten
+        work, checks it against the standard, and generates the kind of granular, standards-level data
+        that has typically only been available from typed or digital assignments. That data was never
+        available from a stack of paper before. Now it is — without asking a single student to trade a
+        pencil for a keyboard. The teacher still reviews the work and assigns the grade; the AI just
+        gives them somewhere to start digging.
+      </p>
+
+      <div class="badge-panel">
+        <div class="badge-scale">
+          <div class="badge badge-1"><span class="badge-label">Exemplary</span><span class="badge-desc">Exceeds the standard</span></div>
+          <div class="badge badge-2"><span class="badge-label">Proficient</span><span class="badge-desc">Meets the standard</span></div>
+          <div class="badge badge-3"><span class="badge-label">Developing</span><span class="badge-desc">Approaching the standard</span></div>
+          <div class="badge badge-4"><span class="badge-label">Emerging</span><span class="badge-desc">Early progress</span></div>
+          <div class="badge badge-5"><span class="badge-label">Needs Support</span><span class="badge-desc">Requires intervention</span></div>
+        </div>
+
+        <div class="badge-footnote">
+          <span class="glyph">→</span>
+          <p>
+            <strong>Nothing is lost — it's redirected toward instruction.</strong>
+            Behind every achievement level, TeacherAssist.ai generates the full granular, standards-aligned
+            evaluation data. The teacher uses the badge to see at a glance who's excelling or struggling,
+            then dives into that underlying data and the actual student work to plan differentiated
+            instruction — small groups, reteach targets, enrichment — and to assign the grade.
+          </p>
+        </div>
+        <div class="badge-footnote">
+          <span class="glyph">✎</span>
+          <p>
+            <strong>Built for pen and paper, not against it.</strong>
+            Because the AI evaluates handwriting directly, teachers don't have to move an assessment
+            onto a screen to get this level of insight. TeacherAssist.ai makes it possible to keep
+            assigning handwritten work without giving up the data that used to require digital tools.
+          </p>
+        </div>
+        <div class="badge-footnote">
+          <span class="glyph">⊘</span>
+          <p>
+            <strong>This view is for the teacher only.</strong>
+            Achievement levels and the evaluation data behind them live inside the teacher's
+            TeacherAssist.ai workspace. Students and families never see this tool — it's an assistant
+            that helps a teacher evaluate handwritten work and plan instruction, not a portal, a grading
+            engine, or a report card replacement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ARCHITECTURE DETAIL ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">Under the hood</p>
+      <h2>The compliance architecture, in detail</h2>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3>Data minimization</h3>
+          <p>Student initials only. No full names, IDs, photos, or demographic data are collected at any point.</p>
+        </div>
+        <div class="arch-card">
+          <h3>Automatic deletion</h3>
+          <p>Uploaded student work and OCR text are deleted immediately once the AI evaluation is complete.</p>
+        </div>
+        <div class="arch-card">
+          <h3>AI evaluates, teacher grades</h3>
+          <p>AI generates diagnostic, standards-aligned data from the student's handwritten work — never a grade. The teacher reviews the actual work and enters every grade.</p>
+        </div>
+        <div class="arch-card">
+          <h3>Encrypted infrastructure</h3>
+          <p>Data encrypted in transit and at rest on Microsoft Azure, with authenticated access throughout.</p>
+        </div>
+        <div class="arch-card">
+          <h3>No model training on student data</h3>
+          <p>Enterprise agreements with our AI providers contractually prohibit training on customer data.</p>
+        </div>
+        <div class="arch-card">
+          <h3>District-level DPA</h3>
+          <p>A Data Processing Agreement naming subprocessors, retention periods, and breach-notification terms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LEAD MAGNET ================= -->
+  <section>
+    <div class="wrap">
+      <div class="resource-card">
+        <div class="doc-icon" aria-hidden="true"></div>
+        <div>
+          <h3>The AI Model Disclosure Sheet</h3>
+          <p>A one-page document listing every AI model used in TeacherAssist.ai's evaluation pipeline —
+          built for district AI-governance committees and board-approval packets.</p>
+        </div>
+        <a href="mailto:support@teacherassist.ai?subject=AI%20Model%20Disclosure%20Sheet" class="btn btn-primary">Request the sheet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section>
+    <div class="wrap">
+      <p class="kicker">Frequently asked</p>
+      <h2>Common questions from districts</h2>
+
+      <details open>
+        <summary>Are teachers already using ChatGPT or other consumer AI to grade student work?</summary>
+        <p>Anecdotally and increasingly in surveys, yes — many teachers use consumer AI tools like ChatGPT,
+        Gemini, or Claude to grade papers for them, often without district knowledge or any data
+        processing agreement in place. That exposes districts to the same FERPA and data-privacy
+        questions pending legislation is trying to address, with none of the human-review or
+        data-deletion controls a purpose-built classroom tool provides.</p>
+      </details>
+
+      <details>
+        <summary>Is AI allowed to grade student work in Illinois?</summary>
+        <p>Yes. Illinois has not banned AI-assisted grading. PA 104-0201, effective January 1, 2026, requires
+        statewide guidance on responsible K-12 AI use. SB416 would go further and add specific
+        human-in-the-loop requirements, but as of mid-2026 it has not been enacted.</p>
+      </details>
+
+      <details>
+        <summary>What does "human-in-the-loop" AI grading mean, and how is TeacherAssist.ai different?</summary>
+        <p>Most "human-in-the-loop" models mean an AI generates a suggested score that a teacher can
+        override. TeacherAssist.ai goes a step further: its AI does not generate a score or a grade at
+        all. It evaluates a student's handwritten work against the standard and generates diagnostic
+        data, which the teacher then uses to review the work and assign the actual grade.</p>
+      </details>
+
+      <details>
+        <summary>Does TeacherAssist.ai store student names or personal data?</summary>
+        <p>No. Student work is identified by initials only, and uploaded files are deleted from storage once
+        the AI evaluation is complete. Full names, ID numbers, and biometric data are never collected.</p>
+      </details>
+
+      <details>
+        <summary>Is TeacherAssist.ai FERPA compliant?</summary>
+        <p>TeacherAssist.ai is designed to support FERPA compliance and operates under a Data Processing
+        Agreement with each district, acting as a school official with a legitimate educational interest
+        under 34 CFR 99.31(a)(1). We recommend district counsel review the DPA before signing — how a tool
+        is deployed by the district also affects FERPA compliance.</p>
+      </details>
+
+      <details>
+        <summary>Why does TeacherAssist.ai show an achievement level instead of a score?</summary>
+        <p>TeacherAssist.ai's AI doesn't generate a grade at all — it evaluates a student's handwritten
+        work against the standard and generates diagnostic data. That data surfaces as an achievement
+        level — Exemplary, Proficient, Developing, Emerging, or Needs Support — so a teacher can see at
+        a glance where a student stands, then dig into the actual work and the underlying data to
+        assign the grade themselves.</p>
+      </details>
+
+      <details>
+        <summary>Does TeacherAssist.ai require students to type their work instead of writing by hand?</summary>
+        <p>No — it's built for the opposite. TeacherAssist.ai evaluates a student's actual handwritten work
+        and generates the same granular, standards-level data that has typically only been available from
+        typed or digital assignments. That means teachers can keep assigning pen-and-paper work without
+        giving up the diagnostic data digital tools provide.</p>
+      </details>
+
+      <details>
+        <summary>Do students or families see the achievement badges?</summary>
+        <p>No. Achievement badges are a teacher-facing tool inside the TeacherAssist.ai workspace, used
+        to highlight where students are excelling or struggling so a teacher knows where to focus. They
+        are not a student portal or a parent-facing report — TeacherAssist.ai is an assistant to the
+        teacher, and what gets communicated to students or families remains the teacher's and district's
+        decision.</p>
+      </details>
+
+      <details>
+        <summary>What happens if SB416 becomes law?</summary>
+        <p>Because TeacherAssist.ai's AI-evaluates, teacher-grades workflow already matches the
+        human-in-the-loop model SB416 proposes, we don't expect it to require architectural changes on
+        our end. We'll update this page and notify district partners directly if anything changes.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= DISCLAIMER + CTA ================= -->
+  <section>
+    <div class="wrap">
+      <div class="disclaimer">
+        <strong>Not legal advice.</strong> This page summarizes publicly available legislative
+        information as of July 2026 for general awareness and is not a legal opinion. Legislation
+        can change quickly; districts should confirm current bill status with the Illinois General
+        Assembly or Missouri General Assembly and consult their own counsel before making compliance
+        decisions.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="kicker">Next step</p>
+      <h2>Bringing this to your school board?</h2>
+      <p class="lead-col">Request the full District Compliance Brief — subprocessor list, data flow diagram,
+      and model disclosure sheet in one document, ready for board review.</p>
+      <div class="hero-actions">
+        <a href="index.html#districtSection" class="btn btn-primary">Request the compliance brief</a>
+        <a href="mailto:support@teacherassist.ai" class="btn btn-secondary">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 TeacherAssist.ai · <a href="mailto:support@teacherassist.ai">support@teacherassist.ai</a> ·
+    Serving Illinois &amp; Missouri school districts.</p>
+  </div>
+</footer>
+
+</body>
+</html>
