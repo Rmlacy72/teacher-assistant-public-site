@@ -14,6 +14,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TeacherAssist.ai — AI-Powered Grading & Curriculum for Every Teacher</title>
   <meta name="description" content="Grade student work in minutes, not hours. Get differentiated recommendations and build curriculum materials with AI. Made for real teachers." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://www.teacherassist.ai/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TeacherAssist.ai — AI-Powered Grading & Curriculum for Every Teacher">
+  <meta property="og:description" content="Grade student work in minutes, not hours. Get differentiated recommendations and build curriculum materials with AI. Made for real teachers.">
+  <meta property="og:url" content="https://www.teacherassist.ai/">
+  <meta property="og:site_name" content="TeacherAssist.ai">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TeacherAssist.ai — AI-Powered Grading & Curriculum for Every Teacher">
+  <meta name="twitter:description" content="Grade student work in minutes, not hours. Get differentiated recommendations and build curriculum materials with AI. Made for real teachers.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -87,6 +105,53 @@
     }
 
     .nav-cta:hover { background: #4a2285; transform: translateY(-1px); }
+
+    /* ── MOBILE NAV TOGGLE ── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 34px; height: 34px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px; margin-left: 8px;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      padding: 6px 5% 18px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-link {
+      padding: 13px 2px;
+      font-size: 0.95rem; font-weight: 500;
+      color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu-cta {
+      margin-top: 14px;
+      text-align: center;
+      padding: 12px; border-radius: 8px;
+      background: var(--purple); color: white;
+      font-size: 0.9rem; font-weight: 600;
+      text-decoration: none;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -540,9 +605,80 @@
       .features-grid { grid-template-columns: 1fr; }
       .steps-wrap { grid-template-columns: 1fr; }
       .nav-links .nav-link { display: none; }
+      .nav-toggle { display: flex; }
       .proof-bar { gap: 20px; }
     }
   </style>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TeacherAssist.ai",
+    "url": "https://www.teacherassist.ai/",
+    "email": "support@teacherassist.ai",
+    "description": "AI evaluation and curriculum platform for K-12 teachers, serving Illinois and Missouri school districts."
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage (mirrors the visible FAQ section below) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does TeacherAssist use student data to train AI models?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Student data is never used to train, fine-tune, or improve any AI models. Your data remains your data. TeacherAssist.ai uses enterprise-grade AI services (Microsoft Azure OpenAI and Google Vertex AI) with data processing agreements that explicitly prohibit model training on customer data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is TeacherAssist FERPA compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TeacherAssist is designed with FERPA principles in mind. It never sells student data, and provides data processing agreements for school districts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which standards does TeacherAssist support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TeacherAssist currently includes Illinois and Missouri Learning Standards for Math, English, Science, and Social Studies. Teachers select their state, grade, and standards during onboarding, and additional states can be added on request."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to evaluate a class set?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Upload a PDF with all student work, select the assignment and rubric, and the AI evaluates every student's work against it -- most classes of 25-30 students are evaluated within 2-5 minutes. The AI does not assign the grade; it generates standards-aligned diagnostic data and an achievement level for each student, and the teacher reviews the work and enters the grade."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a free trial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All new teachers get a 5-day free trial with full access to grading, the Curriculum Wizard, and reporting. It can be cancelled anytime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can school districts license TeacherAssist?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Districts can license TeacherAssist for all teachers with a single annual agreement, with no individual subscriptions or credit cards required."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -558,7 +694,34 @@
     <a class="nav-link" href="https://app.teacherassist.ai">Sign In</a>
     <a class="nav-cta" href="pricing.html">Start Free Trial →</a>
   </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mobile-menu-link" href="#features" onclick="closeMobileMenu()">Features</a>
+  <a class="mobile-menu-link" href="#how-it-works" onclick="closeMobileMenu()">How it works</a>
+  <a class="mobile-menu-link" href="pricing.html">Pricing</a>
+  <a class="mobile-menu-link" href="ai-education-law-compliance.html">AI &amp; the Law</a>
+  <a class="mobile-menu-link" href="https://app.teacherassist.ai">Sign In</a>
+  <a class="mobile-menu-cta" href="pricing.html">Start Free Trial →</a>
+</div>
+
+<script>
+function toggleMobileMenu() {
+  const btn = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('navToggle').classList.remove('open');
+  document.getElementById('navToggle').setAttribute('aria-expanded', 'false');
+}
+</script>
 
 <!-- HERO -->
 <section class="hero">
@@ -879,12 +1042,12 @@
 
       <div style="border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
         <h3 style="font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: var(--ink);">Which standards does TeacherAssist support?</h3>
-        <p style="color: var(--muted); line-height: 1.7; margin: 0;">TeacherAssist currently includes Illinois & Missour Learning Standards (Math, English, Science, Social Studies). Teachers select their state, grade, and standards during onboarding. Additional states are in can be added - just let us know.</p>
+        <p style="color: var(--muted); line-height: 1.7; margin: 0;">TeacherAssist currently includes Illinois & Missouri Learning Standards (Math, English, Science, Social Studies). Teachers select their state, grade, and standards during onboarding. Additional states can be added — just let us know.</p>
       </div>
 
       <div style="border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: var(--ink);">How long does grading take?</h3>
-        <p style="color: var(--muted); line-height: 1.7; margin: 0;">Upload a PDF with all student work, select your assignment and rubric, and AI grades all students automatically. Most classes of 25–30 students grade within 2–5 minutes. You see all of the student's work and how it is graded to your answer key and rubric.</p>
+        <h3 style="font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: var(--ink);">How long does it take to evaluate a class set?</h3>
+        <p style="color: var(--muted); line-height: 1.7; margin: 0;">Upload a PDF with all student work, select your assignment and rubric, and the AI evaluates every student's work against it — most classes of 25–30 students are evaluated within 2–5 minutes. The AI doesn't assign the grade; it generates standards-aligned diagnostic data and an achievement level for each student, so you can see exactly how each answer compares to your key and rubric, then review the work and enter the grade yourself.</p>
       </div>
 
       <div style="border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
