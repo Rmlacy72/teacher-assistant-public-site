@@ -284,8 +284,8 @@
 
   <div class="hero">
     <h1>Free Standards-Based Lesson Builder</h1>
-    <p>Pick a state, subject, and grade.  Tell us your topic and we will give you content from trusted sources,
-       aligned to your selected State standards, in seconds. Five free, no credit card.</p>
+    <p>Pick a state, subject, and grade — tell us your topic — get a real lesson,
+       aligned to the exact standard, in seconds. Five free, no credit card.</p>
   </div>
 
   <div id="pageStatus" class="status-msg"></div>
@@ -341,6 +341,18 @@
     <div id="standardsPickerWrap" class="hidden">
       <label class="form-label">We think these standards fit best — uncheck any you don't want</label>
       <div id="standardsPicker"></div>
+
+      <button type="button" class="btn btn-secondary" id="browseOtherBtn" style="margin-top:14px;">
+        + Browse other standards for this grade
+      </button>
+
+      <div id="otherStandardsWrap" class="hidden" style="margin-top:14px;">
+        <div class="form-group">
+          <input type="text" id="otherStandardsSearch" placeholder="Search by keyword or standard ID…" />
+        </div>
+        <div id="otherStandardsList" style="max-height:280px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:4px 12px;"></div>
+      </div>
+
       <button class="btn btn-primary btn-full" id="generateBtn" style="margin-top:16px;">
         Generate My Lesson
       </button>
@@ -515,6 +527,10 @@ document.getElementById("findStandardsBtn").addEventListener("click", async () =
     if (!res.ok) throw new Error(data.error || "Couldn't find standards");
 
     recommendedStandards = data.recommended || [];
+    fullStandardsSet = [];
+    otherStandardsChecked.clear();
+    document.getElementById("otherStandardsWrap").classList.add("hidden");
+    document.getElementById("browseOtherBtn").textContent = "+ Browse other standards for this grade";
     renderStandardsPicker();
     document.getElementById("standardsPickerWrap").classList.remove("hidden");
     showStatus("builderStatus", "", "");
@@ -542,13 +558,84 @@ function renderStandardsPicker() {
   `).join("");
 }
 
+/* ── Browse other standards for this grade ── */
+let fullStandardsSet = [];
+let otherStandardsChecked = new Set();
+
+document.getElementById("browseOtherBtn").addEventListener("click", async () => {
+  const wrap = document.getElementById("otherStandardsWrap");
+  const btn = document.getElementById("browseOtherBtn");
+
+  if (!wrap.classList.contains("hidden")) {
+    wrap.classList.add("hidden");
+    btn.textContent = "+ Browse other standards for this grade";
+    return;
+  }
+
+  wrap.classList.remove("hidden");
+  btn.textContent = "− Hide other standards";
+
+  if (fullStandardsSet.length) return; // already loaded
+
+  const standardsSetId = document.getElementById("gradeSelect").value;
+  document.getElementById("otherStandardsList").innerHTML = `<p style="color:var(--muted); font-size:0.85rem; padding:10px 0;"><span class="spinner" style="border-top-color:var(--teal); border-color:rgba(29,138,138,0.2);"></span>Loading…</p>`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/public/standards/${standardsSetId}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to load standards");
+    fullStandardsSet = data.standards || [];
+    renderOtherStandardsList();
+  } catch (err) {
+    document.getElementById("otherStandardsList").innerHTML = `<p style="color:var(--red); font-size:0.85rem; padding:10px 0;">${err.message}</p>`;
+  }
+});
+
+document.getElementById("otherStandardsSearch").addEventListener("input", () => renderOtherStandardsList());
+
+function renderOtherStandardsList() {
+  const query = document.getElementById("otherStandardsSearch").value.trim().toLowerCase();
+  const recommendedIds = new Set(recommendedStandards.map(s => s.standardId));
+
+  const filtered = fullStandardsSet.filter(s => {
+    if (recommendedIds.has(s.standardId)) return false; // already shown above, skip duplicates
+    if (!query) return true;
+    return [s.standardId, s.domain, s.skill, s.description].filter(Boolean).join(" ").toLowerCase().includes(query);
+  });
+
+  const listEl = document.getElementById("otherStandardsList");
+  if (!filtered.length) {
+    listEl.innerHTML = `<p style="color:var(--muted); font-size:0.85rem; padding:10px 0;">No other standards match.</p>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(s => `
+    <label class="standard-option">
+      <input type="checkbox" data-standard-id="${s.standardId}" ${otherStandardsChecked.has(s.standardId) ? "checked" : ""} />
+      <span class="standard-id-badge">${s.standardId}</span>
+      <span class="standard-skill">${s.skill || s.description || ""}</span>
+    </label>
+  `).join("");
+
+  listEl.querySelectorAll("input[type=checkbox]").forEach(cb => {
+    cb.addEventListener("change", () => {
+      if (cb.checked) otherStandardsChecked.add(cb.dataset.standardId);
+      else otherStandardsChecked.delete(cb.dataset.standardId);
+    });
+  });
+}
+
 /* ── Generate the lesson ── */
 document.getElementById("generateBtn").addEventListener("click", async () => {
   const standardsSetId = document.getElementById("gradeSelect").value;
   const topic = document.getElementById("topicInput").value.trim();
 
-  const checked = Array.from(document.querySelectorAll("#standardsPicker input[type=checkbox]:checked"))
+  const checkedRecommended = Array.from(document.querySelectorAll("#standardsPicker input[type=checkbox]:checked"))
     .map(cb => recommendedStandards[parseInt(cb.dataset.idx, 10)]);
+
+  const checkedOther = fullStandardsSet.filter(s => otherStandardsChecked.has(s.standardId));
+
+  const checked = [...checkedRecommended, ...checkedOther];
 
   if (!checked.length) return showStatus("builderStatus", "Please select at least one standard.", "error");
 
@@ -631,7 +718,7 @@ function renderResults(content) {
     ${sectionsHtml}
     ${discussionHtml}
     <div class="upsell-banner">
-      Want access to full lesson planning, link your own resources, export to Word/PowerPoint, handwritten evaluations, data analysis?
+      Want access to full lesson planning, images, include your own resources, export to Word/PowerPoint, handwritten standards based evaluations, and data analysis?
       <br><a href="https://app.teacherassist.ai/signup">Sign up at TeacherAssist.ai →</a>
     </div>
   `;
