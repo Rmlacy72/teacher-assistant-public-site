@@ -550,10 +550,16 @@ function renderStandardsPicker() {
     return;
   }
   wrap.innerHTML = recommendedStandards.map((s, i) => `
-    <label class="standard-option">
-      <input type="checkbox" checked data-idx="${i}" />
-      <span class="standard-id-badge">${s.standardId}</span>
-      <span class="standard-skill">${s.skill || s.description || ""}</span>
+    <label class="standard-option" style="align-items:flex-start;">
+      <input type="checkbox" checked data-idx="${i}" style="margin-top:4px;" />
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:3px;">
+          <span class="standard-id-badge">${s.standardId}</span>
+          ${s.domain ? `<span style="font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em;">${s.domain}</span>` : ""}
+        </div>
+        ${s.skill ? `<div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:2px;">${s.skill}</div>` : ""}
+        <div style="font-size:0.85rem; color:var(--muted); line-height:1.5;">${s.description || ""}</div>
+      </div>
     </label>
   `).join("");
 }
@@ -610,10 +616,16 @@ function renderOtherStandardsList() {
   }
 
   listEl.innerHTML = filtered.map(s => `
-    <label class="standard-option">
-      <input type="checkbox" data-standard-id="${s.standardId}" ${otherStandardsChecked.has(s.standardId) ? "checked" : ""} />
-      <span class="standard-id-badge">${s.standardId}</span>
-      <span class="standard-skill">${s.skill || s.description || ""}</span>
+    <label class="standard-option" style="align-items:flex-start;">
+      <input type="checkbox" data-standard-id="${s.standardId}" ${otherStandardsChecked.has(s.standardId) ? "checked" : ""} style="margin-top:4px;" />
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:3px;">
+          <span class="standard-id-badge">${s.standardId}</span>
+          ${s.domain ? `<span style="font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em;">${s.domain}</span>` : ""}
+        </div>
+        ${s.skill ? `<div style="font-size:0.88rem; font-weight:600; color:var(--text); margin-bottom:2px;">${s.skill}</div>` : ""}
+        <div style="font-size:0.85rem; color:var(--muted); line-height:1.5;">${s.description || ""}</div>
+      </div>
     </label>
   `).join("");
 
@@ -718,8 +730,8 @@ function renderResults(content) {
     ${sectionsHtml}
     ${discussionHtml}
     <div class="upsell-banner">
-      Want access to full lesson planning, images, include your own resources, export to Word/PowerPoint, handwritten standards based evaluations, and data analysis?
-      <br><a href="https://app.teacherassist.ai/signup">Sign up at TeacherAssist.ai →</a>
+      Want auto-graded worksheets, full lesson exports to Word/PowerPoint, and more?
+      <br><a href="https://app.teacherassist.ai/signup">Sign up free at TeacherAssist.ai →</a>
     </div>
   `;
 }
