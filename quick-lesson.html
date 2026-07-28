@@ -702,6 +702,7 @@ function renderResults(content) {
   const sectionsHtml = (content.sections || []).map(s => `
     <div class="section-block">
       <div class="section-title">${s.readingPassage?.title || s.subtopic}</div>
+      <div class="standard-id-badge" style="margin-bottom:8px; display:inline-block;">${s.standardId || ""}</div>
       <div class="section-source">
         Source: ${s.sourceName || "General knowledge"}
         ${s.sourceUrl ? ` — <a href="${s.sourceUrl}" target="_blank" rel="noopener">${s.sourceTitle || "view source"}</a>` : ""}
@@ -711,6 +712,7 @@ function renderResults(content) {
         <div class="question-item">
           <strong>${q.questionNumber}.</strong> ${q.question}
           ${q.options ? `<div class="opts">${q.options.join(" &nbsp; ")}</div>` : ""}
+          ${q.correctAnswer ? `<div style="margin-top:6px; color:var(--teal); font-weight:600;">Answer: ${q.correctAnswer}</div>` : ""}
         </div>
       `).join("")}
     </div>
