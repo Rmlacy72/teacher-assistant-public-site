@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Standards Alignment Checker — TeacherAssist.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy:       #0f2438;
+    --teal:       #1d8a8a;
+    --teal-lt:    #e6f5f5;
+    --cream:      #faf6ee;
+    --text:       #1a2530;
+    --muted:      #64748b;
+    --border:     #e2e8f0;
+    --red:        #b91c1c;
+    --red-bg:     #fef2f2;
+    --amber:      #b45309;
+    --amber-bg:   #fffbeb;
+    --green:      #15803d;
+    --green-bg:   #f0fdf4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .page-wrap { max-width: 780px; margin: 0 auto; padding: 48px 20px 100px; }
+
+  .hero { text-align: center; margin-bottom: 40px; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: 2.1rem; color: var(--navy); margin-bottom: 12px; }
+  .hero p { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+  .card {
+    background: white; border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(15,36,56,0.06);
+  }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 16px; }
+
+  .form-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); display: block; margin-bottom: 6px;
+  }
+  .form-group { margin-bottom: 16px; }
+
+  select, input[type="text"], input[type="email"], input[type="tel"], textarea {
+    width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px;
+    font-size: 0.95rem; font-family: 'DM Sans', sans-serif; color: var(--text); background: white;
+  }
+  textarea { resize: vertical; min-height: 180px; line-height: 1.5; }
+  select:focus, input:focus, textarea:focus {
+    outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(29,138,138,0.12);
+  }
+
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .two-col { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+
+  .btn {
+    padding: 12px 22px; border-radius: 8px; font-size: 0.92rem; font-weight: 600;
+    border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.15s, opacity 0.15s;
+  }
+  .btn-primary { background: var(--teal); color: white; }
+  .btn-primary:hover { background: #166f6f; }
+  .btn-primary:disabled { background: #a8c5c5; cursor: not-allowed; }
+  .btn-secondary { background: var(--teal-lt); color: var(--teal); }
+  .btn-full { width: 100%; }
+
+  .status-msg { font-size: 0.85rem; padding: 10px 14px; border-radius: 8px; margin-top: 10px; display: none; }
+  .status-msg.error   { background: var(--red-bg); color: var(--red); display: block; }
+  .status-msg.success { background: var(--teal-lt); color: var(--teal); display: block; }
+
+  .remaining-badge {
+    display: inline-block; font-size: 0.78rem; font-weight: 700;
+    background: var(--teal-lt); color: var(--teal); padding: 4px 12px; border-radius: 12px; margin-bottom: 16px;
+  }
+
+  .spinner {
+    display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hidden { display: none !important; }
+
+  /* ── Results ── */
+  .match-card {
+    background: white; border: 1px solid var(--border); border-left: 4px solid var(--teal);
+    border-radius: 10px; padding: 18px 20px; margin-bottom: 14px;
+  }
+  .match-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .match-id {
+    font-size: 0.78rem; font-weight: 700; color: var(--teal); background: var(--teal-lt);
+    padding: 3px 10px; border-radius: 8px;
+  }
+  .match-domain { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .confidence-badge {
+    font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 10px; margin-left: auto;
+  }
+  .confidence-high   { background: var(--green-bg); color: var(--green); }
+  .confidence-medium { background: var(--amber-bg); color: var(--amber); }
+  .confidence-low    { background: #f1f5f9; color: var(--muted); }
+  .match-skill { font-size: 0.94rem; font-weight: 600; margin-bottom: 6px; }
+  .match-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+  .match-excerpt {
+    background: var(--cream); border-left: 3px solid var(--teal); border-radius: 6px;
+    padding: 10px 14px; font-size: 0.86rem; font-style: italic; margin-bottom: 8px;
+  }
+  .match-reason { font-size: 0.85rem; color: var(--text); }
+
+  .no-matches { text-align: center; padding: 30px; color: var(--muted); background: white; border-radius: 12px; border: 1px solid var(--border); }
+
+  .upsell-banner {
+    background: var(--navy); color: white; border-radius: 12px; padding: 18px 22px;
+    margin-top: 24px; text-align: center;
+  }
+  .upsell-banner a { color: var(--teal-lt); font-weight: 700; text-decoration: underline; }
+
+  @media (max-width: 600px) { .three-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div style="background:#fef3c7; border-bottom:2px solid #d97706; color:#92400e; text-align:center; padding:10px 16px; font-family:'DM Sans',sans-serif; font-size:0.85rem; font-weight:600;">
+  🚧 This page is in active development and testing. Some features may not work yet — please check back soon.
+</div>
+
+<!-- TODO: replace with your site's real shared header/nav include -->
+
+<div class="page-wrap">
+
+  <div class="hero">
+    <h1>Free Standards Alignment Checker</h1>
+    <p>Paste a lesson, worksheet, or assignment you already have — we'll tell you exactly
+       which standards it covers, so you're never guessing at documentation.</p>
+  </div>
+
+  <div id="pageStatus" class="status-msg"></div>
+
+  <!-- ══ STEP 1: VERIFICATION ══ -->
+  <div class="card" id="verifyCard">
+    <div class="card-title">Get Started — Verify Your Phone</div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" id="emailInput" placeholder="you@school.edu" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mobile Phone Number</label>
+      <div class="two-col">
+        <input type="tel" id="phoneInput" placeholder="(555) 123-4567" />
+        <button class="btn btn-primary" id="requestCodeBtn">Text Me a Code</button>
+      </div>
+    </div>
+    <div class="form-group hidden" id="codeGroup">
+      <label class="form-label">Enter the 6-digit code we texted you</label>
+      <div class="two-col">
+        <input type="text" id="codeInput" maxlength="6" placeholder="123456" />
+        <button class="btn btn-primary" id="verifyCodeBtn">Verify</button>
+      </div>
+    </div>
+    <div id="verifyStatus" class="status-msg"></div>
+  </div>
+
+  <!-- ══ STEP 2: CHECK YOUR MATERIAL (hidden until verified) ══ -->
+  <div class="card hidden" id="checkerCard">
+    <span class="remaining-badge" id="remainingBadge">5 free checks remaining</span>
+    <div class="card-title">What Grade & Subject Is This For?</div>
+
+    <div class="three-col">
+      <div class="form-group">
+        <label class="form-label">State</label>
+        <select id="stateSelect"><option value="">Loading…</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <select id="subjectSelect" disabled><option value="">Select state first…</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Grade / Topic</label>
+        <select id="gradeSelect" disabled><option value="">Select subject first…</option></select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Paste Your Lesson, Worksheet, or Assignment</label>
+      <textarea id="materialInput" placeholder="Paste the text of what you're teaching or assigning — questions, a reading passage, instructions, anything you already have written."></textarea>
+    </div>
+
+    <button class="btn btn-primary btn-full" id="checkBtn">Find My Standards</button>
+    <div id="checkerStatus" class="status-msg"></div>
+  </div>
+
+  <!-- ══ RESULTS ══ -->
+  <div id="resultsWrap" class="hidden">
+    <h2 style="font-family:'DM Serif Display',serif; color:var(--navy); font-size:1.3rem; margin-bottom:16px;">
+      Matched Standards
+    </h2>
+    <div id="matchesContainer"></div>
+    <div class="upsell-banner">
+      Want auto-graded worksheets, full lesson exports to Word/PowerPoint, and more?
+      <br><a href="https://app.teacherassist.ai/signup">Sign up free at TeacherAssist.ai →</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API_BASE = "https://ltc-teacher-grading-api-d6fjdpb6gyfvf6fj.canadacentral-01.azurewebsites.net";
+
+let verifiedEmail = null;
+let allStandardsSets = [];
+let remainingGenerations = 5;
+
+/* ── Load standards-set catalog ── */
+async function loadStandardsSets() {
+  try {
+    const res = await fetch(`${API_BASE}/api/public/standards-sets`);
+    allStandardsSets = await res.json();
+    populateStateDropdown();
+  } catch (err) {
+    showStatus("pageStatus", "Couldn't load standards catalog. Please refresh.", "error");
+  }
+}
+
+function populateStateDropdown() {
+  const states = [...new Set(allStandardsSets.map(s => s.state).filter(Boolean))].sort();
+  const sel = document.getElementById("stateSelect");
+  sel.innerHTML = `<option value="">Select state…</option>` + states.map(st => `<option value="${st}">${st}</option>`).join("");
+  sel.disabled = false;
+}
+
+document.getElementById("stateSelect").addEventListener("change", () => {
+  const state = document.getElementById("stateSelect").value;
+  const subjSel = document.getElementById("subjectSelect");
+  const gradeSel = document.getElementById("gradeSelect");
+  gradeSel.innerHTML = `<option value="">Select subject first…</option>`;
+  gradeSel.disabled = true;
+
+  if (!state) {
+    subjSel.innerHTML = `<option value="">Select state first…</option>`;
+    subjSel.disabled = true;
+    return;
+  }
+  const subjects = [...new Set(allStandardsSets.filter(s => s.state === state).map(s => s.subject).filter(Boolean))].sort();
+  subjSel.innerHTML = `<option value="">Select subject…</option>` + subjects.map(s => `<option value="${s}">${s}</option>`).join("");
+  subjSel.disabled = false;
+});
+
+document.getElementById("subjectSelect").addEventListener("change", () => {
+  const state = document.getElementById("stateSelect").value;
+  const subject = document.getElementById("subjectSelect").value;
+  const gradeSel = document.getElementById("gradeSelect");
+
+  if (!subject) {
+    gradeSel.innerHTML = `<option value="">Select subject first…</option>`;
+    gradeSel.disabled = true;
+    return;
+  }
+  const sets = allStandardsSets
+    .filter(s => s.state === state && s.subject === subject)
+    .sort((a, b) => (a.gradeBand || "").localeCompare(b.gradeBand || "", undefined, { numeric: true }));
+
+  gradeSel.innerHTML = `<option value="">Select grade or topic…</option>` +
+    sets.map(s => `<option value="${s.id}">${s.gradeBand || s.displayName}</option>`).join("");
+  gradeSel.disabled = false;
+});
+
+/* ── Verification flow ── */
+document.getElementById("requestCodeBtn").addEventListener("click", async () => {
+  const email = document.getElementById("emailInput").value.trim();
+  const phone = document.getElementById("phoneInput").value.trim();
+  if (!email || !email.includes("@")) return showStatus("verifyStatus", "Please enter a valid email.", "error");
+  if (!phone) return showStatus("verifyStatus", "Please enter your phone number.", "error");
+
+  const btn = document.getElementById("requestCodeBtn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span>Sending…`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/public/request-access`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, phone })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Failed to send code");
+
+    document.getElementById("codeGroup").classList.remove("hidden");
+    showStatus("verifyStatus", "Code sent! Check your phone.", "success");
+  } catch (err) {
+    showStatus("verifyStatus", err.message, "error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Text Me a Code";
+  }
+});
+
+document.getElementById("verifyCodeBtn").addEventListener("click", async () => {
+  const email = document.getElementById("emailInput").value.trim();
+  const phone = document.getElementById("phoneInput").value.trim();
+  const code  = document.getElementById("codeInput").value.trim();
+  if (!code) return showStatus("verifyStatus", "Please enter your code.", "error");
+
+  const btn = document.getElementById("verifyCodeBtn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span>Verifying…`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/public/verify-code`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, phone, code })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Verification failed");
+
+    verifiedEmail = email;
+    remainingGenerations = data.remaining;
+    document.getElementById("verifyCard").classList.add("hidden");
+    document.getElementById("checkerCard").classList.remove("hidden");
+    updateRemainingBadge();
+    loadStandardsSets();
+  } catch (err) {
+    showStatus("verifyStatus", err.message, "error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Verify";
+  }
+});
+
+/* ── Run the check ── */
+document.getElementById("checkBtn").addEventListener("click", async () => {
+  const standardsSetId = document.getElementById("gradeSelect").value;
+  const contentText = document.getElementById("materialInput").value.trim();
+
+  if (!standardsSetId) return showStatus("checkerStatus", "Please select a state, subject, and grade first.", "error");
+  if (contentText.length < 20) return showStatus("checkerStatus", "Please paste at least a few sentences of your material.", "error");
+
+  const btn = document.getElementById("checkBtn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span>Analyzing your material — this can take up to a minute…`;
+  document.getElementById("checkerStatus").style.display = "none";
+  document.getElementById("resultsWrap").classList.add("hidden");
+
+  try {
+    const res = await fetch(`${API_BASE}/api/public/analyze-standards`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: verifiedEmail, standardsSetId, contentText })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Analysis failed");
+
+    remainingGenerations = data.remaining;
+    updateRemainingBadge();
+    renderResults(data);
+  } catch (err) {
+    showStatus("checkerStatus", err.message, "error");
+  } finally {
+    btn.disabled = remainingGenerations <= 0;
+    btn.textContent = "Find My Standards";
+  }
+});
+
+function updateRemainingBadge() {
+  const badge = document.getElementById("remainingBadge");
+  badge.textContent = `${remainingGenerations} free check${remainingGenerations !== 1 ? "s" : ""} remaining`;
+  if (remainingGenerations <= 0) {
+    document.getElementById("checkBtn").disabled = true;
+    showStatus("checkerStatus", "You've used all 5 free checks. Sign up free for unlimited access.", "error");
+  }
+}
+
+function renderResults(data) {
+  const wrap = document.getElementById("resultsWrap");
+  const container = document.getElementById("matchesContainer");
+  wrap.classList.remove("hidden");
+
+  if (!data.matches || !data.matches.length) {
+    container.innerHTML = `
+      <div class="no-matches">
+        <p>We didn't find a clear match for this material.</p>
+        ${data.note ? `<p style="margin-top:8px; font-size:0.85rem;">${data.note}</p>` : ""}
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = data.matches.map(m => `
+    <div class="match-card">
+      <div class="match-header">
+        <span class="match-id">${m.standardId}</span>
+        <span class="match-domain">${m.domain || ""}</span>
+        <span class="confidence-badge confidence-${m.confidence}">${m.confidence} confidence</span>
+      </div>
+      ${m.skill ? `<div class="match-skill">${m.skill}</div>` : ""}
+      <div class="match-desc">${m.description || ""}</div>
+      ${m.matchedExcerpt ? `<div class="match-excerpt">"${m.matchedExcerpt}"</div>` : ""}
+      ${m.reason ? `<div class="match-reason">${m.reason}</div>` : ""}
+    </div>
+  `).join("");
+
+  wrap.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function showStatus(elId, msg, type) {
+  const el = document.getElementById(elId);
+  if (!msg) { el.style.display = "none"; return; }
+  el.textContent = msg;
+  el.className = `status-msg ${type}`;
+}
+</script>
+
+</body>
+</html>
