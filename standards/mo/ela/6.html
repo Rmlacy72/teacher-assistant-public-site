@@ -75,6 +75,8 @@
               Want a free lesson built around one of these standards?
               <br><a href="/quick-lesson.html?set=mo.ela.6">Build a Free Lesson →</a>
             </div>
+            <input type="text" id="pageSearch" placeholder="Filter these 40 standards by keyword or ID…"
+                   style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; margin-bottom:18px;" />
             
       <details class="domain-section" open>
         <summary>
@@ -436,6 +438,23 @@
       </div>
         </div>
       </details>
+            
+<script>
+document.getElementById("pageSearch").addEventListener("input", function() {
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll(".domain-section").forEach(function(section) {
+    let anyVisible = false;
+    section.querySelectorAll(".std-row, .std-parent").forEach(function(row) {
+      const text = row.textContent.toLowerCase();
+      const match = !q || text.includes(q);
+      row.style.display = match ? "" : "none";
+      if (match) anyVisible = true;
+    });
+    section.style.display = anyVisible ? "" : "none";
+    if (q && anyVisible) section.open = true;
+  });
+});
+</script>
           
   <footer class="site-footer">TeacherAssist.ai — free standards reference, built for teachers.</footer>
 </div>

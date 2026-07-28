@@ -70,8 +70,47 @@
   <div class="breadcrumb"><a href="/">Home</a> / <a href="/standards/">Standards</a> / <a href="/standards/ca/">CA</a> / Social Studies</div>
   
           <h1>CA Social Studies Standards</h1>
-          <p class="subtitle">Choose a grade or course to see the full standards.</p>
+          <p class="subtitle">Search across every grade at once, or choose one below.</p>
+          <input type="text" id="subjectSearch" placeholder="Search any Social Studies topic, e.g. 'ratios' or 'photosynthesis'…"
+                 style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; margin-bottom:8px;" />
+          <div id="subjectSearchResults" style="display:none; margin-bottom:20px;"></div>
           <ul class="plain-list"><li><a href="/standards/ca/social-studies/1.html">1</a> — 17 standards</li><li><a href="/standards/ca/social-studies/2.html">2</a> — 13 standards</li><li><a href="/standards/ca/social-studies/3.html">3</a> — 19 standards</li><li><a href="/standards/ca/social-studies/4.html">4</a> — 32 standards</li><li><a href="/standards/ca/social-studies/5.html">5</a> — 44 standards</li><li><a href="/standards/ca/social-studies/6.html">6</a> — 48 standards</li><li><a href="/standards/ca/social-studies/6-8-cross-cutting.html">6-8 (Cross-Cutting)</a> — 14 standards</li><li><a href="/standards/ca/social-studies/7.html">7</a> — 61 standards</li><li><a href="/standards/ca/social-studies/8.html">8</a> — 69 standards</li><li><a href="/standards/ca/social-studies/9-12-cross-cutting.html">9-12 (Cross-Cutting)</a> — 14 standards</li><li><a href="/standards/ca/social-studies/american-government-grade-12.html">American Government (Grade 12)</a> — 52 standards</li><li><a href="/standards/ca/social-studies/economics-grade-12.html">Economics (Grade 12)</a> — 30 standards</li><li><a href="/standards/ca/social-studies/k.html">K</a> — 14 standards</li><li><a href="/standards/ca/social-studies/k-5-cross-cutting.html">K-5 (Cross-Cutting)</a> — 12 standards</li><li><a href="/standards/ca/social-studies/us-history-grade-11.html">US History (Grade 11)</a> — 73 standards</li><li><a href="/standards/ca/social-studies/world-history-grade-10.html">World History (Grade 10)</a> — 49 standards</li></ul>
+          
+<script>
+let __searchIndex = null;
+async function __loadSearchIndex() {
+  if (__searchIndex) return __searchIndex;
+  const res = await fetch("/standards/ca/social-studies/search-index.json");
+  __searchIndex = await res.json();
+  return __searchIndex;
+}
+document.getElementById("subjectSearch").addEventListener("input", async function() {
+  const q = this.value.trim().toLowerCase();
+  const results = document.getElementById("subjectSearchResults");
+  if (!q) { results.innerHTML = ""; results.style.display = "none"; return; }
+
+  const index = await __loadSearchIndex();
+  const matches = index.filter(s =>
+    (s.standardId + " " + s.domain + " " + s.skill + " " + s.description).toLowerCase().includes(q)
+  ).slice(0, 25);
+
+  results.style.display = "block";
+  if (!matches.length) {
+    results.innerHTML = '<p style="color:var(--muted); padding:12px 0;">No standards match "' + this.value + '".</p>';
+    return;
+  }
+  results.innerHTML = matches.map(s => `
+    <a href="${s.pageUrl}" style="display:block; background:white; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:8px; text-decoration:none; color:inherit;">
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:4px;">
+        <span class="std-id">${s.standardId}</span>
+        <span style="font-size:0.75rem; color:var(--muted);">${s.gradeBand}</span>
+      </div>
+      ${s.skill ? '<div class="std-skill">' + s.skill + '</div>' : ""}
+      <div class="std-desc">${s.description}</div>
+    </a>
+  `).join("");
+});
+</script>
         
   <footer class="site-footer">TeacherAssist.ai — free standards reference, built for teachers.</footer>
 </div>

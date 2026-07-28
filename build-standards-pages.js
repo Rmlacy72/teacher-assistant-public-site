@@ -133,6 +133,61 @@ function renderDomainSections(standards) {
   }).join("");
 }
 
+const IN_PAGE_SEARCH_SCRIPT = `
+<script>
+document.getElementById("pageSearch").addEventListener("input", function() {
+  const q = this.value.trim().toLowerCase();
+  document.querySelectorAll(".domain-section").forEach(function(section) {
+    let anyVisible = false;
+    section.querySelectorAll(".std-row, .std-parent").forEach(function(row) {
+      const text = row.textContent.toLowerCase();
+      const match = !q || text.includes(q);
+      row.style.display = match ? "" : "none";
+      if (match) anyVisible = true;
+    });
+    section.style.display = anyVisible ? "" : "none";
+    if (q && anyVisible) section.open = true;
+  });
+});
+</script>`;
+
+const SUBJECT_SEARCH_SCRIPT = (jsonUrl) => `
+<script>
+let __searchIndex = null;
+async function __loadSearchIndex() {
+  if (__searchIndex) return __searchIndex;
+  const res = await fetch("${jsonUrl}");
+  __searchIndex = await res.json();
+  return __searchIndex;
+}
+document.getElementById("subjectSearch").addEventListener("input", async function() {
+  const q = this.value.trim().toLowerCase();
+  const results = document.getElementById("subjectSearchResults");
+  if (!q) { results.innerHTML = ""; results.style.display = "none"; return; }
+
+  const index = await __loadSearchIndex();
+  const matches = index.filter(s =>
+    (s.standardId + " " + s.domain + " " + s.skill + " " + s.description).toLowerCase().includes(q)
+  ).slice(0, 25);
+
+  results.style.display = "block";
+  if (!matches.length) {
+    results.innerHTML = '<p style="color:var(--muted); padding:12px 0;">No standards match "' + this.value + '".</p>';
+    return;
+  }
+  results.innerHTML = matches.map(s => \`
+    <a href="\${s.pageUrl}" style="display:block; background:white; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:8px; text-decoration:none; color:inherit;">
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:4px;">
+        <span class="std-id">\${s.standardId}</span>
+        <span style="font-size:0.75rem; color:var(--muted);">\${s.gradeBand}</span>
+      </div>
+      \${s.skill ? '<div class="std-skill">' + s.skill + '</div>' : ""}
+      <div class="std-desc">\${s.description}</div>
+    </a>
+  \`).join("");
+});
+</script>`;
+
 const SHARED_CSS = `
   :root {
     --navy: #0f2438; --teal: #1d8a8a; --teal-lt: #e6f5f5;
@@ -289,6 +344,9 @@ async function main() {
         return `<li><a href="/standards/${stateSlug}/${subjectSlug}/${gradeSlug}.html">${s.gradeBand || s.displayName}</a> — ${s.standardCount} standards</li>`;
       }).join("");
 
+      const searchIndexUrl = `/standards/${stateSlug}/${subjectSlug}/search-index.json`;
+      const subjectSearchIndex = [];
+
       fs.writeFileSync(path.join(subjectDir, "index.html"), pageShell({
         title: `${state} ${subject} Standards — All Grades | TeacherAssist.ai`,
         description: `Every ${state} ${subject} standard, organized by grade — free, searchable reference for teachers.`,
@@ -296,8 +354,12 @@ async function main() {
         breadcrumb: `<a href="/">Home</a> / <a href="/standards/">Standards</a> / <a href="/standards/${stateSlug}/">${state}</a> / ${subject}`,
         body: `
           <h1>${state} ${subject} Standards</h1>
-          <p class="subtitle">Choose a grade or course to see the full standards.</p>
+          <p class="subtitle">Search across every grade at once, or choose one below.</p>
+          <input type="text" id="subjectSearch" placeholder="Search any ${subject} topic, e.g. 'ratios' or 'photosynthesis'…"
+                 style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; margin-bottom:8px;" />
+          <div id="subjectSearchResults" style="display:none; margin-bottom:20px;"></div>
           <ul class="plain-list">${gradeListHtml}</ul>
+          ${SUBJECT_SEARCH_SCRIPT(searchIndexUrl)}
         `
       }));
 
@@ -329,10 +391,27 @@ async function main() {
               Want a free lesson built around one of these standards?
               <br><a href="/quick-lesson.html?set=${encodeURIComponent(s.id)}">Build a Free Lesson →</a>
             </div>
+            <input type="text" id="pageSearch" placeholder="Filter these ${s.standardCount} standards by keyword or ID…"
+                   style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; margin-bottom:18px;" />
             ${renderDomainSections(full.standards)}
+            ${IN_PAGE_SEARCH_SCRIPT}
           `
         }));
+
+        // accumulate into this subject's cross-grade search index
+        (full.standards || []).forEach(std => {
+          subjectSearchIndex.push({
+            standardId: std.standardId,
+            domain: std.domain || "",
+            skill: std.skill || "",
+            description: std.description || "",
+            gradeBand: s.gradeBand || s.displayName,
+            pageUrl: `/standards/${stateSlug}/${subjectSlug}/${gradeSlug}.html`
+          });
+        });
       }
+
+      fs.writeFileSync(path.join(subjectDir, "search-index.json"), JSON.stringify(subjectSearchIndex));
     }
   }
 

@@ -70,8 +70,47 @@
   <div class="breadcrumb"><a href="/">Home</a> / <a href="/standards/">Standards</a> / <a href="/standards/mo/">MO</a> / ELA</div>
   
           <h1>MO ELA Standards</h1>
-          <p class="subtitle">Choose a grade or course to see the full standards.</p>
+          <p class="subtitle">Search across every grade at once, or choose one below.</p>
+          <input type="text" id="subjectSearch" placeholder="Search any ELA topic, e.g. 'ratios' or 'photosynthesis'…"
+                 style="width:100%; padding:11px 14px; border:1px solid var(--border); border-radius:8px; font-size:0.9rem; margin-bottom:8px;" />
+          <div id="subjectSearchResults" style="display:none; margin-bottom:20px;"></div>
           <ul class="plain-list"><li><a href="/standards/mo/ela/2.html">2</a> — 114 standards</li><li><a href="/standards/mo/ela/3.html">3</a> — 114 standards</li><li><a href="/standards/mo/ela/4.html">4</a> — 108 standards</li><li><a href="/standards/mo/ela/5.html">5</a> — 113 standards</li><li><a href="/standards/mo/ela/6.html">6</a> — 40 standards</li><li><a href="/standards/mo/ela/7.html">7</a> — 40 standards</li><li><a href="/standards/mo/ela/8.html">8</a> — 40 standards</li><li><a href="/standards/mo/ela/9-10.html">9-10</a> — 38 standards</li><li><a href="/standards/mo/ela/11-12.html">11-12</a> — 38 standards</li></ul>
+          
+<script>
+let __searchIndex = null;
+async function __loadSearchIndex() {
+  if (__searchIndex) return __searchIndex;
+  const res = await fetch("/standards/mo/ela/search-index.json");
+  __searchIndex = await res.json();
+  return __searchIndex;
+}
+document.getElementById("subjectSearch").addEventListener("input", async function() {
+  const q = this.value.trim().toLowerCase();
+  const results = document.getElementById("subjectSearchResults");
+  if (!q) { results.innerHTML = ""; results.style.display = "none"; return; }
+
+  const index = await __loadSearchIndex();
+  const matches = index.filter(s =>
+    (s.standardId + " " + s.domain + " " + s.skill + " " + s.description).toLowerCase().includes(q)
+  ).slice(0, 25);
+
+  results.style.display = "block";
+  if (!matches.length) {
+    results.innerHTML = '<p style="color:var(--muted); padding:12px 0;">No standards match "' + this.value + '".</p>';
+    return;
+  }
+  results.innerHTML = matches.map(s => `
+    <a href="${s.pageUrl}" style="display:block; background:white; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:8px; text-decoration:none; color:inherit;">
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:4px;">
+        <span class="std-id">${s.standardId}</span>
+        <span style="font-size:0.75rem; color:var(--muted);">${s.gradeBand}</span>
+      </div>
+      ${s.skill ? '<div class="std-skill">' + s.skill + '</div>' : ""}
+      <div class="std-desc">${s.description}</div>
+    </a>
+  `).join("");
+});
+</script>
         
   <footer class="site-footer">TeacherAssist.ai — free standards reference, built for teachers.</footer>
 </div>
