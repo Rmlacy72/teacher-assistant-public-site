@@ -205,8 +205,8 @@
     </h2>
     <div id="matchesContainer"></div>
     <div class="upsell-banner">
-      Want this feature and more?  Including the ability to create standards based evaluations of students' handwritten assignments?
-      <br><a href="https://app.teacherassist.ai/pricing.html">Sign up free at TeacherAssist.ai →</a>
+      Want more?  Full standards based evalutation of your students' handwritten work, data analsyis, and more?
+      <br><a href="https://teacherassist.ai/pricing.html">Sign up free at TeacherAssist.ai →</a>
     </div>
   </div>
 
@@ -381,8 +381,15 @@ function renderResults(data) {
   const container = document.getElementById("matchesContainer");
   wrap.classList.remove("hidden");
 
+  const contextLine = [data.state, data.subject, data.gradeBand ? `Grade/Topic: ${data.gradeBand}` : null]
+    .filter(Boolean).join(" · ");
+  const contextHtml = contextLine
+    ? `<div style="font-size:0.8rem; color:var(--muted); margin-bottom:16px;">Checked against: <strong style="color:var(--navy);">${contextLine}</strong></div>`
+    : "";
+
   if (!data.matches || !data.matches.length) {
     container.innerHTML = `
+      ${contextHtml}
       <div class="no-matches">
         <p>We didn't find a clear match for this material.</p>
         ${data.note ? `<p style="margin-top:8px; font-size:0.85rem;">${data.note}</p>` : ""}
@@ -390,7 +397,7 @@ function renderResults(data) {
     return;
   }
 
-  container.innerHTML = data.matches.map(m => `
+  container.innerHTML = contextHtml + data.matches.map(m => `
     <div class="match-card">
       <div class="match-header">
         <span class="match-id">${m.standardId}</span>
