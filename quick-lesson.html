@@ -166,6 +166,15 @@
     accent-color: var(--teal);
     flex-shrink: 0;
   }
+  .subtopic-card {
+    background: white; border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 10px;
+  }
+  .subtopic-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .subtopic-source {
+    font-size: 0.76rem; color: var(--muted); margin-top: 6px;
+  }
+  .subtopic-source a { color: var(--teal); }
   .standard-id-badge {
     font-size: 0.7rem; font-weight: 700; color: var(--teal);
     background: var(--teal-lt); padding: 2px 8px; border-radius: 6px;
@@ -376,6 +385,14 @@
         <div id="otherStandardsList" style="max-height:280px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:4px 12px;"></div>
       </div>
 
+      <button class="btn btn-primary btn-full" id="previewTopicsBtn" style="margin-top:16px;">
+        Preview Lesson Topics
+      </button>
+    </div>
+
+    <div id="subtopicsPreviewWrap" class="hidden" style="margin-top:20px;">
+      <label class="form-label">Here's what we'll teach for each standard — edit any wording, then generate</label>
+      <div id="subtopicsPreview"></div>
       <button class="btn btn-primary btn-full" id="generateBtn" style="margin-top:16px;">
         Generate My Lesson
       </button>
@@ -559,6 +576,8 @@ document.getElementById("findStandardsBtn").addEventListener("click", async () =
     otherStandardsChecked.clear();
     document.getElementById("otherStandardsWrap").classList.add("hidden");
     document.getElementById("browseOtherBtn").textContent = "+ Browse other standards for this grade";
+    previewSubtopics = [];
+    document.getElementById("subtopicsPreviewWrap").classList.add("hidden");
     renderStandardsPicker();
     document.getElementById("standardsPickerWrap").classList.remove("hidden");
     showStatus("builderStatus", "", "");
@@ -665,6 +684,71 @@ function renderOtherStandardsList() {
   });
 }
 
+/* ── Preview lesson topics before generating ── */
+let previewSubtopics = [];
+let lastConfirmedStandards = [];
+
+document.getElementById("previewTopicsBtn").addEventListener("click", async () => {
+  const standardsSetId = document.getElementById("gradeSelect").value;
+  const topic = document.getElementById("topicInput").value.trim();
+
+  const checkedRecommended = Array.from(document.querySelectorAll("#standardsPicker input[type=checkbox]:checked"))
+    .map(cb => recommendedStandards[parseInt(cb.dataset.idx, 10)]);
+  const checkedOther = fullStandardsSet.filter(s => otherStandardsChecked.has(s.standardId));
+  const checked = [...checkedRecommended, ...checkedOther];
+
+  if (!checked.length) return showStatus("builderStatus", "Please select at least one standard.", "error");
+
+  const btn = document.getElementById("previewTopicsBtn");
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner"></span>Finding sources for each standard…`;
+  document.getElementById("builderStatus").style.display = "none";
+
+  try {
+    const res = await fetch(`${API_BASE}/api/public/prepare-subtopics`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ standardsSetId, topic, confirmedStandards: checked })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Couldn't prepare lesson topics");
+
+    previewSubtopics = data.subtopics || [];
+    renderSubtopicsPreview();
+    document.getElementById("subtopicsPreviewWrap").classList.remove("hidden");
+    document.getElementById("subtopicsPreviewWrap").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (err) {
+    showStatus("builderStatus", err.message, "error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Preview Lesson Topics";
+  }
+});
+
+function renderSubtopicsPreview() {
+  const wrap = document.getElementById("subtopicsPreview");
+  wrap.innerHTML = previewSubtopics.map((s, i) => `
+    <div class="subtopic-card">
+      <div class="subtopic-card-header">
+        <span class="standard-id-badge">${s.standardId}</span>
+      </div>
+      <input type="text" data-idx="${i}" class="subtopic-edit-input" value="${(s.subtopic || "").replace(/"/g, "&quot;")}"
+             style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-size:0.88rem;" />
+      <div class="subtopic-source">
+        ${s.sourceData
+          ? `Source found: ${s.sourceData.sourceName}${s.sourceData.url ? ` — <a href="${s.sourceData.url}" target="_blank" rel="noopener">${s.sourceData.title || "view"}</a>` : ""}`
+          : "No specific source found — we'll write original, accurate content for this topic."}
+      </div>
+    </div>
+  `).join("");
+
+  wrap.querySelectorAll(".subtopic-edit-input").forEach(input => {
+    input.addEventListener("input", () => {
+      previewSubtopics[parseInt(input.dataset.idx, 10)].subtopic = input.value;
+    });
+  });
+}
+
 /* ── Generate the lesson ── */
 document.getElementById("generateBtn").addEventListener("click", async () => {
   const standardsSetId = document.getElementById("gradeSelect").value;
@@ -678,6 +762,8 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
   const checked = [...checkedRecommended, ...checkedOther];
 
   if (!checked.length) return showStatus("builderStatus", "Please select at least one standard.", "error");
+
+  lastConfirmedStandards = checked;
 
   const btn = document.getElementById("generateBtn");
   btn.disabled = true;
@@ -695,6 +781,7 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
         email: verifiedEmail,
         standardsSetId, topic,
         confirmedStandards: checked,
+        subtopics: previewSubtopics,
         options: { format, questionTypes }
       })
     });
@@ -731,10 +818,18 @@ function renderResults(content) {
         `<span class="vocab-chip">${typeof v === "string" ? v : v.term}</span>`).join("")}</div>`
     : "";
 
-  const sectionsHtml = (content.sections || []).map(s => `
+  const sectionsHtml = (content.sections || []).map(s => {
+    const fullStd = lastConfirmedStandards.find(std => std.standardId === s.standardId);
+    return `
     <div class="section-block">
       <div class="section-title">${s.readingPassage?.title || s.subtopic}</div>
-      <div class="standard-id-badge" style="margin-bottom:8px; display:inline-block;">${s.standardId || ""}</div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+        <span class="standard-id-badge">${s.standardId || ""}</span>
+        ${fullStd?.domain ? `<span style="font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em;">${fullStd.domain}</span>` : ""}
+      </div>
+      ${fullStd?.skill ? `<div style="font-size:0.86rem; font-weight:600; margin-bottom:2px;">${fullStd.skill}</div>` : ""}
+      ${fullStd?.description ? `<div style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">${fullStd.description}</div>` : ""}
+      ${s.subtopic ? `<div style="font-size:0.78rem; color:var(--teal); font-weight:600; margin-bottom:10px;">Lesson focus: ${s.subtopic}</div>` : ""}
       <div class="section-source">
         Source: ${s.sourceName || "General knowledge"}
         ${s.sourceUrl ? ` — <a href="${s.sourceUrl}" target="_blank" rel="noopener">${s.sourceTitle || "view source"}</a>` : ""}
@@ -748,7 +843,8 @@ function renderResults(content) {
         </div>
       `).join("")}
     </div>
-  `).join("");
+  `;
+  }).join("");
 
   const discussionHtml = (content.discussionQuestions || []).length
     ? `<div class="section-block">
@@ -764,7 +860,7 @@ function renderResults(content) {
     ${sectionsHtml}
     ${discussionHtml}
     <div class="upsell-banner">
-      Want full lesson exports to Word/PowerPoint, images, evaluate handwritten assignments and more?
+      Want this and more? Get images, full lesson exports to Word/PowerPoint, and student handwritten assignments.
       <br><a href="https://app.teacherassist.ai/pricing.html">Sign up free at TeacherAssist.ai →</a>
     </div>
   `;
