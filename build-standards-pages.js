@@ -11,7 +11,7 @@
 import fs from "fs";
 import path from "path";
 
-const API_BASE   = "https://ltc-teacher-grading-api-d6fjdpb6gyfvf6fj.canadacentral-01.azurewebsites.net";
+const API_BASE   = "https://ltc-teacher-grading-api-multi-tenant-fvbdadcfdgc6f9bt.canadacentral-01.azurewebsites.net";
 const SITE_ORIGIN = "https://www.teacherassist.ai";
 const OUTPUT_DIR  = "./standards"; // adjust to wherever this script sits relative to your repo root
 
