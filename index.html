@@ -618,7 +618,7 @@
     "name": "TeacherAssist.ai",
     "url": "https://www.teacherassist.ai/",
     "email": "support@teacherassist.ai",
-    "description": "AI evaluation and curriculum platform for K-12 teachers, serving Illinois and Missouri school districts."
+    "description": "AI evaluation and curriculum platform for K-12 teachers"
   }
   </script>
 
@@ -1231,92 +1231,26 @@ function closeMobileMenu() {
       </ul>
     </div>
 
-    <!-- RIGHT: Form -->
+    <!-- RIGHT: Contact card (replaces form) -->
     <div class="reveal">
-      <div style="background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 36px 32px;">
-        <div style="font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 6px;">Request district pricing</div>
-        <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; line-height: 1.55;">We'll respond to you  with pricing and next steps.</p>
-
-        <div id="districtFormWrap">
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-
-            <div>
-              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Your name</label>
-              <input type="text" id="dName" placeholder="Jane Smith"
-                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
-                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
-                       background: white; outline: none; transition: border-color 0.15s;"
-                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
-            </div>
-
-            <div>
-              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Your email</label>
-              <input type="email" id="dEmail" placeholder="jsmith@springfieldschools.org"
-                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
-                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
-                       background: white; outline: none; transition: border-color 0.15s;"
-                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
-            </div>
-
-            <div>
-              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">District name</label>
-              <input type="text" id="dDistrict" placeholder="Springfield R-XII School District"
-                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
-                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
-                       background: white; outline: none; transition: border-color 0.15s;"
-                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'" />
-            </div>
-
-            <div>
-              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Approximate number of teachers</label>
-              <select id="dSize"
-                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
-                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
-                       background: white; outline: none; cursor: pointer; transition: border-color 0.15s;"
-                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'">
-                <option value="">Select a range…</option>
-                <option value="1-10">1 – 10 teachers</option>
-                <option value="11-25">11 – 25 teachers</option>
-                <option value="26-50">26 – 50 teachers</option>
-                <option value="51-100">51 – 100 teachers</option>
-                <option value="101-250">101 – 250 teachers</option>
-                <option value="250+">250+ teachers</option>
-              </select>
-            </div>
-
-            <div>
-              <label style="font-size: 0.78rem; font-weight: 600; color: var(--ink); display: block; margin-bottom: 5px;">Anything else? <span style="font-weight: 400; color: var(--muted);">(optional)</span></label>
-              <textarea id="dNotes" placeholder="Timeline, specific questions, subjects taught…" rows="3"
-                style="width: 100%; padding: 10px 13px; border: 1px solid var(--border); border-radius: 8px;
-                       font-size: 0.88rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink);
-                       background: white; outline: none; resize: vertical; transition: border-color 0.15s;"
-                onfocus="this.style.borderColor='#5a2ca0'" onblur="this.style.borderColor='var(--border)'"></textarea>
-            </div>
-
-            <div id="dMsg" style="font-size: 0.8rem; min-height: 18px;"></div>
-
-            <button onclick="submitDistrictForm()"
-              id="dSubmitBtn"
-              style="width: 100%; padding: 12px; border-radius: 8px; border: none;
-                     background: #5a2ca0; color: white; font-size: 0.92rem; font-weight: 700;
-                     font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
-                     transition: background 0.15s, transform 0.15s;
-                     box-shadow: 0 4px 14px rgba(90,44,160,0.25);"
-              onmouseover="this.style.background='#4a2285'; this.style.transform='translateY(-1px)'"
-              onmouseout="this.style.background='#5a2ca0'; this.style.transform='translateY(0)'">
-              Request Pricing →
-            </button>
-
-          </div>
-        </div>
-
-        <!-- Success state (hidden until submit) -->
-        <div id="districtFormSuccess" style="display: none; text-align: center; padding: 16px 0;">
-          <div style="font-size: 2.2rem; margin-bottom: 12px;">🏫</div>
-          <div style="font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 8px;">Request received!</div>
-          <p style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">Thanks — we'll be in touch shortly with pricing and next steps for your district.</p>
-        </div>
-
+      <div style="background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 36px 32px; text-align: center;">
+        <div style="font-size: 2.2rem; margin-bottom: 16px;">🏫</div>
+        <div style="font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 10px;">Request district pricing</div>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 24px; line-height: 1.65;">
+          Tell us your district's name and approximate teacher count, and we'll follow up with pricing and next steps.
+        </p>
+        <a href="mailto:support@teacherassist.ai?subject=District%20Pricing%20Request&body=District%20name%3A%0AApproximate%20number%20of%20teachers%3A%0A"
+          style="display: inline-block; width: 100%; padding: 12px; border-radius: 8px; border: none;
+                 background: #5a2ca0; color: white; font-size: 0.92rem; font-weight: 700;
+                 font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: none;
+                 box-shadow: 0 4px 14px rgba(90,44,160,0.25); transition: background 0.15s, transform 0.15s;"
+          onmouseover="this.style.background='#4a2285'; this.style.transform='translateY(-1px)'"
+          onmouseout="this.style.background='#5a2ca0'; this.style.transform='translateY(0)'">
+          Email Us for Pricing →
+        </a>
+        <p style="font-size: 0.78rem; color: var(--muted); margin-top: 16px;">
+          Or reach us directly at <a href="mailto:support@teacherassist.ai" style="color: #5a2ca0; font-weight: 600;">support@teacherassist.ai</a>
+        </p>
       </div>
     </div>
 
@@ -1329,7 +1263,6 @@ function closeMobileMenu() {
     }
   </style>
 </section>
-
 <script>
 async function submitDistrictForm() {
   const name     = document.getElementById("dName").value.trim();
