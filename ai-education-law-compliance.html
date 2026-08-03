@@ -20,6 +20,7 @@
      - human-in-the-loop AI grading K-12
      - FERPA compliant AI grading tool
      - Illinois SB416 AI schools
+     - ISBE AI guidance Illinois schools
      - Missouri AI education law
      - AI in education legislation 2026
      - teacher AI grading law compliance
@@ -61,7 +62,7 @@
       "name": "Is AI allowed to grade student work in Illinois?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Illinois has not banned AI-assisted grading. Public Act 104-0201, effective January 1, 2026, requires statewide guidance on responsible AI use in K-12 schools and bars AI-only instruction at community colleges. Senate Bill 416, the Student Educational Technology Rights Act, would go further by proposing specific human-in-the-loop requirements for K-12 AI tools; as of mid-2026 it has passed the Senate and is under review in a House committee, and is not yet law."
+        "text": "Illinois has not banned AI-assisted grading. Senate Bill 1920 (2025) required the Illinois State Board of Education to publish statewide K-12 AI guidance, which it did on July 9, 2026 -- a 409-page, non-mandatory guidance document, not a binding legal requirement. A separate law, Public Act 104-0201, bars AI-only instruction at community colleges. Senate Bill 416, the Student Educational Technology Rights Act, would have gone further by proposing binding human-in-the-loop requirements for K-12 AI tools; it passed the Senate 57-0 but stalled in the House and was re-referred to the Rules Committee in May 2026, and is not law."
       }
     },
     {
@@ -135,6 +136,10 @@
     --status-pending-tint:#f6e6dd;
     --status-tracking:#4a5b6d;
     --status-tracking-tint:#e9edf0;
+    --status-guidance:#2c5f78;
+    --status-guidance-tint:#e2eef2;
+    --status-dead:#8c6b5c;
+    --status-dead-tint:#f0e8e2;
     --radius:2px;
     --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
     --sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
@@ -315,6 +320,17 @@
     color:var(--ink);
   }
   .tracker-body p{margin:0;font-size:0.92rem;}
+  .tracker-source{
+    display:inline-block;
+    margin-top:8px;
+    font-family:var(--sans);
+    font-size:0.78rem;
+    font-weight:600;
+    color:var(--brass);
+    text-decoration:none;
+    border-bottom:1px solid var(--brass-soft);
+  }
+  .tracker-source:hover{color:var(--ink);border-color:var(--ink);}
   .status{
     justify-self:end;
     font-family:var(--mono);
@@ -329,6 +345,8 @@
   .status-enacted{background:var(--status-enacted-tint);color:var(--status-enacted);}
   .status-pending{background:var(--status-pending-tint);color:var(--status-pending);}
   .status-tracking{background:var(--status-tracking-tint);color:var(--status-tracking);}
+  .status-guidance{background:var(--status-guidance-tint);color:var(--status-guidance);}
+  .status-dead{background:var(--status-dead-tint);color:var(--status-dead);}
 
   .stat-strip{
     display:flex;gap:36px;flex-wrap:wrap;
@@ -348,6 +366,44 @@
     color:var(--slate);
     max-width:20ch;
     margin-top:6px;
+  }
+
+  /* ---------- IL vs CA comparison table ---------- */
+  .compare-table{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--paper-raised);
+  }
+  .compare-row{
+    display:grid;
+    grid-template-columns:160px 1fr 1fr;
+    gap:16px;
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+    font-size:0.9rem;
+    align-items:start;
+  }
+  .compare-row:last-child{border-bottom:none;}
+  .compare-label{
+    font-family:var(--sans);
+    font-weight:600;
+    color:var(--ink);
+    font-size:0.82rem;
+  }
+  .compare-head{
+    background:var(--brass-tint);
+    font-family:var(--serif);
+    font-weight:600;
+    color:var(--ink);
+  }
+  .compare-head div:nth-child(2){color:var(--status-guidance);}
+  .compare-head div:nth-child(3){color:var(--brass);}
+
+  @media (max-width: 720px){
+    .compare-row{grid-template-columns:1fr;gap:4px;padding:16px;}
+    .compare-label{padding-top:6px;}
+    .compare-head{padding-bottom:8px;}
   }
 
   /* ---------- Requirement -> feature mapping ---------- */
@@ -578,7 +634,7 @@
   <!-- ================= HERO ================= -->
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow">For district &amp; building administrators · updated July 2026</span>
+      <span class="eyebrow">For district &amp; building administrators · updated August 2026</span>
       <h1>Build a clear AI policy, and give your teachers a tool that's built to follow it.</h1>
       <p class="hero-lede">
         As AI-in-education legislation takes shape, districts have a real opportunity to get ahead of
@@ -638,33 +694,70 @@
   <section id="tracker">
     <div class="wrap">
       <p class="kicker">Why this is about to matter more</p>
-      <h2>AI-in-education legislation, plain English</h2>
+      <h2>AI-in-education law and guidance, plain English</h2>
       <p class="lead-col">
-        This page tracks the Illinois legislation most relevant to how teachers use AI to grade or
-        generate curriculum, and is updated as bill status changes.
+        Most states aren't passing binding AI-in-education laws — they're publishing guidance
+        documents instead: non-mandatory recommendations that leave the actual decisions to
+        districts. This page tracks both the Illinois <em>legislation</em> and the state
+        <em>guidance</em> most relevant to how teachers use AI to grade or generate curriculum,
+        and is updated as either one changes.
+      </p>
+
+      <p class="lead-col" style="margin-top:-8px;font-size:0.85rem;color:var(--slate);">
+        <strong style="color:var(--status-enacted);">Enacted</strong> = binding law &nbsp;·&nbsp;
+        <strong style="color:var(--status-guidance);">Guidance</strong> = a published, non-mandatory
+        recommendations document &nbsp;·&nbsp;
+        <strong style="color:var(--status-dead);">Dead</strong> = did not pass
       </p>
 
       <div class="tracker">
         <div class="tracker-row">
-          <div class="tracker-bill">PA 104-0201<span class="tracker-juris">Illinois · Enacted</span></div>
+          <div class="tracker-bill">SB 1920 (2025)<span class="tracker-juris">Illinois · Enacted</span></div>
           <div class="tracker-body">
             <h4>Statewide K-12 AI guidance mandate</h4>
-            <p>Signed August 2025, effective January 1, 2026. Requires statewide guidance for K-12 schools
-            on responsible AI use and separately bars community colleges from using AI as the sole source
-            of instruction for a course.</p>
+            <p>Passed the House 74–34 with unanimous Senate support in spring 2025. Directs the Illinois
+            State Board of Education to publish statewide K-12 AI guidance — covering data privacy, bias,
+            AI literacy, and classroom use — by July 1, 2026. The law itself doesn't set any AI-use rules;
+            it only required ISBE to write the guidance below.</p>
           </div>
           <span class="status status-enacted">In effect</span>
         </div>
 
         <div class="tracker-row">
-          <div class="tracker-bill">SB 416<span class="tracker-juris">Illinois · Pending</span></div>
+          <div class="tracker-bill">ISBE AI Guidance<span class="tracker-juris">Illinois · Guidance</span></div>
+          <div class="tracker-body">
+            <h4>409-page K-12 AI guidance document</h4>
+            <p>Published July 9, 2026 to fulfill the SB 1920 mandate above. Non-mandatory recommendations,
+            not a compliance requirement — districts decide how to apply it locally. Its core framing:
+            AI should inform teaching and preserve human relationships in the classroom, not replace the
+            teacher's judgment. That's the same principle behind TeacherAssist.ai's AI-evaluates,
+            teacher-grades workflow.</p>
+            <a href="https://www.isbe.net" target="_blank" rel="noopener" class="tracker-source">Find it on ISBE.net (search "AI Guidance") ↗</a>
+          </div>
+          <span class="status status-guidance">Non-mandatory</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">PA 104-0201<span class="tracker-juris">Illinois · Enacted</span></div>
+          <div class="tracker-body">
+            <h4>Community college AI instruction ban</h4>
+            <p>Signed August 2025, effective January 1, 2026. Bars community colleges from using AI as the
+            sole source of instruction for a course. A separate law from SB 1920 above; it doesn't apply
+            to K-12 grading.</p>
+          </div>
+          <span class="status status-enacted">In effect</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">SB 416<span class="tracker-juris">Illinois · Did not pass</span></div>
           <div class="tracker-body">
             <h4>Student Educational Technology Rights Act</h4>
-            <p>Passed the Senate 57–0; as of late May 2026, re-referred to the House Rules Committee.
-            Not yet law. Proposes human-in-the-loop requirements for AI tools used with student data —
-            the same AI-evaluates, teacher-grades workflow TeacherAssist.ai already uses.</p>
+            <p>Passed the Senate 57–0, but stalled in the House and was re-referred to the Rules Committee
+            on May 31, 2026 — dead for this session. Would have made human-in-the-loop requirements for
+            student-data AI tools binding law rather than guidance; TeacherAssist.ai's AI-evaluates,
+            teacher-grades workflow already matches what it proposed.</p>
           </div>
-          <span class="status status-pending">Not yet law</span>
+          <span class="status status-dead">Did not pass</span>
         </div>
 
         <div class="tracker-row">
@@ -672,19 +765,73 @@
           <div class="tracker-body">
             <h4>AI in Education Task Force</h4>
             <p>Would direct the state board of education to convene a task force studying AI use in K-12
-            classrooms, including grading, and to issue guidance to districts. Still in committee.</p>
+            classrooms, including grading, and to issue guidance to districts. Still in committee — separate
+            from the guidance DESE has already published below.</p>
           </div>
           <span class="status status-tracking">In committee</span>
         </div>
 
         <div class="tracker-row">
+          <div class="tracker-bill">DESE AI Guidance<span class="tracker-juris">Missouri · Guidance</span></div>
+          <div class="tracker-body">
+            <h4>AI Guidance for Local Education Agencies, v1.0</h4>
+            <p>Released by the Missouri Dept. of Elementary and Secondary Education for the 2025-26 school
+            year, developed with Missouri's Computer Science Advisory Council. Non-mandatory; emphasizes
+            human oversight and AI as a tool to enhance, not replace, educators — consistent with
+            TeacherAssist.ai's architecture.</p>
+            <a href="https://www.aiforeducation.io/s/AI_Guidance-Accessible.pdf" target="_blank" rel="noopener" class="tracker-source">View the guidance (PDF) ↗</a>
+          </div>
+          <span class="status status-guidance">Non-mandatory</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">CA Model AI Policy<span class="tracker-juris">California · Guidance</span></div>
+          <div class="tracker-body">
+            <h4>CDE Model Policy: AI in Education</h4>
+            <p>Required by SB 1288 (2024); released by the California Dept. of Education in 2026 as a
+            26-principle model policy districts may adopt or adapt. Non-mandatory under Ed Code 33308.5.
+            Explicitly states the educator of record retains sole authority to determine final grades,
+            regardless of how AI is used in the process — the most direct match to TeacherAssist.ai's
+            architecture of any state guidance we track.</p>
+            <a href="https://www.cde.ca.gov/ci/pl/aipolicy.asp" target="_blank" rel="noopener" class="tracker-source">View on CDE.ca.gov ↗</a>
+          </div>
+          <span class="status status-guidance">Non-mandatory</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">NYC AI Playbook<span class="tracker-juris">New York · Guidance</span></div>
+          <div class="tracker-body">
+            <h4>NYC Public Schools Guidance on AI</h4>
+            <p>New York State has no statewide K-12 AI guidance yet (a bill to create one, A6972, is still
+            pending). New York City Public Schools — the nation's largest district — released its own
+            preliminary AI guidance in March 2026, explicitly barring AI from assigning grades or discipline
+            while inviting community feedback ahead of a fuller playbook.</p>
+            <a href="https://www.schools.nyc.gov/about-us/vision-and-mission/artificial-intelligence/guidance-on-artificial-intelligence" target="_blank" rel="noopener" class="tracker-source">View NYC Public Schools guidance ↗</a>
+          </div>
+          <span class="status status-guidance">District-level</span>
+        </div>
+
+        <div class="tracker-row">
+          <div class="tracker-bill">No statewide guidance<span class="tracker-juris">Texas · Tracking</span></div>
+          <div class="tracker-body">
+            <h4>Texas has not yet issued state guidance</h4>
+            <p>The Texas Education Agency has not published statewide K-12 AI guidance as of this writing.
+            Activity so far has come from outside philanthropy — the Communities Foundation of Texas
+            launched an AI + Education Leadership Collaborative to help districts navigate policy in the
+            meantime.</p>
+          </div>
+          <span class="status status-tracking">No guidance yet</span>
+        </div>
+
+
+        <div class="tracker-row">
           <div class="tracker-bill">National view<span class="tracker-juris">All 50 states · Tracking</span></div>
           <div class="tracker-body">
             <h4>Where the rest of the country stands</h4>
-            <p>Roughly a dozen states have enacted some form of K-12 AI guidance or guardrails to date;
-            close to twenty more have active bills pending in committee or awaiting a floor vote; the
-            remainder have no formal AI-in-education legislation introduced yet. The requirement that
-            keeps reappearing across all of them: a teacher, not the algorithm, assigns the final grade.</p>
+            <p>At least 34 states have now issued some form of K-12 AI guidance, and a smaller number have
+            passed binding legislation — most states are choosing non-mandatory guidance over law, the same
+            path Illinois and California have both taken. The requirement that keeps reappearing across
+            nearly all of them, guidance or law: a teacher, not the algorithm, assigns the final grade.</p>
           </div>
           <span class="status status-tracking">Ongoing</span>
         </div>
@@ -697,29 +844,93 @@
         </div>
         <div>
           <div class="stat-num">~12</div>
-          <div class="stat-label">States with enacted K-12 AI guidance or guardrails so far</div>
+          <div class="stat-label">states with binding K-12 AI legislation enacted, not just guidance</div>
         </div>
         <div>
           <div class="stat-num">~19</div>
           <div class="stat-label">States with AI-in-education bills still pending</div>
         </div>
         <div>
-          <div class="stat-num">57–0</div>
-          <div class="stat-label">Illinois Senate vote in favor of SB416</div>
+          <div class="stat-num">34+</div>
+          <div class="stat-label">states that have issued K-12 AI guidance rather than binding law</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= WHAT LAWS REQUIRE -> HOW WE ALIGN ================= -->
+  <!-- ================= IL vs CA GUIDANCE COMPARISON ================= -->
+  <section id="il-vs-ca">
+    <div class="wrap">
+      <p class="kicker">Two states, the same non-mandatory approach</p>
+      <h2>How Illinois's guidance compares to California's</h2>
+      <p class="lead-col">
+        Illinois and California have both landed on the same strategy: publish detailed,
+        non-mandatory guidance rather than pass binding law. Here's how the two documents
+        actually compare.
+      </p>
+
+      <div class="compare-table">
+        <div class="compare-row compare-head">
+          <div></div>
+          <div>Illinois — ISBE Guidance</div>
+          <div>California — CDE Model Policy</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Legal basis</div>
+          <div>SB 1920 (2025) directed ISBE to write it</div>
+          <div>SB 1288 (2024) directed CDE to write it</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Released</div>
+          <div>July 9, 2026</div>
+          <div>2026</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Mandatory?</div>
+          <div>No — non-mandatory recommendations</div>
+          <div>No — Ed Code 33308.5 states compliance "is not mandatory"</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Format</div>
+          <div>409-page narrative guidance document</div>
+          <div>26-principle model policy, adoptable as a template</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Grading language</div>
+          <div>General principle: AI should inform teaching, not replace it</div>
+          <div>Explicit: the educator of record retains sole authority to determine final grades</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Data privacy</div>
+          <div>Flags student data privacy as a key ethical issue for districts</div>
+          <div>Explicit ban on using student data to train AI models or for advertising</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-label">Vendor evaluation</div>
+          <div>Not directly addressed</div>
+          <div>Calls for pre-deployment evaluation and enforceable vendor safeguards</div>
+        </div>
+      </div>
+
+      <div class="risk-bridge" style="margin-top:24px;">
+        <strong>The bottom line for districts:</strong> neither state has passed binding law on
+        AI grading yet, but both point the same direction — human oversight, teacher-held
+        grading authority, and data-privacy safeguards. California's policy simply says it more
+        explicitly. TeacherAssist.ai's AI-evaluates, teacher-grades architecture was designed to
+        align with both.
+      </div>
+    </div>
+  </section>
+
+
   <section>
     <div class="wrap">
       <p class="kicker">Requirement by requirement</p>
       <h2>How TeacherAssist.ai is built to align</h2>
       <p class="lead-col">
-        Across nearly every state proposal we track, the same handful of requirements keep
-        reappearing. Here's how our platform was already designed around each one — before
-        any of these bills existed.
+        Across nearly every state bill and guidance document we track, the same handful of
+        requirements keep reappearing. Here's how our platform was already designed around
+        each one — before any of these bills or guidance documents existed.
       </p>
 
       <div class="map-list">
@@ -878,9 +1089,10 @@
 
       <details>
         <summary>Is AI allowed to grade student work in Illinois?</summary>
-        <p>Yes. Illinois has not banned AI-assisted grading. PA 104-0201, effective January 1, 2026, requires
-        statewide guidance on responsible K-12 AI use. SB416 would go further and add specific
-        human-in-the-loop requirements, but as of mid-2026 it has not been enacted.</p>
+        <p>Yes. Illinois has not banned AI-assisted grading. SB 1920 (2025) directed ISBE to publish
+        statewide K-12 AI guidance, which it did on July 9, 2026 — a 409-page, non-mandatory document,
+        not a legal requirement. SB416, which would have made human-in-the-loop requirements binding law,
+        passed the Senate 57–0 but stalled in the House and died in the Rules Committee in May 2026.</p>
       </details>
 
       <details>
@@ -930,10 +1142,12 @@
       </details>
 
       <details>
-        <summary>What happens if SB416 becomes law?</summary>
-        <p>Because TeacherAssist.ai's AI-evaluates, teacher-grades workflow already matches the
-        human-in-the-loop model SB416 proposes, we don't expect it to require architectural changes on
-        our end. We'll update this page and notify district partners directly if anything changes.</p>
+        <summary>Does ISBE's new AI guidance require any changes to how we use TeacherAssist.ai?</summary>
+        <p>No. ISBE's July 2026 guidance is non-mandatory and leaves specific policy decisions to each
+        district, but its central theme — AI should inform teaching, not replace the teacher's judgment —
+        is the same principle TeacherAssist.ai's AI-evaluates, teacher-grades workflow was already built
+        around. We'll update this page if that changes, or if SB416-style legislation is reintroduced
+        and passes in a future session.</p>
       </details>
     </div>
   </section>
@@ -942,11 +1156,11 @@
   <section>
     <div class="wrap">
       <div class="disclaimer">
-        <strong>Not legal advice.</strong> This page summarizes publicly available legislative
-        information as of July 2026 for general awareness and is not a legal opinion. Legislation
-        can change quickly; districts should confirm current bill status with the Illinois General
-        Assembly or Missouri General Assembly and consult their own counsel before making compliance
-        decisions.
+        <strong>Not legal advice.</strong> This page summarizes publicly available legislative and
+        state-guidance information as of August 2026 for general awareness and is not a legal opinion.
+        Legislation can change quickly and guidance documents are non-binding; districts should confirm
+        current bill status with the Illinois General Assembly or Missouri General Assembly, review the
+        ISBE guidance directly, and consult their own counsel before making compliance decisions.
       </div>
     </div>
   </section>
