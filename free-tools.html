@@ -1,494 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Teacher Tools — Standards Alignment & Lesson Builder | TeacherAssist.ai</title>
-<meta name="description" content="Free tools for teachers: build a standards-aligned lesson in seconds, check your existing worksheets against real state standards, or get a free month of full access to AI-assisted grading. No signup fees, ever.">
-<link rel="canonical" href="https://www.teacherassist.ai/free-tools.html">
-<meta property="og:title" content="Free Teacher Tools — Standards Alignment & Lesson Builder">
-<meta property="og:description" content="Free tools for teachers: build a standards-aligned lesson in seconds, or check your existing worksheets and lessons against real state standards.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.teacherassist.ai/free-tools.html">
-<meta property="og:site_name" content="TeacherAssist.ai">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Free Teacher Tools — Standards Alignment & Lesson Builder">
-<meta name="twitter:description" content="Free tools for teachers: build a standards-aligned lesson in seconds, or check your existing worksheets and lessons against real state standards.">
-
-<style>
-  :root{
-    --paper:#F6F1E7;
-    --paper-white:#FFFDF8;
-    --ink:#2B2620;
-    --ink-soft:#5B5348;
-    --blue:#3F6E8C;
-    --blue-deep:#2E5470;
-    --gold:#C98A2E;
-    --gold-soft:#F1DFB8;
-    --line:#E4DBC8;
-    --green-badge:#4C7A5A;
-    --radius:10px;
-    --maxw:1120px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:Georgia, "Times New Roman", serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{
-    font-family:Georgia, "Times New Roman", serif;
-    font-weight:700;
-    line-height:1.15;
-    margin:0 0 .5em 0;
-    color:var(--ink);
-  }
-  p{margin:0 0 1em 0;}
-  a{color:var(--blue-deep);}
-  .sans{font-family:Arial, Helvetica, sans-serif;}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
-
-  /* Skip link for accessibility */
-  .skip-link{
-    position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
-    padding:10px 16px; z-index:1000; font-family:Arial, sans-serif; font-size:14px;
-  }
-  .skip-link:focus{left:12px; top:12px;}
-
-  :focus-visible{outline:3px solid var(--blue); outline-offset:2px;}
-
-  /* NAV */
-  header.site-nav{
-    border-bottom:1px solid var(--line);
-    background:var(--paper);
-    position:sticky; top:0; z-index:100;
-  }
-  .nav-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 24px; max-width:var(--maxw); margin:0 auto;
-  }
-  .logo{
-    font-family:Georgia, serif; font-weight:700; font-size:1.15rem;
-    color:var(--ink); text-decoration:none;
-  }
-  .nav-links{
-    display:flex; align-items:center; gap:24px;
-    font-family:Arial, Helvetica, sans-serif; font-size:.92rem;
-  }
-  .nav-links a{
-    color:var(--ink-soft); text-decoration:none;
-  }
-  .nav-links a:hover{color:var(--ink);}
-  .nav-cta{
-    background:var(--blue); color:#fff !important; padding:9px 18px;
-    border-radius:999px; font-weight:700; white-space:nowrap;
-  }
-  .nav-cta:hover{background:var(--blue-deep);}
-  .nav-mobile-hide{display:flex;}
-  @media (max-width:760px){
-    .nav-mobile-hide{display:none;}
-    .nav-row{padding:14px 20px;}
-  }
-
-  /* HERO */
-  .hero{
-    padding:56px 0 40px 0;
-  }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:Arial, Helvetica, sans-serif; font-size:.8rem; font-weight:700;
-    letter-spacing:.04em; text-transform:uppercase;
-    background:var(--gold-soft); color:#6B4A12;
-    padding:7px 14px; border-radius:999px; margin-bottom:20px;
-  }
-  .hero-grid{
-    display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:start;
-  }
-  @media (max-width:900px){
-    .hero-grid{grid-template-columns:1fr;}
-  }
-  .hero h1{
-    font-size:clamp(1.9rem, 4vw, 2.7rem);
-    max-width:14ch;
-  }
-  .hero-sub{
-    font-size:1.08rem; color:var(--ink-soft); max-width:52ch; margin-bottom:22px;
-  }
-  .trust-pills{
-    display:flex; flex-wrap:wrap; gap:10px; margin-bottom:28px;
-  }
-  .trust-pill{
-    font-family:Arial, Helvetica, sans-serif; font-size:.82rem; font-weight:600;
-    color:var(--blue-deep); background:#fff; border:1px solid var(--line);
-    padding:7px 13px; border-radius:999px;
-  }
-  .badge-row{
-    display:flex; gap:8px; margin:4px 0 26px 0; flex-wrap:wrap;
-  }
-  .grade-chip{
-    font-family:Arial, sans-serif; font-size:.72rem; font-weight:700;
-    padding:5px 11px; border-radius:999px; color:#fff;
-  }
-  .chip-1{background:var(--green-badge);}
-  .chip-2{background:var(--blue);}
-  .chip-3{background:var(--gold);}
-
-  .jump-link{
-    font-family:Arial, Helvetica, sans-serif; font-size:.92rem; font-weight:700;
-    color:var(--blue-deep); text-decoration:none; display:inline-block; margin-top:6px;
-  }
-  .jump-link:hover{text-decoration:underline;}
-
-  /* FORM CARD */
-  .form-card{
-    background:var(--paper-white); border:1px solid var(--line); border-radius:var(--radius);
-    padding:28px; box-shadow:0 2px 14px rgba(43,38,32,.06);
-  }
-  .form-card h2{
-    font-size:1.25rem; margin-bottom:4px;
-  }
-  .form-card .form-sub{
-    font-family:Arial, Helvetica, sans-serif; font-size:.88rem; color:var(--ink-soft);
-    margin-bottom:18px;
-  }
-  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;}
-  @media (max-width:520px){.field-row{grid-template-columns:1fr;}}
-  label{
-    display:block; font-family:Arial, Helvetica, sans-serif; font-size:.8rem; font-weight:700;
-    color:var(--ink); margin-bottom:5px;
-  }
-  input[type=text], input[type=email]{
-    width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:6px;
-    font-family:Arial, Helvetica, sans-serif; font-size:.95rem; background:#fff; color:var(--ink);
-  }
-  input:focus{border-color:var(--blue);}
-  .submit-btn{
-    width:100%; background:var(--blue); color:#fff; border:none; border-radius:8px;
-    padding:14px 18px; font-family:Arial, Helvetica, sans-serif; font-size:1rem; font-weight:700;
-    cursor:pointer; margin-top:6px;
-  }
-  .submit-btn:hover{background:var(--blue-deep);}
-  .form-microcopy{
-    font-family:Arial, Helvetica, sans-serif; font-size:.78rem; color:var(--ink-soft);
-    text-align:center; margin-top:10px; margin-bottom:0;
-  }
-  .form-success{
-    display:none; text-align:center; padding:20px 6px;
-  }
-  .form-success.show{display:block;}
-  .form-fields.hide{display:none;}
-  .form-success h3{font-size:1.15rem; margin-bottom:6px;}
-  .form-success p{font-family:Arial, Helvetica, sans-serif; font-size:.9rem; color:var(--ink-soft);}
-
-  /* DIVIDER SECTION */
-  .divider-section{
-    padding:12px 0 8px 0; text-align:center;
-  }
-  .divider-line{
-    display:flex; align-items:center; gap:16px; max-width:var(--maxw); margin:36px auto 0;
-    padding:0 24px;
-  }
-  .divider-line hr{
-    flex:1; border:none; border-top:1px solid var(--line);
-  }
-  .divider-label{
-    font-family:Arial, Helvetica, sans-serif; font-size:.82rem; font-weight:700;
-    color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;
-    white-space:nowrap;
-  }
-
-  /* TOOLS SECTION */
-  .tools-section{padding:36px 0 8px 0;}
-  .tools-heading{text-align:center; max-width:640px; margin:0 auto 34px auto;}
-  .tools-heading h2{font-size:1.5rem;}
-  .tools-heading p{font-family:Arial, Helvetica, sans-serif; color:var(--ink-soft); font-size:.98rem;}
-  .tools-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  }
-  @media (max-width:760px){
-    .tools-grid{grid-template-columns:1fr;}
-  }
-  .tool-card{
-    background:var(--paper-white); border:1px solid var(--line); border-radius:var(--radius);
-    padding:28px;
-  }
-  .tool-icon{font-size:1.8rem; margin-bottom:10px; display:block;}
-  .tool-kicker{
-    font-family:Arial, Helvetica, sans-serif; font-size:.72rem; font-weight:700;
-    letter-spacing:.06em; text-transform:uppercase; color:var(--blue-deep); margin-bottom:6px;
-  }
-  .tool-card h3{font-size:1.2rem; margin-bottom:8px;}
-  .tool-card p{font-size:.98rem; color:var(--ink-soft); margin-bottom:16px;}
-  .tool-cta{
-    display:inline-block; font-family:Arial, Helvetica, sans-serif; font-weight:700; font-size:.94rem;
-    color:#fff; background:var(--ink); padding:11px 20px; border-radius:8px; text-decoration:none;
-  }
-  .tool-cta:hover{background:#000;}
-  .tools-footnote{
-    text-align:center; font-family:Arial, Helvetica, sans-serif; font-size:.85rem;
-    color:var(--ink-soft); margin-top:22px;
-  }
-  .tools-footnote a{color:var(--blue-deep); font-weight:700;}
-
-  /* TRUST STRIP */
-  .trust-strip{
-    margin-top:56px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-    background:var(--paper-white);
-  }
-  .trust-strip-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
-    padding:32px 24px; max-width:var(--maxw); margin:0 auto;
-  }
-  @media (max-width:760px){
-    .trust-strip-grid{grid-template-columns:1fr; text-align:center;}
-  }
-  .trust-item{font-family:Arial, Helvetica, sans-serif;}
-  .trust-item .t-icon{font-size:1.3rem; margin-bottom:6px; display:block;}
-  .trust-item h4{font-size:.92rem; margin:0 0 4px 0; color:var(--ink);}
-  .trust-item p{font-size:.82rem; color:var(--ink-soft); margin:0;}
-
-  /* FOOTER */
-  footer{padding:40px 24px 60px 24px;}
-  .footer-inner{
-    max-width:var(--maxw); margin:0 auto; display:flex; justify-content:space-between;
-    align-items:center; flex-wrap:wrap; gap:16px;
-  }
-  .footer-links{
-    display:flex; gap:20px; font-family:Arial, Helvetica, sans-serif; font-size:.85rem;
-    flex-wrap:wrap;
-  }
-  .footer-links a{color:var(--ink-soft); text-decoration:none;}
-  .footer-links a:hover{color:var(--ink);}
-  .footer-copy{
-    font-family:Arial, Helvetica, sans-serif; font-size:.82rem; color:var(--ink-soft);
-    width:100%; padding-top:16px; border-top:1px solid var(--line); margin-top:8px;
-  }
-</style>
-</head>
-<body>
-<a class="skip-link" href="#main">Skip to content</a>
-
-<header class="site-nav">
-  <div class="nav-row">
-    <a class="logo" href="https://www.teacherassist.ai/">✏️ TeacherAssist.ai</a>
-    <nav class="nav-links">
-      <a class="nav-mobile-hide" href="https://www.teacherassist.ai/#features">Features</a>
-      <a class="nav-mobile-hide" href="https://www.teacherassist.ai/#how-it-works">How it works</a>
-      <a class="nav-mobile-hide" href="https://www.teacherassist.ai/pricing.html">Pricing</a>
-      <a class="nav-mobile-hide" href="https://www.teacherassist.ai/free-tools.html">Free Tools</a>
-      <a class="nav-mobile-hide" href="https://app.teacherassist.ai">Sign In</a>
-      <a class="nav-cta" href="#free-access-form">Get Free Access</a>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">🎁 1 free month — no credit card required to start</div>
-        <h1>Grading 150 handwritten essays doesn't have to eat your weekend.</h1>
-        <p class="hero-sub">
-          TeacherAssist.ai reads the handwriting, flags what needs your attention, and
-          generates standards-aligned feedback — you still assign every grade. Try full
-          access free for a month below, or try two instant tools right now with no code needed.
-        </p>
-
-        <div class="badge-row" aria-hidden="true">
-          <span class="grade-chip chip-1">Exemplary</span>
-          <span class="grade-chip chip-2">Proficient</span>
-          <span class="grade-chip chip-3">Developing</span>
-        </div>
-
-        <div class="trust-pills">
-          <span class="trust-pill">✓ AI evaluates. Teachers grade. Always.</span>
-          <span class="trust-pill">✓ Student data minimized to initials only</span>
-        </div>
-
-        <a class="jump-link" href="#instant-tools">↓ Or skip ahead to 2 instant free tools, no code needed</a>
-      </div>
-
-      <div id="free-access-form" class="form-card">
-        <div class="form-fields">
-          <h2>Try full access, free for 1 month</h2>
-          <p class="form-sub">No credit card, no Stripe signup — just your info and we'll email a
-             code within minutes. After your free month, continuing costs a subscription;
-             cancel anytime with no obligation.</p>
-
-          <form id="leadForm" class="sans" novalidate>
-            <div class="field-row">
-              <div>
-                <label for="fname">First name</label>
-                <input type="text" id="fname" name="fname" required autocomplete="given-name">
-              </div>
-              <div>
-                <label for="email">Email address</label>
-                <input type="email" id="email" name="email" required autocomplete="email">
-              </div>
-            </div>
-            <div class="field-row">
-              <div>
-                <label for="school">School or district</label>
-                <input type="text" id="school" name="school" required autocomplete="organization">
-              </div>
-              <div>
-                <label for="state">State</label>
-                <input type="text" id="state" name="state" required autocomplete="address-level1" placeholder="e.g. IL">
-              </div>
-            </div>
-            <!-- Honeypot field: real teachers never see this (hidden via CSS below).
-                 Bots that auto-fill every field will trip it, and the backend
-                 silently ignores the submission. -->
-            <div style="position:absolute; left:-9999px;" aria-hidden="true">
-              <label for="website">Leave this field blank</label>
-              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-            </div>
-            <button type="submit" class="submit-btn">Send My Free Access Code</button>
-            <p class="form-microcopy">Takes about 15 seconds. We'll never share your email.</p>
-          </form>
-        </div>
-
-        <div class="form-success" id="formSuccess">
-          <h3>Check your inbox 📬</h3>
-          <p>We're sending your free access code now — it should land within a few minutes.
-             If you don't see it, check spam or email
-             <a href="mailto:support@teacherassist.ai">support@teacherassist.ai</a>.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider-line">
-    <hr><span class="divider-label">Or start instantly, no code required</span><hr>
-  </div>
-
-  <!-- INSTANT FREE TOOLS -->
-  <section class="tools-section" id="instant-tools">
-    <div class="wrap">
-      <div class="tools-heading">
-        <h2>Two tools you can try right now</h2>
-        <p>No email required to start. Five free uses each — see for yourself before you request full access.</p>
-      </div>
-
-      <div class="tools-grid">
-        <div class="tool-card">
-          <span class="tool-icon" aria-hidden="true">📝</span>
-          <div class="tool-kicker">Free · Lesson Builder</div>
-          <h3>Buried under lesson prep?</h3>
-          <p>Pick your state, subject, and grade, tell us your topic, and get a real,
-             standards-aligned lesson — reading passage, questions, vocabulary, and
-             discussion questions — in about a minute.</p>
-          <a class="tool-cta" href="https://www.teacherassist.ai/quick-lesson.html">Build a Free Lesson →</a>
-        </div>
-
-        <div class="tool-card">
-          <span class="tool-icon" aria-hidden="true">🔍</span>
-          <div class="tool-kicker">Free · Standards Checker</div>
-          <h3>Already have a lesson written?</h3>
-          <p>Paste in a worksheet or assignment and we'll tell you exactly which standards
-             it covers — question by question, in order — so you're never guessing at
-             documentation.</p>
-          <a class="tool-cta" href="https://www.teacherassist.ai/standards-checker.html">Check My Material →</a>
-        </div>
-      </div>
-
-      <p class="tools-footnote">
-        Want unlimited access to grading and everything else?
-        <a href="#free-access-form">Get your free month above ↑</a>
-        &nbsp;·&nbsp; Just want to browse the standards themselves?
-        <a href="https://www.teacherassist.ai/standards/">See the library</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- TRUST STRIP -->
-  <div class="trust-strip">
-    <div class="trust-strip-grid">
-      <div class="trust-item">
-        <span class="t-icon" aria-hidden="true">🧑‍🏫</span>
-        <h4>Built with a working classroom teacher</h4>
-        <p>Every feature is shaped by feedback from a real teacher using it in a real classroom.</p>
-      </div>
-      <div class="trust-item">
-        <span class="t-icon" aria-hidden="true">🔒</span>
-        <h4>Student privacy by design</h4>
-        <p>Students and families never log in. Work is identified by initials only — never full names.</p>
-      </div>
-      <div class="trust-item">
-        <span class="t-icon" aria-hidden="true">✅</span>
-        <h4>You always assign the grade</h4>
-        <p>AI evaluates and drafts feedback. The final grade in the gradebook is always yours.</p>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <a class="logo" href="https://www.teacherassist.ai/">✏️ TeacherAssist.ai</a>
-    <div class="footer-links">
-      <a href="https://www.teacherassist.ai/pricing.html">Pricing</a>
-      <a href="https://www.teacherassist.ai/free-tools.html">Free Tools</a>
-      <a href="https://www.teacherassist.ai/ai-education-law-compliance.html">AI &amp; the Law</a>
-      <a href="https://www.teacherassist.ai/contact.html">Contact</a>
-    </div>
-    <div class="footer-copy">© 2026 TeacherAssist.ai · All rights reserved</div>
-  </div>
-</footer>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C798YE25ME"></script>
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2094184638122613');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2094184638122613&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
 <script>
-  (function(){
-    var form = document.getElementById('leadForm');
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-
-      var payload = {
-        fname: document.getElementById('fname').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        school: document.getElementById('school').value.trim(),
-        state: document.getElementById('state').value.trim(),
-        website: document.getElementById('website').value.trim() // honeypot, should stay empty
-      };
-
-      // Sends via Office 365 SMTP through your Express backend — no SendGrid needed.
-      // Route lives in routes/leadRoutes.js, mounted at /public (outside JWT middleware).
-      fetch('/public/leads/free-access', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      })
-      .then(function(res){
-        showSuccess();
-        // Fire Meta Pixel + GA4 events on successful submit
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {content_name: 'free_access_code_request'});
-        }
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {content_name: 'free_access_code_request'});
-        }
-      })
-      .catch(function(err){
-        // Fallback: still show success UI so the teacher isn't blocked,
-        // but log the failure so Ron can see it in the console/monitoring.
-        console.error('Lead submission failed, falling back:', err);
-        showSuccess();
-      });
-    });
-
-    function showSuccess(){
-      document.querySelector('.form-fields').classList.add('hide');
-      document.getElementById('formSuccess').classList.add('show');
-    }
-  })();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C798YE25ME');
 </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Teacher Tools — Standards Alignment &amp; Lesson Builder | TeacherAssist.ai</title>
+  <meta name="description" content="Free tools for teachers: build a standards-aligned lesson in seconds, or check your existing worksheets and lessons against real state standards. No signup fees, ever." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://www.teacherassist.ai/free-tools.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Teacher Tools — Standards Alignment & Lesson Builder">
+  <meta property="og:description" content="Free tools for teachers: build a standards-aligned lesson in seconds, or check your existing worksheets and lessons against real state standards.">
+  <meta property="og:url" content="https://www.teacherassist.ai/free-tools.html">
+  <meta property="og:site_name" content="TeacherAssist.ai">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Free Teacher Tools — Standards Alignment & Lesson Builder">
+  <meta name="twitter:description" content="Free tools for teachers: build a standards-aligned lesson in seconds, or check your existing worksheets and lessons against real state standards.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink:       #1c1c2e;
+      --purple:    #5a2ca0;
+      --purple-lt: #f0ebff;
+      --purple-md: #7c4dca;
+      --teal:      #0891b2;
+      --teal-lt:   #e0f7fa;
+      --amber:     #d97706;
+      --amber-lt:  #fef3c7;
+      --green:     #059669;
+      --green-lt:  #d1fae5;
+      --muted:     #64748b;
+      --border:    #e2e8f0;
+      --bg:        #fafafa;
+      --white:     #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0 5%; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-family: 'Lora', serif; font-size: 1.25rem; font-weight: 700; color: var(--purple); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-link { padding: 7px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.15s, background 0.15s; }
+    .nav-link:hover { color: var(--purple); background: var(--purple-lt); }
+    .nav-cta { padding: 8px 18px; border-radius: 8px; background: var(--purple); color: white; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.15s, transform 0.15s; }
+    .nav-cta:hover { background: #4a2285; transform: translateY(-1px); }
+    @media (max-width: 900px) { .nav-links .nav-link { display: none; } }
+
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 130px 5% 100px; }
+
+    .hero { text-align: center; margin-bottom: 60px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--amber-lt); color: var(--amber);
+      font-size: 0.78rem; font-weight: 700; padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 18px; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .hero h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; color: var(--ink); margin-bottom: 16px; }
+    .hero p { color: var(--muted); font-size: 1.05rem; max-width: 620px; margin: 0 auto; }
+
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 60px; }
+    @media (max-width: 760px) { .tools-grid { grid-template-columns: 1fr; } }
+
+    .tool-card {
+      background: white; border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px; display: flex; flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .tool-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .tool-card h2 { font-family: 'Lora', serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--ink); }
+    .tool-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 20px; flex: 1; }
+    .tool-cta {
+      display: inline-block; text-align: center; padding: 11px 20px; border-radius: 8px;
+      background: var(--purple); color: white; font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .tool-cta:hover { background: #4a2285; }
+    .tool-meta { font-size: 0.76rem; color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 8px; }
+
+    .browse-note {
+      background: var(--purple-lt); border-radius: 12px; padding: 24px 28px; text-align: center;
+    }
+    .browse-note a { color: var(--purple); font-weight: 700; }
+
+    footer {
+      padding: 50px 5% 30px; text-align: center; border-top: 1px solid var(--border); background: white;
+    }
+    .footer-brand { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--purple); text-decoration: none; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 18px 0; }
+    .footer-link { font-size: 0.82rem; color: var(--muted); text-decoration: none; }
+    .footer-link:hover { color: var(--purple); }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">✏️ TeacherAssist.ai</a>
+  <div class="nav-links">
+    <a class="nav-link" href="/#features">Features</a>
+    <a class="nav-link" href="/#how-it-works">How it works</a>
+    <a class="nav-link" href="pricing.html">Pricing</a>
+    <a class="nav-link" href="free-tools.html">Free Tools</a>
+    <a class="nav-link" href="https://app.teacherassist.ai">Sign In</a>
+    <a class="nav-cta" href="pricing.html">Start Free Trial →</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow">🎁 5 FREE USES</div>
+    <h1>Free tools built for real teachers</h1>
+    <p>No signup required, we just need your phone/eMail and we will send you a code. You can try out our standards-based content builder and check your assignments against state standards.</p>
+  </div>
+
+  <div style="background:var(--purple); color:white; border-radius:16px; padding:24px 28px; margin-bottom:48px; text-align:center;">
+    <div style="font-size:1.05rem; font-weight:700; margin-bottom:6px;">Want full access to the platform to try before you sign up?</div>
+    <p style="font-size:0.92rem; color:#e9dcff; margin-bottom:14px;">
+      We will give you a code that will allow you access for a month to try all of our tools.
+    </p>
+    <a href="mailto:support@teacherassist.ai?subject=Free%20Access%20Code%20Request&body=Hi%2C%0A%0AI%27d%20like%20to%20try%20TeacherAssist.ai%20for%20free.%0A%0ASchool%2FDistrict%3A%0AState%3A%0AName%3A%0A"
+       style="display:inline-block; background:white; color:var(--purple); font-weight:700; font-size:0.9rem; padding:10px 22px; border-radius:8px; text-decoration:none;">
+      Email Us for a Free Code →
+    </a>
+  </div>
+
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <div class="tool-icon">📝</div>
+      <div class="tool-meta">FREE LESSONS</div>
+      <h2>Quick Lesson Builder</h2>
+      <p>Pick your state, subject, and grade, tell us your topic, and get a real,
+         standards-aligned lesson — reading passage, questions, vocabulary, and
+         discussion questions — in about a minute.</p>
+      <a class="tool-cta" href="quick-lesson.html">Build a Free Lesson →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-meta">FREE CHECKS</div>
+      <h2>Standards Alignment Checker</h2>
+      <p>Already have a lesson, worksheet, or assignment written? Paste it in and
+         we'll tell you exactly which standards it covers — question by question,
+         in order — so you're never guessing at documentation.</p>
+      <a class="tool-cta" href="standards-checker.html">Check My Material →</a>
+    </div>
+
+  </div>
+
+  <div class="browse-note">
+    Just want to read the standards themselves? Browse our
+    <a href="standards/">library of standards</a>.
+  </div>
+
+</div>
+
+<footer>
+  <a class="footer-brand" href="/">✏️ TeacherAssist.ai</a>
+  <div class="footer-links">
+    <a class="footer-link" href="pricing.html">Pricing</a>
+    <a class="footer-link" href="free-tools.html">Free Tools</a>
+    <a class="footer-link" href="ai-education-law-compliance.html">AI &amp; the Law</a>
+    <a class="footer-link" href="contact.html">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 TeacherAssist.ai · All rights reserved</div>
+</footer>
 
 </body>
 </html>
