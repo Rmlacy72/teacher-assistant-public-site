@@ -658,7 +658,11 @@
       <div id="step-3" class="step-panel">
         <div class="step-eyebrow">Step 3 of 3</div>
         <h2 class="step-title">Choose your standards</h2>
-        <p class="step-subtitle">Select the standards set that matches your state and curriculum. You can change this anytime in Settings.</p>
+        <p class="step-subtitle">Select every standards set you use — you can pick more than one. Matches for your subject and grade band are shown first. You can change this anytime in Settings.</p>
+
+        <input type="text" id="standardsSearch" placeholder="Search by state, subject, or name…"
+               oninput="filterStandardsOptions(this.value)"
+               style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border, #d8d4cc); font-size:0.9rem; margin-bottom:14px;" />
 
         <div id="standardsLoading" class="standards-loading" style="display:none;">
           <span class="spinner"></span> Loading available standards…
@@ -666,10 +670,14 @@
 
         <div id="standardsList" class="standards-list"></div>
 
-        <div id="noStandardsMsg" class="no-standards-msg">
-          No standards sets found for your subject and grade band yet — we're adding more regularly.
-          You can skip this for now and set it in Settings once you're in the app.
+        <div id="noStandardsMsg" class="no-standards-msg" style="display:none;">
+          No standards sets matched your search.
         </div>
+
+        <p style="font-size:0.85rem; margin-top:10px;">
+          Don't see your standard?
+          <a href="#" onclick="requestStandard(); return false;" style="color:var(--purple, #5a2ca0);">Let us know what you need →</a>
+        </p>
 
         <div class="step-footer">
           <button class="btn-ghost" onclick="goToStep(2)">← Back</button>
@@ -873,6 +881,9 @@ async function goToStep3() {
 /* ════════════════════════════════════════
    LOAD STANDARDS FROM API
 ════════════════════════════════════════ */
+let allStandardsSets = [];
+let selectedStandardsIds = new Set();
+
 async function loadStandardsOptions() {
   const loadingEl  = document.getElementById("standardsLoading");
   const listEl     = document.getElementById("standardsList");
@@ -882,7 +893,7 @@ async function loadStandardsOptions() {
   loadingEl.style.display = "block";
   listEl.innerHTML        = "";
   noMsg.style.display     = "none";
-  finishBtn.disabled      = true;
+  finishBtn.disabled      = false; // standards are optional now — never block Finish
   finishBtn.textContent   = "Finish Setup →";
 
   try {
@@ -890,71 +901,114 @@ async function loadStandardsOptions() {
       authorizationParams: { audience: "https://teacherassistant-api" }
     });
 
-    const res = await fetch(
-      `${API}/api/standards/available?subject=${encodeURIComponent(profile.subject)}&gradeBand=${encodeURIComponent(profile.gradeBand)}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-
-    const data = await res.json();
+    // Full, unfiltered list — same endpoint Settings' Choose Standards
+    // page already uses. Signup used to call a narrow, exact-match-only
+    // endpoint, which meant teachers could never see or pick anything
+    // outside a strict subject+gradeBand match, and could never select
+    // more than one set.
+    const res  = await fetch(`${API}/api/standards`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    allStandardsSets = await res.json();
     loadingEl.style.display = "none";
 
-    const sets = data.standardsSets || [];
-
-    if (sets.length === 0) {
-      noMsg.style.display   = "block";
-      finishBtn.disabled    = false;
-      finishBtn.textContent = "Finish Setup (set standards later)";
+    if (!allStandardsSets.length) {
+      noMsg.textContent    = "No standards sets are available yet — you can add these anytime in Settings.";
+      noMsg.style.display  = "block";
       return;
     }
 
-    // Render radio options
-    sets.forEach((s, i) => {
-      const opt = document.createElement("div");
-      opt.className  = `std-option${i === 0 ? " selected" : ""}`;
-      opt.dataset.id = s.id;
-      opt.innerHTML  = `
-        <input type="radio" name="stdSet" value="${s.id}" ${i === 0 ? "checked" : ""}
-               onchange="selectStandardsSet('${s.id}')" />
-        <div>
-          <div class="std-name">${s.displayName || s.id}</div>
-          <div class="std-meta">
-            ${s.state || ""}${s.state ? " · " : ""}${s.subject || ""} · 
-            Grades ${s.gradeBand || ""} · 
-            ${(s.standards || []).length} standards
-          </div>
-        </div>
-      `;
-      opt.addEventListener("click", () => {
-        opt.querySelector("input").checked = true;
-        selectStandardsSet(s.id);
-      });
-      listEl.appendChild(opt);
-    });
-
-    // Auto-select first
-    selectStandardsSet(sets[0].id);
+    renderStandardsOptions(allStandardsSets);
 
   } catch (err) {
     loadingEl.style.display = "none";
-    noMsg.style.display     = "block";
-    finishBtn.disabled      = false;
-    finishBtn.textContent   = "Finish Setup (set standards later)";
+    noMsg.textContent   = "Couldn't load standards right now — you can add these anytime in Settings.";
+    noMsg.style.display = "block";
     console.error("Failed to load standards:", err);
   }
 }
 
-function selectStandardsSet(id) {
-  profile.primaryStandardsSetId = id;
+function renderStandardsOptions(sets) {
+  const listEl = document.getElementById("standardsList");
+  const noMsg  = document.getElementById("noStandardsMsg");
+  listEl.innerHTML = "";
 
-  document.querySelectorAll(".std-option").forEach(opt => {
-    opt.classList.toggle("selected", opt.dataset.id === id);
+  if (!sets.length) {
+    noMsg.style.display = "block";
+    return;
+  }
+  noMsg.style.display = "none";
+
+  // Sets matching the teacher's own subject + grade band float to the
+  // top, so the experience still feels tailored by default — but
+  // everything else is still visible and selectable below, not hidden.
+  const sorted = [...sets].sort((a, b) => {
+    const aMatch = (a.subject === profile.subject ? 1 : 0) + (a.gradeBand === profile.gradeBand ? 1 : 0);
+    const bMatch = (b.subject === profile.subject ? 1 : 0) + (b.gradeBand === profile.gradeBand ? 1 : 0);
+    return bMatch - aMatch;
   });
 
-  const btn = document.getElementById("finishBtn");
-  btn.disabled    = false;
-  btn.textContent = "Finish Setup →";
+  sorted.forEach(s => {
+    const opt = document.createElement("div");
+    opt.className  = `std-option${selectedStandardsIds.has(s.id) ? " selected" : ""}`;
+    opt.dataset.id = s.id;
+    opt.dataset.searchText = `${s.displayName || ""} ${s.id || ""} ${s.state || ""} ${s.subject || ""} ${s.gradeBand || ""}`.toLowerCase();
+    opt.innerHTML  = `
+      <input type="checkbox" value="${s.id}" ${selectedStandardsIds.has(s.id) ? "checked" : ""}
+             onchange="toggleStandardsSet('${s.id}')" />
+      <div>
+        <div class="std-name">${s.displayName || s.id}</div>
+        <div class="std-meta">
+          ${s.state || ""}${s.state ? " · " : ""}${s.subject || ""} ·
+          Grades ${s.gradeBand || ""} ·
+          ${(s.standards || []).length} standards
+        </div>
+      </div>
+    `;
+    opt.addEventListener("click", (e) => {
+      if (e.target.tagName !== "INPUT") {
+        const box = opt.querySelector("input");
+        box.checked = !box.checked;
+        toggleStandardsSet(s.id);
+      }
+    });
+    listEl.appendChild(opt);
+  });
 }
 
+function filterStandardsOptions(query) {
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? allStandardsSets.filter(s =>
+        `${s.displayName || ""} ${s.id || ""} ${s.state || ""} ${s.subject || ""} ${s.gradeBand || ""}`
+          .toLowerCase().includes(q))
+    : allStandardsSets;
+  renderStandardsOptions(filtered);
+}
+
+function toggleStandardsSet(id) {
+  if (selectedStandardsIds.has(id)) {
+    selectedStandardsIds.delete(id);
+  } else {
+    selectedStandardsIds.add(id);
+  }
+  profile.activeStandardsSetIds = Array.from(selectedStandardsIds);
+
+  document.querySelectorAll(".std-option").forEach(opt => {
+    opt.classList.toggle("selected", selectedStandardsIds.has(opt.dataset.id));
+  });
+}
+
+function requestStandard() {
+  const subject = encodeURIComponent(profile.subject || "");
+  const grade   = encodeURIComponent(profile.gradeBand || "");
+  const body = encodeURIComponent(
+    `Hi,\n\nI signed up for TeacherAssist.ai and didn't see a standards set that matches what I teach.\n\n` +
+    `My subject: ${profile.subject || ""}\nMy grade band: ${profile.gradeBand || ""}\n\n` +
+    `Standard/curriculum I need:\n(please describe — state, subject, and grade level)\n\n`
+  );
+  window.location.href = `mailto:support@teacherassist.ai?subject=Standards%20Request&body=${body}`;
+}
 /* ════════════════════════════════════════
    SAVE PROFILE + REDIRECT TO APP
 ════════════════════════════════════════ */
@@ -975,7 +1029,7 @@ async function saveProfile() {
       school:                profile.school,
       subject:               profile.subject,
       gradeBand:             profile.gradeBand,
-      primaryStandardsSetId: profile.primaryStandardsSetId || null,
+      activeStandardsSetIds: profile.activeStandardsSetIds || [],
       districtCode:          profile.districtCode          || null
     };
 
