@@ -204,8 +204,8 @@
   <h1>Platform Policy <em>Statement</em></h1>
   <p class="hero-sub">Plain-language policies for educators who use TeacherAssist.ai — covering privacy, student data, FERPA, AI, standards alignment, and billing.</p>
   <div class="hero-meta">
-    <span class="hero-meta-item">Effective: January 1, 2026</span>
-    <span class="hero-meta-item">Version 1.1</span>
+    <span class="hero-meta-item">Effective: October 19, 2026</span>
+    <span class="hero-meta-item">Version 1.2</span>
     <span class="hero-meta-item">Audience: Teachers &amp; Districts</span>
     <span class="hero-meta-item">Jurisdiction: United States</span>
   </div>
@@ -223,13 +223,14 @@
       <li><a href="#privacy">2. Your Privacy &amp; Data</a></li>
       <li><a href="#ferpa">3. FERPA &amp; Student Data</a></li>
       <li><a href="#subprocessors">4. AI Subprocessors</a></li>
-      <li><a href="#standards">5. Standards Alignment</a></li>
-      <li><a href="#billing">6. Subscriptions &amp; Billing</a></li>
-      <li><a href="#acceptable-use">7. Acceptable Use</a></li>
-      <li><a href="#your-rights">8. Your Rights</a></li>
-      <li><a href="#breach">9. Breach Notification</a></li>
-      <li><a href="#updates">10. Policy Updates</a></li>
-      <li><a href="#contact">11. Contact Us</a></li>
+      <li><a href="#integrations">5. Google Classroom &amp; LMS</a></li>
+      <li><a href="#standards">6. Standards Alignment</a></li>
+      <li><a href="#billing">7. Subscriptions &amp; Billing</a></li>
+      <li><a href="#acceptable-use">8. Acceptable Use</a></li>
+      <li><a href="#your-rights">9. Your Rights</a></li>
+      <li><a href="#breach">10. Breach Notification</a></li>
+      <li><a href="#updates">11. Policy Updates</a></li>
+      <li><a href="#contact">12. Contact Us</a></li>
     </ul>
     <div class="sidebar-note">
       <strong>Districts &amp; Schools</strong>
@@ -241,8 +242,8 @@
   <main class="content">
 
     <div class="effective-bar">
-      <span><strong>Effective Date:</strong> January 1, 2026</span>
-      <span><strong>Version:</strong> 1.1</span>
+      <span><strong>Effective Date:</strong> October 19, 2026</span>
+      <span><strong>Version:</strong> 1.2</span>
       <span><strong>Platform:</strong> app.teacherassist.ai</span>
       <span><strong>Operator:</strong> LTC Inc., Illinois USA</span>
     </div>
@@ -312,12 +313,13 @@
         <li><strong>Usage data:</strong> features you use, assignments you create, and grading activity — used to improve your experience</li>
         <li><strong>Content you create:</strong> lesson plans, assignments, curricula, and grading results stored in your account</li>
         <li><strong>Uploaded files:</strong> PDFs you upload for grading — processed and permanently deleted from our servers upon completion of grading (see Section 3)</li>
+        <li><strong>Connected class data:</strong> if you connect Google Classroom or your school's learning management system, the class names, student rosters, assignments, and turned in student files needed to grade that work (see Section 5)</li>
         <li><strong>Billing information:</strong> managed securely through Stripe — we never store credit card numbers on our servers</li>
       </ul>
 
       <h3>What We Do NOT Collect</h3>
       <ul class="policy-list cross">
-        <li>Student names, ID numbers, or other student PII — we encourage teachers to use initials or anonymized identifiers</li>
+        <li>Student ID numbers, birthdates, or other student PII beyond what you submit or choose to import. Student names are collected only when you import a class roster from Google Classroom or your learning management system (see Section 5); otherwise we encourage teachers to use initials or anonymized identifiers</li>
         <li>Biometric data, precise location data, or device fingerprinting beyond standard browser session logs</li>
         <li>Data from third-party platforms unless you explicitly connect them</li>
       </ul>
@@ -447,6 +449,12 @@
             <td><span class="sp-badge">No — by contract</span></td>
           </tr>
           <tr>
+            <td><strong>Azure AI Document Intelligence</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
+            <td>Reading text and handwriting from uploaded student work</td>
+            <td>Uploaded student files during active grading session</td>
+            <td><span class="sp-badge">No — by contract</span></td>
+          </tr>
+          <tr>
             <td><strong>Microsoft Azure</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
             <td>Cloud hosting, storage, database (Cosmos DB)</td>
             <td>Account data, grading results, curriculum content</td>
@@ -473,10 +481,53 @@
       </div>
     </section>
 
-    <!-- 5. STANDARDS -->
-    <section class="policy-section" id="standards">
+    <!-- 5. INTEGRATIONS -->
+    <section class="policy-section" id="integrations">
       <div class="section-header">
         <span class="section-num">05</span>
+        <h2>Google Classroom &amp; LMS Integrations</h2>
+      </div>
+      <p class="intro-note">Connecting TeacherAssist.ai to Google Classroom or your school's learning management system is optional. Here is exactly what happens when you do.</p>
+
+      <h3>Google Classroom: What We Access</h3>
+      <p>When you choose to connect Google Classroom, we ask for your permission to access the following from your Google account:</p>
+      <ul class="policy-list">
+        <li><strong>Basic profile:</strong> your name and email address, used to identify the connected account</li>
+        <li><strong>Classes:</strong> the list of your Google Classroom classes, so you can choose which ones to import</li>
+        <li><strong>Class rosters:</strong> student names and Google account identifiers for the classes you import, so grades are matched to the right students</li>
+        <li><strong>Assignments and submissions:</strong> we create the assignments you publish from TeacherAssist.ai, check which students have turned in work, and record the grade and return the work to the student in Google Classroom</li>
+        <li><strong>Google Drive files:</strong> read only access to the files students attach to those assignments, which Google Classroom shares with you. We open only the files turned in for assignments published from TeacherAssist.ai. We do not browse, read, or store any other files in your Google Drive</li>
+      </ul>
+
+      <h3>How We Use Google User Data</h3>
+      <p>We use Google user data only to provide the grading features you request: importing classes and rosters, publishing assignments, grading turned in work, and returning grades to Google Classroom.</p>
+      <ul class="policy-list cross">
+        <li>We do not sell Google user data</li>
+        <li>We do not use Google user data for advertising</li>
+        <li>We do not use Google user data to develop, improve, or train generalized artificial intelligence or machine learning models</li>
+        <li>We do not transfer Google user data to others except the subprocessors listed in Section 4, solely to grade work on your behalf, or as required by law</li>
+        <li>Our staff do not read Google user data unless you ask us to for support, it is needed for security purposes, or the law requires it</li>
+      </ul>
+
+      <h3>Storage, Security &amp; Retention</h3>
+      <p>Your Google access token is encrypted at rest. Student files pulled from Google Classroom are handled the same way as files you upload: they are deleted from our servers when grading is complete. Imported rosters and grading results are retained in your account as described in Section 2, and are deleted on your or your school's request.</p>
+
+      <h3>Disconnecting</h3>
+      <p>You can disconnect Google Classroom at any time from the Classes page in TeacherAssist.ai. Disconnecting immediately revokes our access to your Google account. You can also remove our access from your Google Account settings at <a href="https://myaccount.google.com/permissions" style="color:var(--blue)">myaccount.google.com/permissions</a>. To have imported rosters and results deleted, contact <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>.</p>
+
+      <div class="callout blue">
+        <div class="callout-title">Google API Limited Use</div>
+        <p>TeacherAssist.ai's use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" style="color:var(--blue)">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+      </div>
+
+      <h3>Blackboard &amp; Other Learning Management Systems</h3>
+      <p>When your school installs TeacherAssist.ai in Blackboard Learn, we receive the course, assignment, and roster information your school's Blackboard shares with us, download the submissions for the assignments you choose to grade, and send grades back to the Blackboard gradebook. This data is used only to provide grading for your course and is handled under the same retention, security, and FERPA practices described in this policy.</p>
+    </section>
+
+    <!-- 6. STANDARDS -->
+    <section class="policy-section" id="standards">
+      <div class="section-header">
+        <span class="section-num">06</span>
         <h2>Standards Alignment</h2>
       </div>
       <p class="intro-note">Everything TeacherAssist.ai generates is designed to connect to the standards you're already teaching.</p>
@@ -499,7 +550,7 @@
     <!-- 6. BILLING -->
     <section class="policy-section" id="billing">
       <div class="section-header">
-        <span class="section-num">06</span>
+        <span class="section-num">07</span>
         <h2>Subscriptions &amp; Billing</h2>
       </div>
       <p class="intro-note">TeacherAssist.ai offers tiered subscription plans. Here's what you need to know.</p>
@@ -527,7 +578,7 @@
     <!-- 7. ACCEPTABLE USE -->
     <section class="policy-section" id="acceptable-use">
       <div class="section-header">
-        <span class="section-num">07</span>
+        <span class="section-num">08</span>
         <h2>Acceptable Use</h2>
       </div>
       <p class="intro-note">TeacherAssist.ai is built for educators. Please use it responsibly.</p>
@@ -561,7 +612,7 @@
     <!-- 8. YOUR RIGHTS -->
     <section class="policy-section" id="your-rights">
       <div class="section-header">
-        <span class="section-num">08</span>
+        <span class="section-num">09</span>
         <h2>Your Rights as a User</h2>
       </div>
       <p class="intro-note">You own your content and have control over your account.</p>
@@ -580,7 +631,7 @@
     <!-- 9. BREACH NOTIFICATION -->
     <section class="policy-section" id="breach">
       <div class="section-header">
-        <span class="section-num">09</span>
+        <span class="section-num">10</span>
         <h2>Security Incident &amp; Breach Notification</h2>
       </div>
       <p class="intro-note">In the unlikely event of a security incident, here is exactly what we will do and when.</p>
@@ -610,7 +661,7 @@
     <!-- 10. UPDATES -->
     <section class="policy-section" id="updates">
       <div class="section-header">
-        <span class="section-num">10</span>
+        <span class="section-num">11</span>
         <h2>Policy Updates</h2>
       </div>
       <p>We may update this policy from time to time as the platform evolves. When we make significant changes, we will notify you by email and display a notice within the platform at least <strong>14 days</strong> before changes take effect.</p>
@@ -621,7 +672,7 @@
     <!-- 11. CONTACT -->
     <section class="policy-section" id="contact">
       <div class="section-header">
-        <span class="section-num">11</span>
+        <span class="section-num">12</span>
         <h2>Questions &amp; Contact</h2>
       </div>
       <p>We want to hear from you. If you have questions about this policy, a data processing agreement request, or how TeacherAssist.ai handles your data, please reach out through any of the channels below.</p>
@@ -671,7 +722,7 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.1 &nbsp;·&nbsp; Effective January 1, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
+  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.2 &nbsp;·&nbsp; Effective October 19, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
   <div class="footer-links">
     <a href="terms.html">Terms of Service</a>
     <a href="policy.html">Privacy Policy</a>
