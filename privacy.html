@@ -309,7 +309,7 @@
 
       <h3>What We Collect</h3>
       <ul class="policy-list">
-        <li><strong>Account information:</strong> your name, email address, and school or district — used to create your account and for billing</li>
+        <li><strong>Account information:</strong> your name, email address, school or district, and phone number if you provide one at sign up — used to create and verify your account, for account communications, and for billing</li>
         <li><strong>Usage data:</strong> features you use, assignments you create, and grading activity — used to improve your experience</li>
         <li><strong>Content you create:</strong> lesson plans, assignments, curricula, and grading results stored in your account</li>
         <li><strong>Uploaded files:</strong> PDFs you upload for grading — processed and permanently deleted from our servers upon completion of grading (see Section 3)</li>
@@ -424,7 +424,7 @@
       </div>
       <p class="intro-note">When student work passes through AI grading, it is processed by third-party AI providers. Here is a full disclosure of those providers and their data commitments.</p>
 
-      <p>TeacherAssist.ai uses the following third-party services to operate the platform. Each provider has been evaluated for data security and privacy practices appropriate for an educational context.</p>
+      <p>TeacherAssist.ai uses the following third-party services to operate the platform. Student work is never sent to our email or text message providers. Each provider has been evaluated for data security and privacy practices appropriate for an educational context.</p>
 
       <table class="sp-table">
         <thead>
@@ -464,6 +464,18 @@
             <td><strong>Auth0</strong><br><span style="font-size:0.8rem;color:var(--muted)">Okta, Inc.</span></td>
             <td>User authentication and session management</td>
             <td>Email address, login credentials (hashed)</td>
+            <td><span class="sp-badge">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Twilio SendGrid</strong><br><span style="font-size:0.8rem;color:var(--muted)">Twilio Inc.</span></td>
+            <td>Email delivery for sign up, account, and product messages to teachers</td>
+            <td>Teacher name and email address</td>
+            <td><span class="sp-badge">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Twilio</strong><br><span style="font-size:0.8rem;color:var(--muted)">Twilio Inc.</span></td>
+            <td>Text message verification and messages during teacher sign up</td>
+            <td>Teacher phone number, if provided</td>
             <td><span class="sp-badge">No</span></td>
           </tr>
           <tr>
