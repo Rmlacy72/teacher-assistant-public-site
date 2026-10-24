@@ -204,8 +204,8 @@
   <h1>Platform Policy <em>Statement</em></h1>
   <p class="hero-sub">Plain-language policies for educators who use TeacherAssist.ai — covering privacy, student data, FERPA, AI, standards alignment, and billing.</p>
   <div class="hero-meta">
-    <span class="hero-meta-item">Effective: October 19, 2026</span>
-    <span class="hero-meta-item">Version 1.2</span>
+    <span class="hero-meta-item">Effective: October 22, 2026</span>
+    <span class="hero-meta-item">Version 1.3</span>
     <span class="hero-meta-item">Audience: Teachers &amp; Districts</span>
     <span class="hero-meta-item">Jurisdiction: United States</span>
   </div>
@@ -242,8 +242,8 @@
   <main class="content">
 
     <div class="effective-bar">
-      <span><strong>Effective Date:</strong> October 19, 2026</span>
-      <span><strong>Version:</strong> 1.2</span>
+      <span><strong>Effective Date:</strong> October 22, 2026</span>
+      <span><strong>Version:</strong> 1.3</span>
       <span><strong>Platform:</strong> app.teacherassist.ai</span>
       <span><strong>Operator:</strong> LTC Inc., Illinois USA</span>
     </div>
@@ -330,7 +330,9 @@
       <h3>Data Retention</h3>
       <ul class="policy-list">
         <li><strong>Uploaded student PDFs:</strong> permanently deleted from our servers immediately upon completion of AI grading — not archived, not backed up after deletion</li>
-        <li><strong>Grading results:</strong> retained in your account for as long as your account is active</li>
+        <li><strong>Class and student data:</strong> a class's roster, grading results, and grading records are permanently deleted after a period of inactivity set by your school or district. If no period has been set, the default is <strong>180 days with no activity in the class</strong>. Any activity, such as grading, editing results, or refreshing the roster, restarts the period, and the teacher is emailed <strong>14 days before</strong> deletion. Your school or district may also request deletion at any time.</li>
+        <li><strong>Assignments, answer keys, and rubrics:</strong> contain no student data and are retained with your account</li>
+        <li><strong>Backups:</strong> deleted data may remain in encrypted database backups for up to 30 days before it is overwritten. Each deletion is logged without any student information.</li>
         <li><strong>Account data:</strong> retained until you request deletion or your account is closed</li>
         <li><strong>Billing records:</strong> retained as required by law and Stripe's terms</li>
       </ul>
@@ -370,6 +372,7 @@
         <li>Uploaded PDFs are transmitted using TLS 1.2+ encryption</li>
         <li>Files are processed in isolated, session-specific environments</li>
         <li>Files are <strong>permanently and automatically deleted</strong> from our servers upon grading completion — they are not stored, archived, or used for any other purpose</li>
+        <li>Rosters and grading results are deleted automatically after the inactivity period set by your school or district (180 days by default), as described in Section 2</li>
         <li>No TeacherAssist.ai employee reviews individual student submissions unless you explicitly request technical support and provide consent</li>
       </ul>
 
@@ -522,7 +525,7 @@
       </ul>
 
       <h3>Storage, Security &amp; Retention</h3>
-      <p>Your Google access token is encrypted at rest. Student files pulled from Google Classroom are handled the same way as files you upload: they are deleted from our servers when grading is complete. Imported rosters and grading results are retained in your account as described in Section 2, and are deleted on your or your school's request.</p>
+      <p>Your Google access token is encrypted at rest. Student files pulled from Google Classroom are handled the same way as files you upload: they are deleted from our servers when grading is complete. Imported rosters and grading results are deleted automatically after the inactivity period set by your school or district (180 days by default), or sooner on your or your school's request, as described in Section 2.</p>
 
       <h3>Disconnecting</h3>
       <p>You can disconnect Google Classroom at any time from the Classes page in TeacherAssist.ai. Disconnecting immediately revokes our access to your Google account. You can also remove our access from your Google Account settings at <a href="https://myaccount.google.com/permissions" style="color:var(--blue)">myaccount.google.com/permissions</a>. To have imported rosters and results deleted, contact <a href="mailto:support@teacherassist.ai" style="color:var(--blue)">support@teacherassist.ai</a>.</p>
@@ -734,7 +737,7 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.2 &nbsp;·&nbsp; Effective October 19, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
+  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.3 &nbsp;·&nbsp; Effective October 22, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
   <div class="footer-links">
     <a href="terms.html">Terms of Service</a>
     <a href="policy.html">Privacy Policy</a>
