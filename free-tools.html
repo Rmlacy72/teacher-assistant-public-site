@@ -1,31 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-C798YE25ME"></script>
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2094184638122613');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2094184638122613&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-C798YE25ME');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Teacher Tools — Standards Alignment &amp; Lesson Builder | TeacherAssist.ai</title>
@@ -180,12 +156,16 @@ src="https://www.facebook.com/tr?id=2094184638122613&ev=PageView&noscript=1"
       if (params.get('requested') === 'true') {
         document.getElementById('accessBoxForm').style.display = 'none';
         document.getElementById('accessBoxThanks').style.display = 'block';
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', {content_name: 'free_access_code_request'});
-        }
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {content_name: 'free_access_code_request'});
-        }
+        // Ads and analytics load only after cookie consent (cookie-consent.js),
+        // so send the lead event once the page has finished loading.
+        window.addEventListener('load', function () {
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {content_name: 'free_access_code_request'});
+          }
+          if (typeof gtag === 'function') {
+            gtag('event', 'generate_lead', {content_name: 'free_access_code_request'});
+          }
+        });
       }
     })();
   </script>
@@ -228,9 +208,11 @@ src="https://www.facebook.com/tr?id=2094184638122613&ev=PageView&noscript=1"
     <a class="footer-link" href="free-tools.html">Free Tools</a>
     <a class="footer-link" href="ai-education-law-compliance.html">AI &amp; the Law</a>
     <a class="footer-link" href="contact.html">Contact</a>
+    <a class="footer-link" href="#" data-cookie-settings>Cookie settings</a>
   </div>
   <div class="footer-copy">© 2026 TeacherAssist.ai · All rights reserved</div>
 </footer>
 
+<script src="/cookie-consent.js" defer></script>
 </body>
 </html>
