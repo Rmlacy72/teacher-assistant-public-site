@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Platform Policy Statement — TeacherAssist.ai</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C798YE25ME"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -204,8 +203,8 @@
   <h1>Platform Policy <em>Statement</em></h1>
   <p class="hero-sub">Plain-language policies for educators who use TeacherAssist.ai — covering privacy, student data, FERPA, AI, standards alignment, and billing.</p>
   <div class="hero-meta">
-    <span class="hero-meta-item">Effective: October 22, 2026</span>
-    <span class="hero-meta-item">Version 1.3</span>
+    <span class="hero-meta-item">Effective: November 22, 2026</span>
+    <span class="hero-meta-item">Version 1.5</span>
     <span class="hero-meta-item">Audience: Teachers &amp; Districts</span>
     <span class="hero-meta-item">Jurisdiction: United States</span>
   </div>
@@ -222,7 +221,7 @@
       <li><a href="#ai-usage">1. How We Use AI</a></li>
       <li><a href="#privacy">2. Your Privacy &amp; Data</a></li>
       <li><a href="#ferpa">3. FERPA &amp; Student Data</a></li>
-      <li><a href="#subprocessors">4. AI Subprocessors</a></li>
+      <li><a href="#subprocessors">4. Subprocessors</a></li>
       <li><a href="#integrations">5. Google Classroom &amp; LMS</a></li>
       <li><a href="#standards">6. Standards Alignment</a></li>
       <li><a href="#billing">7. Subscriptions &amp; Billing</a></li>
@@ -242,8 +241,8 @@
   <main class="content">
 
     <div class="effective-bar">
-      <span><strong>Effective Date:</strong> October 22, 2026</span>
-      <span><strong>Version:</strong> 1.3</span>
+      <span><strong>Effective Date:</strong> November 22, 2026</span>
+      <span><strong>Version:</strong> 1.5</span>
       <span><strong>Platform:</strong> app.teacherassist.ai</span>
       <span><strong>Operator:</strong> LTC Inc., Illinois USA</span>
     </div>
@@ -282,7 +281,7 @@
           <div class="block-label">✕ What our AI does NOT do</div>
           <ul class="policy-list cross">
             <li>Make final decisions about student grades — you always have final say</li>
-            <li>Access student PII beyond what you explicitly submit</li>
+            <li>Access student PII beyond what you explicitly submit. The Data Assistant sends class results to the AI with temporary labels (such as STU-001) in place of student names and identifiers</li>
             <li>Use your content or student work to train AI models</li>
             <li>Fabricate or misrepresent curriculum standards</li>
             <li>Retain uploaded student PDFs after grading is complete</li>
@@ -313,7 +312,7 @@
         <li><strong>Usage data:</strong> features you use, assignments you create, and grading activity — used to improve your experience</li>
         <li><strong>Content you create:</strong> lesson plans, assignments, curricula, and grading results stored in your account</li>
         <li><strong>Uploaded files:</strong> PDFs you upload for grading — processed and permanently deleted from our servers upon completion of grading (see Section 3)</li>
-        <li><strong>Connected class data:</strong> if you connect Google Classroom or your school's learning management system, the class names, student rosters, assignments, and turned in student files needed to grade that work (see Section 5)</li>
+        <li><strong>Connected class data:</strong> if you connect Google Classroom or your school's learning management system, the class names, student rosters (student names and LMS identifiers only; we do not request or keep student email addresses), assignments, and turned in student files needed to grade that work (see Section 5)</li>
         <li><strong>Billing information:</strong> managed securely through Stripe — we never store credit card numbers on our servers</li>
       </ul>
 
@@ -338,7 +337,17 @@
       </ul>
 
       <h3>Third-Party Sharing</h3>
-      <p>We do not sell your personal data to third parties. We share data only with trusted service providers (listed in Section 4) solely to operate the platform. These providers are bound by confidentiality and data processing agreements and may not use your data for their own purposes.</p>
+      <p>We do not sell your personal data to third parties. We share data only with trusted service providers (listed in Section 4) solely to operate the platform. These providers are bound by confidentiality and data processing agreements and may not use your data for their own purposes. The only exception is the optional advertising cookie on our public website, described below, which is used only if you agree to it.</p>
+
+      <h3 id="cookies">Cookies &amp; Tracking on Our Public Website</h3>
+      <p>Our public website (teacherassist.ai) asks for your permission before setting any optional cookies. You can accept all, reject all, or choose by category, and you can change your choice at any time with the <a href="#" data-cookie-settings style="color:var(--blue)">Cookie settings</a> link at the bottom of each page.</p>
+      <ul class="policy-list">
+        <li><strong>Essential:</strong> remembers your cookie choice for 12 months. Always on.</li>
+        <li><strong>Analytics (Google Analytics):</strong> counts visits and shows which pages are useful, so we can improve the site. Set only if you agree.</li>
+        <li><strong>Advertising (Meta Pixel):</strong> measures whether our ads on Facebook and Instagram bring visitors to the site, and may be used to show our ads to people who visited. Meta receives information such as the pages you viewed, your browser, and your IP address. Set only if you agree.</li>
+      </ul>
+      <p>If your browser sends a <strong>Global Privacy Control</strong> signal, we treat it as an opt out of advertising cookies. Under some state laws, including California's, advertising cookies may be considered "sharing" of personal information for cross-context behavioral advertising. You can opt out at any time through Cookie settings or by enabling Global Privacy Control.</p>
+      <p><strong>The TeacherAssist.ai app (app.teacherassist.ai) does not use advertising cookies or the Meta Pixel.</strong> Student information and teacher account content are never shared with advertising or analytics providers.</p>
     </section>
 
     <!-- 3. FERPA -->
@@ -425,9 +434,9 @@
         <span class="section-num">04</span>
         <h2>AI Subprocessors &amp; Third-Party Services</h2>
       </div>
-      <p class="intro-note">When student work passes through AI grading, it is processed by third-party AI providers. Here is a full disclosure of those providers and their data commitments.</p>
+      <p class="intro-note">When student work passes through AI grading, it is processed by third-party AI providers. Here is a full disclosure of those providers and their data commitments. Our <a href="subprocessors.html" style="color:var(--blue)">Subprocessors page</a> lists each provider with the Student Data it receives and where it is processed.</p>
 
-      <p>TeacherAssist.ai uses the following third-party services to operate the platform. Student work is never sent to our email or text message providers. Each provider has been evaluated for data security and privacy practices appropriate for an educational context.</p>
+      <p>TeacherAssist.ai uses the following third-party services to operate the platform. All processing takes place in the United States. Student work is never sent to our email, text message, sign in, or payment providers. Each provider has been evaluated for data security and privacy practices appropriate for an educational context.</p>
 
       <table class="sp-table">
         <thead>
@@ -441,14 +450,14 @@
         <tbody>
           <tr>
             <td><strong>Google Cloud Vertex AI (Gemini models)</strong><br><span style="font-size:0.8rem;color:var(--muted)">Google LLC</span></td>
-            <td>AI grading of handwritten student work; reading PDFs</td>
-            <td>Uploaded PDF content during active grading session</td>
+            <td>AI grading of handwritten and typed student work against your rubric and answer key</td>
+            <td>Student work, rubric, and answer key during the grading session; no roster names or LMS identifiers. Data caching is turned off</td>
             <td><span class="sp-badge">No — by contract</span></td>
           </tr>
           <tr>
             <td><strong>Azure OpenAI (GPT-4o)</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
             <td>Curriculum generation; differentiated instruction; data assistant</td>
-            <td>Teacher-entered prompts and assignment content</td>
+            <td>Teacher prompts and assignment content. For the data assistant, class results with temporary student labels; no student names or LMS identifiers</td>
             <td><span class="sp-badge">No — by contract</span></td>
           </tr>
           <tr>
@@ -460,7 +469,7 @@
           <tr>
             <td><strong>Microsoft Azure</strong><br><span style="font-size:0.8rem;color:var(--muted)">Microsoft Corporation</span></td>
             <td>Cloud hosting, storage, database (Cosmos DB)</td>
-            <td>Account data, grading results, curriculum content</td>
+            <td>Account data, class rosters, grading results, curriculum content, and uploaded files until grading completes</td>
             <td><span class="sp-badge">No</span></td>
           </tr>
           <tr>
@@ -493,6 +502,7 @@
       <div class="callout blue">
         <div class="callout-title">AI Data Use Confirmation</div>
         <p>Both Google (Vertex AI on Google Cloud) and Microsoft (Azure OpenAI) contractually commit that data submitted through their enterprise cloud services is <strong>not used to train, fine-tune, or improve their AI models</strong>. Your content and your students' work remains yours. We will update this table if we add or change AI providers.</p>
+        <p>Under Microsoft's standard terms, Azure OpenAI may keep prompts and outputs for up to 30 days solely to monitor for abuse, reviewed only by authorized Microsoft personnel. Schools and districts with a Data Processing Agreement are notified at least 30 days before we add or replace a provider that processes Student Data.</p>
       </div>
     </section>
 
@@ -536,7 +546,7 @@
       </div>
 
       <h3>Blackboard &amp; Other Learning Management Systems</h3>
-      <p>When your school installs TeacherAssist.ai in Blackboard Learn, we receive the course, assignment, and roster information your school's Blackboard shares with us, download the submissions for the assignments you choose to grade, and send grades back to the Blackboard gradebook. This data is used only to provide grading for your course and is handled under the same retention, security, and FERPA practices described in this policy.</p>
+      <p>When your school installs TeacherAssist.ai in Blackboard Learn, we receive the course, assignment, and roster information your school's Blackboard shares with us (student names and Blackboard user IDs; we do not request student email addresses), download the submissions for the assignments you choose to grade, and send grades back to the Blackboard gradebook. This data is used only to provide grading for your course and is handled under the same retention, security, and FERPA practices described in this policy.</p>
     </section>
 
     <!-- 6. STANDARDS -->
@@ -681,7 +691,7 @@
       </div>
       <p>We may update this policy from time to time as the platform evolves. When we make significant changes, we will notify you by email and display a notice within the platform at least <strong>14 days</strong> before changes take effect.</p>
       <p>Continued use of TeacherAssist.ai after the effective date of any update constitutes your acceptance of the revised policy. If you do not agree to updated terms, you may cancel your account before the effective date.</p>
-      <p>The most current version of this policy is always available at <a href="https://www.teacherassist.ai/policy.html" style="color:var(--blue)">teacherassist.ai/policy.html</a> and within your account Settings page.</p>
+      <p>The most current version of this policy is always available at <a href="https://www.teacherassist.ai/privacy.html" style="color:var(--blue)">teacherassist.ai/privacy.html</a> and within your account Settings page.</p>
     </section>
 
     <!-- 11. CONTACT -->
@@ -737,14 +747,17 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.3 &nbsp;·&nbsp; Effective October 22, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
+  <div><strong>TeacherAssist.ai</strong> — Platform Policy Statement &nbsp;·&nbsp; Version 1.5 &nbsp;·&nbsp; Effective November 22, 2026 &nbsp;·&nbsp; Operated by LTC Inc., Illinois USA</div>
   <div class="footer-links">
     <a href="terms.html">Terms of Service</a>
-    <a href="policy.html">Privacy Policy</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="subprocessors.html">Subprocessors</a>
     <a href="contact.html">Contact</a>
+    <a href="#" data-cookie-settings>Cookie settings</a>
     <a href="mailto:support@teacherassist.ai">support@teacherassist.ai</a>
   </div>
 </footer>
 
+<script src="/cookie-consent.js" defer></script>
 </body>
 </html>
